@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-
+import { Link } from "react-router-dom";
 function Posts() {
   return (
     <Layout>
@@ -14,6 +14,7 @@ function Posts() {
 >
   <h2 style={{ color: "white" }}>Posts</h2>
 
+  <Link to="/new-post">
   <button
     style={{
       background: "#2563eb",
@@ -27,6 +28,7 @@ function Posts() {
   >
     + New Post
   </button>
+</Link>
 </div>
 
 <input
