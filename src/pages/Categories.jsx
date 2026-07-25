@@ -1,3 +1,5 @@
+import Layout from "../components/Layout";
+
 function Categories() {
   const categories = [
     {
@@ -21,58 +23,33 @@ function Categories() {
   ];
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#0f172a",
-        color: "#ffffff",
-        padding: "30px",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
+    <Layout>
       <h1>Categories</h1>
 
-      <button
-        style={{
-          padding: "10px 20px",
-          marginBottom: "20px",
-          cursor: "pointer",
-        }}
-      >
+      <button className="btn" style={{ marginBottom: "20px" }}>
         + Add Category
       </button>
 
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-        }}
-      >
+      <table>
         <thead>
           <tr>
-            <th style={{ padding: "10px", borderBottom: "1px solid #555", textAlign: "left" }}>
-              Name
-            </th>
-            <th style={{ padding: "10px", borderBottom: "1px solid #555", textAlign: "left" }}>
-              Slug
-            </th>
-            <th style={{ padding: "10px", borderBottom: "1px solid #555", textAlign: "left" }}>
-              Posts
-            </th>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Posts</th>
           </tr>
         </thead>
 
         <tbody>
           {categories.map((category) => (
             <tr key={category.id}>
-              <td style={{ padding: "10px" }}>{category.name}</td>
-              <td style={{ padding: "10px" }}>{category.slug}</td>
-              <td style={{ padding: "10px" }}>{category.posts}</td>
+              <td>{category.name}</td>
+              <td>{category.slug}</td>
+              <td>{category.posts}</td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </Layout>
   );
 }
 
