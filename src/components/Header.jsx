@@ -1,13 +1,11 @@
-import { useNavigate } from "react-router-dom";
+
 
 function Header() {
-  const navigate = useNavigate();
+  
 
   const handleLogout = () => {
-    if (window.confirm("Are you sure you want to logout?")) {
-      navigate("/");
-    }
-  };
+  alert("Logout");
+};
 
   return (
     <header className="header">
