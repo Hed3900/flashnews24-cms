@@ -3,7 +3,9 @@ import Layout from "../components/Layout";
 function Dashboard() {
   return (
     <Layout>
-      <h1>Dashboard Working</h1>
+      <div style={{ color: "white", padding: "40px" }}>
+        Dashboard Working
+      </div>
     </Layout>
   );
 }
