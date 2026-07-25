@@ -247,3 +247,18 @@ th {
 .sidebar a:hover {
   background: var(--primary);
 }
+.header h2 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.header p {
+  margin-top: 4px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+}
