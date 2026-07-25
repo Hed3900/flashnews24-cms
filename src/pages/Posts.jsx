@@ -1,3 +1,5 @@
+import Layout from "../components/Layout";
+
 function Posts() {
   const posts = [
     {
@@ -5,59 +7,40 @@ function Posts() {
       title: "Welcome to FlashNews24 CMS",
       author: "Harish",
       category: "General",
-      status: "Draft"
-    }
+      status: "Draft",
+    },
   ];
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#0f172a",
-        color: "#ffffff",
-        padding: "30px",
-        fontFamily: "Arial, sans-serif"
-      }}
-    >
+    <Layout>
       <h1>Posts</h1>
 
-      <button
-        style={{
-          padding: "10px 20px",
-          marginBottom: "20px",
-          cursor: "pointer"
-        }}
-      >
+      <button className="btn" style={{ marginBottom: "20px" }}>
         + New Article
       </button>
 
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse"
-        }}
-      >
+      <table>
         <thead>
           <tr>
-            <th style={{ borderBottom: "1px solid #555", padding: "10px", textAlign: "left" }}>Title</th>
-            <th style={{ borderBottom: "1px solid #555", padding: "10px", textAlign: "left" }}>Author</th>
-            <th style={{ borderBottom: "1px solid #555", padding: "10px", textAlign: "left" }}>Category</th>
-            <th style={{ borderBottom: "1px solid #555", padding: "10px", textAlign: "left" }}>Status</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Status</th>
           </tr>
         </thead>
 
         <tbody>
           {posts.map((post) => (
             <tr key={post.id}>
-              <td style={{ padding: "10px" }}>{post.title}</td>
-              <td style={{ padding: "10px" }}>{post.author}</td>
-              <td style={{ padding: "10px" }}>{post.category}</td>
-              <td style={{ padding: "10px" }}>{post.status}</td>
+              <td>{post.title}</td>
+              <td>{post.author}</td>
+              <td>{post.category}</td>
+              <td>{post.status}</td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </Layout>
   );
 }
 
