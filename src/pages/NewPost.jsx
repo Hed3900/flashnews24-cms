@@ -1,6 +1,9 @@
 import Layout from "../components/Layout";
-
+import { useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 function NewPost() {
+  const [content, setContent] = useState("");
   return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
@@ -52,16 +55,17 @@ function NewPost() {
           />
 
           <label>Article Content</label>
-          <textarea
-            rows="12"
-            placeholder="Write your article..."
-            style={{
-              width: "100%",
-              padding: "12px",
-              marginTop: "8px",
-              borderRadius: "8px",
-            }}
-          />
+          <ReactQuill
+  theme="snow"
+  value={content}
+  onChange={setContent}
+  style={{
+    background: "white",
+    color: "black",
+    marginTop: "10px",
+    marginBottom: "20px",
+  }}
+/>
 
           <div style={{ marginTop: "25px" }}>
             <button
