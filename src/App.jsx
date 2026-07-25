@@ -10,7 +10,7 @@ import Settings from "./pages/Settings";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Dashboard />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/posts" element={<Posts />} />
       <Route path="/authors" element={<Authors />} />
