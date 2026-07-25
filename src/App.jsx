@@ -9,14 +9,15 @@ import Settings from "./pages/Settings";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/posts" element={<Posts />} />
-      <Route path="/authors" element={<Authors />} />
-      <Route path="/categories" element={<Categories />} />
-      <Route path="/settings" element={<Settings />} />
-    </Routes>
+    <div
+      style={{
+        color: "white",
+        padding: "40px",
+        fontSize: "30px",
+      }}
+    >
+      FlashNews24 CMS Working
+    </div>
   );
 }
 
