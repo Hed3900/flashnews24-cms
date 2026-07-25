@@ -4,24 +4,21 @@ function Dashboard() {
       style={{
         minHeight: "100vh",
         background: "#0f172a",
-        color: "#fff",
-        padding: "30px"
+        color: "#ffffff",
+        padding: "30px",
+        fontFamily: "Arial, sans-serif"
       }}
     >
-      <h1>Dashboard</h1>
+      <h1>FlashNews24 CMS Dashboard</h1>
 
-      <div
-        style={{
-          display: "grid",
-          gap: "15px",
-          marginTop: "20px"
-        }}
-      >
-        <div>📝 Posts</div>
-        <div>👤 Authors</div>
-        <div>📂 Categories</div>
-        <div>⚙️ Settings</div>
-      </div>
+      <hr />
+
+      <h3>Quick Actions</h3>
+
+      <button>📝 New Article</button>
+      <button>👤 Authors</button>
+      <button>📂 Categories</button>
+      <button>⚙️ Settings</button>
     </div>
   );
 }
