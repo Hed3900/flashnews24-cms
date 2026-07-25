@@ -1,8 +1,10 @@
+import Layout from "../components/Layout";
+
 function Dashboard() {
   return (
-    <div style={{ color: "white", padding: "40px" }}>
-      Dashboard Working
-    </div>
+    <Layout>
+      <h1>Dashboard Working</h1>
+    </Layout>
   );
 }
 
