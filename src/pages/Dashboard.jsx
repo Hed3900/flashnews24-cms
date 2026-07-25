@@ -1,25 +1,32 @@
+import Layout from "../components/Layout";
+
 function Dashboard() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#0f172a",
-        color: "#ffffff",
-        padding: "30px",
-        fontFamily: "Arial, sans-serif"
-      }}
-    >
-      <h1>FlashNews24 CMS Dashboard</h1>
+    <Layout>
+      <h1>Dashboard</h1>
 
-      <hr />
+      <div className="card-grid">
+        <div className="card">
+          <h2>Total Posts</h2>
+          <p>120</p>
+        </div>
 
-      <h3>Quick Actions</h3>
+        <div className="card">
+          <h2>Published</h2>
+          <p>98</p>
+        </div>
 
-      <button>📝 New Article</button>
-      <button>👤 Authors</button>
-      <button>📂 Categories</button>
-      <button>⚙️ Settings</button>
-    </div>
+        <div className="card">
+          <h2>Drafts</h2>
+          <p>22</p>
+        </div>
+
+        <div className="card">
+          <h2>Authors</h2>
+          <p>5</p>
+        </div>
+      </div>
+    </Layout>
   );
 }
 
