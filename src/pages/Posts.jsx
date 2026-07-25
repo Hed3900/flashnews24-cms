@@ -42,6 +42,34 @@ function Posts() {
     marginBottom: "20px",
   }}
 />
+      <table
+  style={{
+    width: "100%",
+    borderCollapse: "collapse",
+    background: "#1e293b",
+    color: "white",
+  }}
+>
+  <thead>
+    <tr>
+      <th style={{ padding: "12px", textAlign: "left" }}>Title</th>
+      <th>Category</th>
+      <th>Status</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style={{ padding: "12px" }}>No posts available</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
     </Layout>
   );
 }
