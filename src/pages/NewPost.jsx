@@ -4,7 +4,12 @@ import { publishPost, getPost, updatePost } from "../services/bloggerService";
 import { useSearchParams } from "react-router-dom";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
+import { useRef } from "react";
 function NewPost() {
+  const fileInputRef = useRef(null);
+
+const CLOUD_NAME = "ye80lxro";
+const UPLOAD_PRESET = "flashnews24";
   const modules = {
   toolbar: [
     [{ header: [1, 2, 3, false] }],
@@ -41,7 +46,31 @@ setContent(temp.innerText);
 
   loadPost();
 }, [postId]);
+const handleImageUpload = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", UPLOAD_PRESET);
+
+  const res = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
+  const data = await res.json();
+
+  if (data.secure_url) {
+    setImage(data.secure_url);
+    alert("Image uploaded successfully!");
+  } else {
+    alert("Upload failed");
+  }
+};
   const handlePublish = async () => {
     if (!title || !content) {
       alert("Please enter headline and article content.");
@@ -143,6 +172,16 @@ setLoading(false);
               borderRadius: "8px",
             }}
           />
+          <input
+  type="file"
+  accept="image/*"
+  onChange={handleImageUpload}
+  style={{
+    width: "100%",
+    marginTop: "10px",
+    marginBottom: "20px",
+  }}
+/>
 
           <label>Article Content</label>
 
