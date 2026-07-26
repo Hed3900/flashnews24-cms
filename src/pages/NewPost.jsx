@@ -350,15 +350,12 @@ setLoading(false);
     <div
   className="preview-content"
   style={{
-    maxWidth: "800px",
+    maxWidth: "900px",
     width: "100%",
     margin: "20px auto",
     fontSize: "18px",
     lineHeight: "1.8",
     color: "#333",
-    whiteSpace: "normal",
-    overflowWrap: "break-word",
-    wordBreak: "break-word",
   }}
   dangerouslySetInnerHTML={{ __html: content }}
 />
