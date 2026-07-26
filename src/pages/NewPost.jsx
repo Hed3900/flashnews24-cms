@@ -51,7 +51,11 @@ if (postId) {
   await publishPost(title, html, [category]);
 }
 
-      alert("Article Published Successfully!");
+      alert(
+  postId
+    ? "Article Updated Successfully!"
+    : "Article Published Successfully!"
+);
 
       setTitle("");
       setCategory("World");
@@ -73,7 +77,7 @@ if (postId) {
   return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
-        <h2>Create New Post</h2>
+        <h2>{postId ? "Edit Post" : "Create New Post"}</h2>
 
         <div style={{ marginTop: "20px" }}>
           <label>Headline</label>
