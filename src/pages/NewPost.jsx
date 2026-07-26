@@ -328,13 +328,11 @@ setLoading(false);
         src={image}
         alt={title}
         style={{
-  width: "100%",
-  height: "auto",
-  maxHeight: "450px",
-  objectFit: "cover",
-  borderRadius: "12px",
-  display: "block",
-  margin: "20px auto"
+  maxWidth: "900px",
+  margin: "30px auto",
+  background: "#fff",
+  padding: "25px",
+  borderRadius: "12px"
 }}
       />
     )}
