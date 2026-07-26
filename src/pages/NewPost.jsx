@@ -42,14 +42,14 @@ setContent(temp.innerText);
 
     try {
       const html = image
-        ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>${content.replace(/\n/g, "<br/>")}`
-        : content.replace(/\n/g, "<br/>");
+  ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>${content.replace(/\n/g, "<br/>")}`
+  : content.replace(/\n/g, "<br/>");
 
-      if (postId) {
+if (postId) {
   await updatePost(postId, title, html, [category]);
 } else {
   await publishPost(title, html, [category]);
-      }
+}
 
       alert("Article Published Successfully!");
 
