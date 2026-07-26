@@ -8,7 +8,7 @@ function Login() {
   if (email === "admin@flashnews24.site" && password === "Admin@123") {
     localStorage.setItem("loggedIn", "true");
     localStorage.setItem("role", "admin");
-    window.location.href = "/";
+    window.location.href = "/flashnews24-cms/";
   } else if (
     email === "author@flashnews24.site" &&
     password === "Author@123"
