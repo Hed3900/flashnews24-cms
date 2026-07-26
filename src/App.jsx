@@ -5,7 +5,16 @@ import NewPost from "./pages/NewPost";
 import Categories from "./pages/Categories";
 import Authors from "./pages/Authors";
 import Settings from "./pages/Settings";
+import Login from "./pages/Login";
+
 function App() {
+
+  const isLoggedIn = localStorage.getItem("loggedIn");
+
+  if (!isLoggedIn) {
+    return <Login />;
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
