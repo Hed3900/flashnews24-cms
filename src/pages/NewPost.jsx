@@ -348,11 +348,13 @@ setLoading(false);
     <div
   className="preview-content"
   style={{
-    maxWidth: "100%",
+    maxWidth: "800px",
     width: "100%",
+    margin: "20px auto",
     fontSize: "18px",
     lineHeight: "1.8",
     color: "#333",
+    whiteSpace: "normal",
     overflowWrap: "break-word",
     wordBreak: "break-word",
   }}
