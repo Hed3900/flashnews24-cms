@@ -133,3 +133,19 @@ export async function deletePost(postId) {
     postId,
   });
 }
+export async function getDashboardStats() {
+  await ensureSignedIn();
+
+  const response = await window.gapi.client.blogger.posts.list({
+    blogId: BLOG_ID,
+    maxResults: 100,
+  });
+
+  const posts = response.result.items || [];
+
+  return {
+    totalPosts: posts.length,
+    drafts: posts.filter((p) => p.status === "DRAFT").length,
+    latestPosts: posts.slice(0, 5),
+  };
+}
