@@ -2,9 +2,15 @@ import Layout from "../components/Layout";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPosts } from "../services/bloggerService";
+import { Link, useNavigate } from "react-router-dom";
 function Posts() {
   const [posts, setPosts] = useState([]);
 const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+const handleEdit = (postId) => {
+  navigate(`/new-post?id=${postId}`);
+};
   useEffect(() => {
   async function loadPosts() {
     try {
@@ -117,18 +123,19 @@ const [loading, setLoading] = useState(true);
 
         <td style={{ padding: "12px" }}>
           <button
-            style={{
-              background: "#2563eb",
-              color: "white",
-              border: "none",
-              padding: "6px 12px",
-              borderRadius: "6px",
-              marginRight: "8px",
-              cursor: "pointer",
-            }}
-          >
-            Edit
-          </button>
+  onClick={() => handleEdit(post.id)}
+  style={{
+    background: "#2563eb",
+    color: "white",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    marginRight: "8px",
+    cursor: "pointer",
+  }}
+>
+  Edit
+</button>
 
           <button
             style={{
