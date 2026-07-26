@@ -64,6 +64,10 @@ tokenClient.requestAccessToken({
   });
 }
 export async function getPosts() {
+  if (!gapiInitialized || !gisInitialized) {
+    await initGoogleAuth();
+  }
+
   const token = window.gapi.client.getToken();
 
   if (!token) {
@@ -92,6 +96,9 @@ export async function publishPost(title, content, labels = []) {
       labels,
     },
   });
+}
+if (!gapiInitialized || !gisInitialized) {
+  await initGoogleAuth();
 }
 export async function getPost(postId) {
   const token = window.gapi.client.getToken();
