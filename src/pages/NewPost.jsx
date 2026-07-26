@@ -23,10 +23,17 @@ const UPLOAD_PRESET = "flashnews24";
 const postId = searchParams.get("id");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [slug, setSlug] = useState("");
   const [category, setCategory] = useState("World");
   const [image, setImage] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const generateSlug = (text) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
   useEffect(() => {
   async function loadPost() {
     if (!postId) return;
@@ -129,19 +136,21 @@ setLoading(false);
           <label>Headline</label>
 
           <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter headline..."
-            style={{
-              width: "100%",
-              padding: "12px",
-              marginTop: "8px",
-              marginBottom: "20px",
-              borderRadius: "8px",
-            }}
-          />
-
+  type="text"
+  value={title}
+  onChange={(e) => {
+    setTitle(e.target.value);
+    setSlug(generateSlug(e.target.value));
+  }}
+  placeholder="Enter headline..."
+  style={{
+    width: "100%",
+    padding: "12px",
+    marginTop: "8px",
+    marginBottom: "20px",
+    borderRadius: "8px"
+  }}
+/>
           <label>Category</label>
 
           <select
