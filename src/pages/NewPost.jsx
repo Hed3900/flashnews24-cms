@@ -191,19 +191,20 @@ setLoading(false);
 
           <label>Featured Image URL</label>
 
-          <input
-            type="text"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-            placeholder="Paste image URL..."
-            style={{
-              width: "100%",
-              padding: "12px",
-              marginTop: "8px",
-              marginBottom: "20px",
-              borderRadius: "8px",
-            }}
-          />
+          <img
+  src={image}
+  alt={title}
+  style={{
+    width: "100%",
+    maxWidth: "900px",
+    height: "350px",
+    objectFit: "cover",
+    display: "block",
+    margin: "20px auto",
+    borderRadius: "12px",
+    boxShadow: "0 4px 12px rgba(0,0,0,.15)"
+  }}
+/>
           <input
   type="file"
   accept="image/*"
