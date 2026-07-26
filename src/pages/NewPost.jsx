@@ -24,6 +24,7 @@ const postId = searchParams.get("id");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [slug, setSlug] = useState("");
+  const [keywords, setKeywords] = useState("");
   const [category, setCategory] = useState("World");
   const [image, setImage] = useState("");
   const [content, setContent] = useState("");
@@ -91,6 +92,7 @@ const handleImageUpload = async (e) => {
 
     const html = `
 <!-- META_DESCRIPTION:${description} -->
+<!-- META_KEYWORDS:${keywords} -->
 ${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>` : ""}
 ${content.replace(/\n/g, "<br/>")}
 `;
@@ -113,6 +115,9 @@ ${content.replace(/\n/g, "<br/>")}
     setCategory("World");
     setImage("");
     setContent("");
+    setDescription("");
+setKeywords("");
+setSlug("");
   }
 
 } catch (error) {
@@ -229,6 +234,21 @@ setLoading(false);
   value={slug}
   onChange={(e) => setSlug(e.target.value)}
   placeholder="seo-friendly-url"
+  style={{
+    width: "100%",
+    padding: "12px",
+    marginTop: "8px",
+    marginBottom: "20px",
+    borderRadius: "8px"
+  }}
+/>
+         <label>SEO Keywords</label>
+
+<input
+  type="text"
+  value={keywords}
+  onChange={(e) => setKeywords(e.target.value)}
+  placeholder="breaking news, india, politics, flashnews24"
   style={{
     width: "100%",
     padding: "12px",
