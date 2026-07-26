@@ -62,13 +62,18 @@ export async function signIn() {
 export async function getPosts() {
   await signIn();
 
-  const response = await window.gapi.client.blogger.posts.list({
-    blogId: BLOG_ID,
-    maxResults: 50,
-    fetchBodies: false,
-  });
+  try {
+    const response = await window.gapi.client.blogger.posts.list({
+      blogId: BLOG_ID,
+      fetchBodies: false,
+      maxResults: 50,
+    });
 
-  return response.result.items || [];
+    return response.result.items || [];
+  } catch (err) {
+    console.error("Get Posts Error:", err);
+    throw err;
+  }
 }
 export async function publishPost(title, content, labels = []) {
   await signIn();
