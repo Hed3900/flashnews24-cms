@@ -14,11 +14,11 @@ export async function initGoogleAuth() {
     window.gapi.load("client", async () => {
       try {
         await window.gapi.client.init({
-          apiKey: API_KEY,
-          discoveryDocs: [
-            "https://www.googleapis.com/discovery/v1/apis/blogger/v3/rest",
-          ],
-        ];
+  apiKey: API_KEY,
+  discoveryDocs: [
+    "https://www.googleapis.com/discovery/v1/apis/blogger/v3/rest",
+  ],
+});
 
         gapiInitialized = true;
 
