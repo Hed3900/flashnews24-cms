@@ -61,6 +61,8 @@ export async function signIn() {
 tokenClient.requestAccessToken({
   prompt: hasToken ? "" : "consent",
 });
+  });
+}
 export async function getPosts() {
   const token = window.gapi.client.getToken();
 
