@@ -74,7 +74,7 @@ try {
 }
 
 setLoading(false);
-
+  }
   return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
