@@ -59,7 +59,17 @@ export async function signIn() {
     tokenClient.requestAccessToken({ prompt: "consent" });
   });
 }
+export async function getPosts() {
+  await signIn();
 
+  const response = await window.gapi.client.blogger.posts.list({
+    blogId: BLOG_ID,
+    maxResults: 50,
+    fetchBodies: false,
+  });
+
+  return response.result.items || [];
+}
 export async function publishPost(title, content, labels = []) {
   await signIn();
 
