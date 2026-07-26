@@ -7,8 +7,8 @@ function Login() {
   const handleLogin = () => {
     alert("Login works!");
   };
-
   return (
+    
     <div
       style={{
         display: "flex",
@@ -29,7 +29,19 @@ function Login() {
         <h2 style={{ color: "#fff", textAlign: "center" }}>
           FlashNews24 CMS
         </h2>
+<input
+type="email"
+placeholder="Enter your email"
+/>
 
+<input
+type="password"
+placeholder="Enter your password"
+/>
+
+<button>
+Sign In
+</button>
         <input
           type="email"
           placeholder="Email"
