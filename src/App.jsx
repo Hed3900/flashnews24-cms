@@ -4,6 +4,7 @@ import Posts from "./pages/Posts";
 import NewPost from "./pages/NewPost";
 import Categories from "./pages/Categories";
 import Authors from "./pages/Authors";
+import Settings from "./pages/Settings";
 function App() {
   return (
     <Routes>
@@ -12,6 +13,7 @@ function App() {
       <Route path="/new-post" element={<NewPost />} />
       <Route path="/categories" element={<Categories />} />
       <Route path="/authors" element={<Authors />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 }
