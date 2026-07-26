@@ -1,13 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
-import { publishPost } from "../services/bloggerService";
+import { publishPost, getPost, updatePost } from "../services/bloggerService";
+import { useSearchParams } from "react-router-dom";
 
 function NewPost() {
+  const [searchParams] = useSearchParams();
+const postId = searchParams.get("id");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("World");
   const [image, setImage] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+  async function loadPost() {
+    if (!postId) return;
+
+    const post = await getPost(postId);
+
+    setTitle(post.title);
+    setCategory(post.labels?.[0] || "World");
+    setContent(post.content.replace(/<br\s*\/?>/gi, "\n"));
+  }
+
+  loadPost();
+}, [postId]);
 
   const handlePublish = async () => {
     if (!title || !content) {
@@ -22,7 +38,11 @@ function NewPost() {
         ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>${content.replace(/\n/g, "<br/>")}`
         : content.replace(/\n/g, "<br/>");
 
-      await publishPost(title, html, [category]);
+      if (postId) {
+  await updatePost(postId, title, html, [category]);
+} else {
+  await publishPost(title, html, [category]);
+      }
 
       alert("Article Published Successfully!");
 
@@ -144,7 +164,9 @@ function NewPost() {
                 cursor: "pointer",
               }}
             >
-              {loading ? "Publishing..." : "Publish"}
+              {loading
+  ? (postId ? "Updating..." : "Publishing...")
+  : (postId ? "Update" : "Publish")}
             </button>
           </div>
         </div>
