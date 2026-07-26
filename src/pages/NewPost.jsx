@@ -310,12 +310,12 @@ setLoading(false);
           {showPreview && (
   <div
     style={{
-      background: "#fff",
-      color: "#000",
-      padding: "20px",
-      borderRadius: "10px",
-      marginTop: "20px",
-    }}
+  maxWidth: "900px",
+  margin: "30px auto",
+  background: "#fff",
+  padding: "30px",
+  borderRadius: "12px"
+}}
   >
     <h1>{title}</h1>
 
