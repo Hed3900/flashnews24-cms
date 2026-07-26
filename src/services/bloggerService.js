@@ -1,5 +1,5 @@
 const API_KEY = "AIzaSyBX5-m0a9hbjZr3Ni31SayRN2tifGOMTNw";
-const CLIENT_ID = "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";
+const CLIENT_ID = "192814639105-ru733dedoeplvgf9qtpkkc2ltgj6lgg8.apps.googleusercontent.com";
 const BLOG_ID = "4592212551421716018
 ";
 
