@@ -59,8 +59,8 @@ export async function signIn() {
     const hasToken = window.gapi.client.getToken();
 
     tokenClient.requestAccessToken({
-      prompt: hasToken ? "" : "consent",
-    });
+  prompt: "",
+});
   });
 }
 
@@ -69,9 +69,7 @@ export async function getPosts() {
     await initGoogleAuth();
   }
 
-  const token = window.gapi.client.getToken();
-
-  if (!token) {
+  if (!window.gapi.client.getToken()) {
     await signIn();
   }
 
