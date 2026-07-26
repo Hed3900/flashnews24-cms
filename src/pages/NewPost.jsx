@@ -46,7 +46,7 @@ const postId = searchParams.get("id");
     if (!postId) return;
 
     const post = await getPost(postId);
-
+console.log(post.content);
     setTitle(post.title);
     setCategory(post.labels?.[0] || "World");
     const temp = document.createElement("div");
