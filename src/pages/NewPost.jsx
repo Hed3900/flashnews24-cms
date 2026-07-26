@@ -19,7 +19,14 @@ const postId = searchParams.get("id");
 
     setTitle(post.title);
     setCategory(post.labels?.[0] || "World");
-    setContent(post.content.replace(/<br\s*\/?>/gi, "\n"));
+    const temp = document.createElement("div");
+temp.innerHTML = post.content;
+const img = temp.querySelector("img");
+
+if (img) {
+  setImage(img.src);
+}
+setContent(temp.innerText);
   }
 
   loadPost();
