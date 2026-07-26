@@ -5,24 +5,31 @@ const BLOG_ID = "4592212551421716018";
 
 const SCOPES = "https://www.googleapis.com/auth/blogger";
 
-let initialized = false;
+let tokenClient;
+let gapiInitialized = false;
+let gisInitialized = false;
 
 export async function initGoogleAuth() {
-  if (initialized) return;
-
   return new Promise((resolve, reject) => {
-    window.gapi.load("client:auth2", async () => {
+    window.gapi.load("client", async () => {
       try {
         await window.gapi.client.init({
           apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          scope: SCOPES,
           discoveryDocs: [
             "https://www.googleapis.com/discovery/v1/apis/blogger/v3/rest",
           ],
+        ];
+
+        gapiInitialized = true;
+
+        tokenClient = window.google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: "",
         });
 
-        initialized = true;
+        gisInitialized = true;
+
         resolve();
       } catch (err) {
         reject(err);
@@ -30,15 +37,27 @@ export async function initGoogleAuth() {
     });
   });
 }
-
 export async function signIn() {
-  await initGoogleAuth();
-
-  const auth = window.gapi.auth2.getAuthInstance();
-
-  if (!auth.isSignedIn.get()) {
-    await auth.signIn();
+  if (!gapiInitialized || !gisInitialized) {
+    await initGoogleAuth();
   }
+
+  return new Promise((resolve, reject) => {
+    tokenClient.callback = async (resp) => {
+      if (resp.error) {
+        reject(resp);
+        return;
+      }
+
+      try {
+        resolve(resp);
+      } catch (err) {
+        reject(err);
+      }
+    };
+
+    tokenClient.requestAccessToken({ prompt: "consent" });
+  });
 }
 
 export async function publishPost(title, content, labels = []) {
