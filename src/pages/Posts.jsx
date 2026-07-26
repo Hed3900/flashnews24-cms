@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
-import { getPosts } from "../services/bloggerService";
+import { getPosts, deletePost } from "../services/bloggerService";
 import { Link, useNavigate } from "react-router-dom";
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -9,6 +9,25 @@ const [loading, setLoading] = useState(true);
 
 const handleEdit = (postId) => {
   navigate(`/new-post?id=${postId}`);
+};
+  const handleDelete = async (postId) => {
+  const ok = window.confirm("Are you sure you want to delete this post?");
+  if (!ok) return;
+
+  try {
+    await deletePost(postId);
+
+    setPosts((prev) => prev.filter((post) => post.id !== postId));
+
+    alert("Post deleted successfully!");
+  } catch (err) {
+    console.error(err);
+    alert(
+      err?.result?.error?.message ||
+      err?.message ||
+      JSON.stringify(err)
+    );
+  }
 };
   useEffect(() => {
   async function loadPosts() {
@@ -137,17 +156,18 @@ const handleEdit = (postId) => {
 </button>
 
           <button
-            style={{
-              background: "#dc2626",
-              color: "white",
-              border: "none",
-              padding: "6px 12px",
-              borderRadius: "6px",
-              cursor: "pointer",
-            }}
-          >
-            Delete
-          </button>
+  onClick={() => handleDelete(post.id)}
+  style={{
+    background: "#dc2626",
+    color: "white",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    cursor: "pointer",
+  }}
+>
+  Delete
+</button>
         </td>
       </tr>
     ))
