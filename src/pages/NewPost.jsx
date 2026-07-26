@@ -2,8 +2,18 @@ import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { publishPost, getPost, updatePost } from "../services/bloggerService";
 import { useSearchParams } from "react-router-dom";
-
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 function NewPost() {
+  const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, false] }],
+    ["bold", "italic", "underline", "strike"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link"],
+    ["clean"],
+  ],
+};
   const [searchParams] = useSearchParams();
 const postId = searchParams.get("id");
   const [title, setTitle] = useState("");
@@ -136,20 +146,17 @@ setLoading(false);
 
           <label>Article Content</label>
 
-          <textarea
+<ReactQuill
+  theme="snow"
   value={content}
-  onChange={(e) => setContent(e.target.value)}
-  placeholder="Write your article..."
+  onChange={setContent}
+  modules={modules}
   style={{
-    width: "100%",
-    minHeight: "500px",
-    height: "500px",
-    padding: "12px",
     marginTop: "8px",
     marginBottom: "20px",
-    borderRadius: "8px",
-    resize: "vertical",
-    overflowY: "auto",
+    background: "white",
+    color: "black",
+    minHeight: "500px",
   }}
 />
 
