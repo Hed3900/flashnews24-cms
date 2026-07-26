@@ -51,12 +51,18 @@ const postId = searchParams.get("id");
     setCategory(post.labels?.[0] || "World");
     const temp = document.createElement("div");
 temp.innerHTML = post.content;
+
 const img = temp.querySelector("img");
 
 if (img) {
   setImage(img.src);
+  img.remove();
 }
-setContent(temp.innerText);
+
+setContent(temp.innerHTML);
+
+setDescription(post.summary || "");
+setSlug(generateSlug(post.title));
   }
 
   loadPost();
