@@ -395,3 +395,29 @@ th {
   height:auto;
   border-radius:8px;
 }
+.preview-content {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.preview-content p,
+.preview-content li {
+  width: 100%;
+  font-size: 20px;
+  line-height: 2;
+  margin: 0 0 18px;
+}
+
+.preview-content h1,
+.preview-content h2,
+.preview-content h3 {
+  width: 100%;
+  margin: 20px 0 12px;
+}
+
+.preview-content img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
