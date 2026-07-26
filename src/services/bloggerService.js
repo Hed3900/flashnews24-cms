@@ -44,25 +44,26 @@ export async function signIn() {
 
   return new Promise((resolve, reject) => {
     tokenClient.callback = (resp) => {
-  if (resp.error) {
-    reject(resp);
-    return;
-  }
+      if (resp.error) {
+        reject(resp);
+        return;
+      }
 
-  window.gapi.client.setToken({
-    access_token: resp.access_token,
-  });
+      window.gapi.client.setToken({
+        access_token: resp.access_token,
+      });
 
-  resolve(resp);
-};
+      resolve(resp);
+    };
 
     const hasToken = window.gapi.client.getToken();
 
-tokenClient.requestAccessToken({
-  prompt: hasToken ? "" : "consent",
-});
+    tokenClient.requestAccessToken({
+      prompt: hasToken ? "" : "consent",
+    });
   });
 }
+
 export async function getPosts() {
   if (!gapiInitialized || !gisInitialized) {
     await initGoogleAuth();
@@ -82,10 +83,9 @@ export async function getPosts() {
 
   return response.result.items || [];
 }
+
 export async function publishPost(title, content, labels = []) {
   await signIn();
-
-  console.log("Token:", window.gapi.client.getToken());
 
   return await window.gapi.client.blogger.posts.insert({
     blogId: BLOG_ID,
@@ -97,10 +97,12 @@ export async function publishPost(title, content, labels = []) {
     },
   });
 }
-if (!gapiInitialized || !gisInitialized) {
-  await initGoogleAuth();
-}
+
 export async function getPost(postId) {
+  if (!gapiInitialized || !gisInitialized) {
+    await initGoogleAuth();
+  }
+
   const token = window.gapi.client.getToken();
 
   if (!token) {
@@ -114,7 +116,12 @@ export async function getPost(postId) {
 
   return response.result;
 }
-    export async function updatePost(postId, title, content, labels = []) {
+
+export async function updatePost(postId, title, content, labels = []) {
+  if (!gapiInitialized || !gisInitialized) {
+    await initGoogleAuth();
+  }
+
   const token = window.gapi.client.getToken();
 
   if (!token) {
@@ -130,4 +137,4 @@ export async function getPost(postId) {
       labels,
     },
   });
-    }
+}
