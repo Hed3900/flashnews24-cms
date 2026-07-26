@@ -43,7 +43,7 @@ export async function signIn() {
   }
 
   return new Promise((resolve, reject) => {
-    tokenClient.callback = async (resp) => {
+    tokenClient.callback = (resp) => {
   if (resp.error) {
     reject(resp);
     return;
@@ -55,10 +55,6 @@ export async function signIn() {
 
   resolve(resp);
 };
-      } catch (err) {
-        reject(err);
-      }
-    };
 
     tokenClient.requestAccessToken({ prompt: "consent" });
   });
