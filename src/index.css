@@ -262,3 +262,24 @@ th {
   justify-content: center;
   min-width: 100px;
 }
+.preview-content {
+  width: 100%;
+}
+
+.preview-content p,
+.preview-content h1,
+.preview-content h2,
+.preview-content h3,
+.preview-content h4,
+.preview-content h5,
+.preview-content h6 {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block;
+  line-height: 1.8;
+  margin: 18px 0;
+}
+
+.preview-content * {
+  max-width: 100% !important;
+}
