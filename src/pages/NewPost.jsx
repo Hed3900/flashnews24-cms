@@ -65,10 +65,10 @@ const handleImageUpload = async (e) => {
   const data = await res.json();
 
   if (data.secure_url) {
-    setImage(data.secure_url);
-    alert("Image uploaded successfully!");
-  } else {
-    alert("Upload failed");
+  setImage(data.secure_url);
+  alert("Image uploaded successfully!");
+} else {
+  alert(JSON.stringify(data));
   }
 };
   const handlePublish = async () => {
