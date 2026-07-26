@@ -10,15 +10,17 @@ let gapiInitialized = false;
 let gisInitialized = false;
 
 export async function initGoogleAuth() {
+  if (gapiInitialized && gisInitialized) return;
+
   return new Promise((resolve, reject) => {
     window.gapi.load("client", async () => {
       try {
         await window.gapi.client.init({
-  apiKey: API_KEY,
-  discoveryDocs: [
-    "https://www.googleapis.com/discovery/v1/apis/blogger/v3/rest",
-  ],
-});
+          apiKey: API_KEY,
+          discoveryDocs: [
+            "https://www.googleapis.com/discovery/v1/apis/blogger/v3/rest",
+          ],
+        });
 
         gapiInitialized = true;
 
@@ -29,7 +31,6 @@ export async function initGoogleAuth() {
         });
 
         gisInitialized = true;
-
         resolve();
       } catch (err) {
         reject(err);
@@ -37,9 +38,13 @@ export async function initGoogleAuth() {
     });
   });
 }
+
 export async function signIn() {
-  if (!gapiInitialized || !gisInitialized) {
-    await initGoogleAuth();
+  await initGoogleAuth();
+
+  // Already signed in అయితే మళ్లీ popup చూపించకు
+  if (window.gapi.client.getToken()) {
+    return;
   }
 
   return new Promise((resolve, reject) => {
@@ -56,22 +61,22 @@ export async function signIn() {
       resolve(resp);
     };
 
-    const hasToken = window.gapi.client.getToken();
-
     tokenClient.requestAccessToken({
-  prompt: "",
-});
+      prompt: "consent",
+    });
   });
 }
 
-export async function getPosts() {
-  if (!gapiInitialized || !gisInitialized) {
-    await initGoogleAuth();
-  }
+async function ensureSignedIn() {
+  await initGoogleAuth();
 
   if (!window.gapi.client.getToken()) {
     await signIn();
   }
+}
+
+export async function getPosts() {
+  await ensureSignedIn();
 
   const response = await window.gapi.client.blogger.posts.list({
     blogId: BLOG_ID,
@@ -83,7 +88,7 @@ export async function getPosts() {
 }
 
 export async function publishPost(title, content, labels = []) {
-  await signIn();
+  await ensureSignedIn();
 
   return await window.gapi.client.blogger.posts.insert({
     blogId: BLOG_ID,
@@ -97,15 +102,7 @@ export async function publishPost(title, content, labels = []) {
 }
 
 export async function getPost(postId) {
-  if (!gapiInitialized || !gisInitialized) {
-    await initGoogleAuth();
-  }
-
-  const token = window.gapi.client.getToken();
-
-  if (!token) {
-    await signIn();
-  }
+  await ensureSignedIn();
 
   const response = await window.gapi.client.blogger.posts.get({
     blogId: BLOG_ID,
@@ -116,15 +113,7 @@ export async function getPost(postId) {
 }
 
 export async function updatePost(postId, title, content, labels = []) {
-  if (!gapiInitialized || !gisInitialized) {
-    await initGoogleAuth();
-  }
-
-  const token = window.gapi.client.getToken();
-
-  if (!token) {
-    await signIn();
-  }
+  await ensureSignedIn();
 
   return await window.gapi.client.blogger.posts.update({
     blogId: BLOG_ID,
