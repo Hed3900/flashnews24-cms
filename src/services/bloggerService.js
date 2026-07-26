@@ -125,3 +125,11 @@ export async function updatePost(postId, title, content, labels = []) {
     },
   });
 }
+export async function deletePost(postId) {
+  await ensureSignedIn();
+
+  return await window.gapi.client.blogger.posts.delete({
+    blogId: BLOG_ID,
+    postId,
+  });
+}
