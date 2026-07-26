@@ -315,11 +315,11 @@ setLoading(false);
   onChange={setContent}
   modules={modules}
   style={{
-  maxWidth: "800px",
-  margin: "20px auto",
-  lineHeight: "1.8",
-  fontSize: "18px"
-}}
+    maxWidth: "800px",
+    margin: "20px auto",
+    lineHeight: "1.8",
+    fontSize: "18px"
+  }}
 />
           {showPreview && (
   <div
