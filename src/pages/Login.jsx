@@ -1,28 +1,39 @@
 import { useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-  if (
-  email.trim() === "admin@flashnews24.site" &&
-  password === "Admin@123"
-) {
-  localStorage.setItem("loggedIn", "true");
-  localStorage.setItem("role", "admin");
-  window.location.href = "/flashnews24-cms/";
-} else if (
-  email.trim() === "author@flashnews24.site" &&
-  password === "Author@123"
-) {
-  localStorage.setItem("loggedIn", "true");
-  localStorage.setItem("role", "author");
-  window.location.href = "/flashnews24-cms/";
-} else {
-  alert("Invalid email or password");
+  const handleLogin = async () => {
+  const userRef = doc(db, "users", email.trim());
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    alert("User not found");
+    return;
   }
-    };
+
+  const user = userSnap.data();
+
+  if (user.status !== "active") {
+    alert("Account is disabled");
+    return;
+  }
+
+  if (user.password !== password) {
+    alert("Invalid password");
+    return;
+  }
+
+  localStorage.setItem("loggedIn", "true");
+  localStorage.setItem("role", user.role);
+  localStorage.setItem("email", user.email);
+  localStorage.setItem("name", user.name);
+
+  window.location.href = "/flashnews24-cms/";
+};
   return (
     
     <div
