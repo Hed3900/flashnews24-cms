@@ -5,8 +5,21 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    alert("Login works!");
-  };
+  if (email === "admin@flashnews24.site" && password === "Admin@123") {
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("role", "admin");
+    window.location.href = "/";
+  } else if (
+    email === "author@flashnews24.site" &&
+    password === "Author@123"
+  ) {
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("role", "author");
+    window.location.href = "/";
+  } else {
+    alert("Invalid email or password");
+  }
+};
   return (
     
     <div
@@ -56,16 +69,21 @@ function Login() {
         />
 
         <button
-          onClick={handleLogin}
-          style={{
-            width: "100%",
-            padding: "12px",
-            marginTop: "20px",
-            cursor: "pointer",
-          }}
-        >
-          Login
-        </button>
+  onClick={handleLogin}
+  style={{
+    width: "100%",
+    padding: "12px",
+    marginTop: "20px",
+    background: "#2563eb",
+    color: "#fff",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  }}
+>
+  Sign In
+</button>
       </div>
     </div>
   );
