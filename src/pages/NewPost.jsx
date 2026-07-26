@@ -315,20 +315,21 @@ setLoading(false);
   onChange={setContent}
   modules={modules}
   style={{
-    maxWidth: "800px",
-    margin: "20px auto",
-    lineHeight: "1.8",
-    fontSize: "18px"
-  }}
+  width: "100%",
+  maxWidth: "100%",
+  margin: "20px auto"
+}}
 />
           {showPreview && (
   <div
     style={{
-  maxWidth: "900px",
+  width: "100%",
+  maxWidth: "1000px",
   margin: "30px auto",
   background: "#fff",
-  padding: "30px",
-  borderRadius: "12px"
+  padding: "40px",
+  borderRadius: "12px",
+  boxSizing: "border-box",
 }}
   >
     <h1
@@ -351,13 +352,13 @@ setLoading(false);
   src={image}
   alt={title}
   style={{
-    width: "70%",
-    maxWidth: "600px",
-    height: "auto",
-    display: "block",
-    margin: "20px auto",
-    borderRadius: "12px",
-    objectFit: "cover",
+    width: "100%",
+maxWidth: "100%",
+height: "auto",
+display: "block",
+margin: "24px auto",
+borderRadius: "12px",
+objectFit: "cover",
   }}
       />
     )}
@@ -365,13 +366,12 @@ setLoading(false);
     <div
   className="preview-content"
   style={{
-    maxWidth: "900px",
-    width: "100%",
-    margin: "20px auto",
-    fontSize: "18px",
-    lineHeight: "1.8",
-    color: "#333",
-  }}
+  width: "100%",
+  marginTop: "24px",
+  fontSize: "20px",
+  lineHeight: "2",
+  color: "#333",
+}}
   dangerouslySetInnerHTML={{ __html: content }}
 />
   </div>
