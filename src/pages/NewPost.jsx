@@ -56,7 +56,7 @@ const img = temp.querySelector("img");
 
 if (img) {
   setImage(img.src);
-  img.remove();
+  img.remove(); // Article HTML nundi image remove
 }
 
 setContent(temp.innerHTML);
