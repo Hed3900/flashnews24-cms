@@ -1,6 +1,25 @@
 import Layout from "../components/Layout";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getPosts } from "../services/bloggerService";
 function Posts() {
+  const [posts, setPosts] = useState([]);
+const [loading, setLoading] = useState(true);
+  useEffect(() => {
+  async function loadPosts() {
+    try {
+      const data = await getPosts();
+      setPosts(data);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to load posts");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  loadPosts();
+}, []);
   return (
     <Layout>
       <h2 style={{ color: "white", padding: "20px" }}>Posts</h2>
@@ -63,14 +82,20 @@ function Posts() {
   </thead>
 
   <tbody>
+  {loading ? (
     <tr>
-      <td style={{ padding: "12px" }}>No posts available</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td colSpan="3">Loading...</td>
     </tr>
-  </tbody>
+  ) : (
+    posts.map((post) => (
+      <tr key={post.id}>
+        <td>{post.title}</td>
+        <td>{new Date(post.published).toLocaleDateString()}</td>
+        <td>Published</td>
+      </tr>
+    ))
+  )}
+</tbody>
 </table>
     </Layout>
   );
