@@ -91,3 +91,34 @@ export async function publishPost(title, content, labels = []) {
     },
   });
 }
+export async function getPost(postId) {
+  const token = window.gapi.client.getToken();
+
+  if (!token) {
+    await signIn();
+  }
+
+  const response = await window.gapi.client.blogger.posts.get({
+    blogId: BLOG_ID,
+    postId,
+  });
+
+  return response.result;
+}
+    export async function updatePost(postId, title, content, labels = []) {
+  const token = window.gapi.client.getToken();
+
+  if (!token) {
+    await signIn();
+  }
+
+  return await window.gapi.client.blogger.posts.update({
+    blogId: BLOG_ID,
+    postId,
+    resource: {
+      title,
+      content,
+      labels,
+    },
+  });
+    }
