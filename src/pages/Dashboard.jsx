@@ -52,7 +52,9 @@ function Dashboard() {
           >
             <h3>Categories</h3>
             <h1>
-              {new Set(posts.flatMap((p) => p.labels || [])).size}
+              const categories = [
+  ...new Set(posts.flatMap((post) => post.labels || [])),
+];
             </h1>
           </div>
         </div>
