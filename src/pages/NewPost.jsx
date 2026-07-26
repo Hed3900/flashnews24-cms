@@ -132,18 +132,21 @@ if (postId) {
           <label>Article Content</label>
 
           <textarea
-            rows="12"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Write your article..."
-            style={{
-              width: "100%",
-              padding: "12px",
-              marginTop: "8px",
-              marginBottom: "20px",
-              borderRadius: "8px",
-            }}
-          />
+  value={content}
+  onChange={(e) => setContent(e.target.value)}
+  placeholder="Write your article..."
+  style={{
+    width: "100%",
+    minHeight: "500px",
+    height: "500px",
+    padding: "12px",
+    marginTop: "8px",
+    marginBottom: "20px",
+    borderRadius: "8px",
+    resize: "vertical",
+    overflowY: "auto",
+  }}
+/>
 
           <div style={{ marginTop: "20px" }}>
             <button
