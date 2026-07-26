@@ -29,6 +29,10 @@ const postId = searchParams.get("id");
   const [image, setImage] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const wordCount = content
+  .trim()
+  .split(/\s+/)
+  .filter(Boolean).length;
   const generateSlug = (text) =>
   text
     .toLowerCase()
@@ -272,7 +276,16 @@ setLoading(false);
     minHeight: "500px",
   }}
 />
-
+<div
+  style={{
+    textAlign: "right",
+    color: "#888",
+    marginBottom: "10px",
+    fontSize: "14px",
+  }}
+>
+  Words: {wordCount}
+</div>
           <div style={{ marginTop: "20px" }}>
             <button
               style={{
