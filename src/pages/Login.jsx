@@ -11,14 +11,14 @@ function Login() {
 ) {
   localStorage.setItem("loggedIn", "true");
   localStorage.setItem("role", "admin");
-  window.location.href = "/";
+  window.location.href = "/flashnews24-cms/";
 } else if (
   email.trim() === "author@flashnews24.site" &&
   password === "Author@123"
 ) {
   localStorage.setItem("loggedIn", "true");
   localStorage.setItem("role", "author");
-  window.location.href = "/";
+  window.location.href = "/flashnews24-cms/";
 } else {
   alert("Invalid email or password");
   }
