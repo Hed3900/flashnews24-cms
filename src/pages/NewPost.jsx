@@ -5,6 +5,8 @@ import { useSearchParams } from "react-router-dom";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useRef } from "react";
+import { db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 function NewPost() {
   const fileInputRef = useRef(null);
 
@@ -109,12 +111,26 @@ ${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>`
 ${content.replace(/\n/g, "<br/>")}
 `;
 
-    if (postId) {
-      await updatePost(postId, title, html, [category]);
-    } else {
-      await publishPost(title, html, [category]);
-    }
+    let response;
 
+if (postId) {
+  await updatePost(postId, title, html, [category]);
+} else {
+  response = await publishPost(title, html, [category]);
+
+  const email = localStorage.getItem("email");
+  const name = localStorage.getItem("name");
+
+  await setDoc(doc(db, "posts", response.result.id), {
+    bloggerPostId: response.result.id,
+    authorEmail: email,
+    authorName: name,
+    title,
+    category,
+    status: "published",
+    createdAt: new Date().toISOString(),
+  });
+}
     // migatha code...
   alert(
     postId
