@@ -1,45 +1,53 @@
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
+import { getPosts } from "../services/bloggerService";
 
 function Authors() {
-  const authors = [
-    {
-      id: 1,
-      name: "Harish",
-      role: "Founder & Editor",
-      email: "flashnews24yt@gmail.com",
-      status: "Active",
-    },
-  ];
+  const [stats, setStats] = useState({
+    totalPosts: 0,
+    latest: "-",
+  });
+
+  useEffect(() => {
+    async function loadAuthor() {
+      try {
+        const posts = await getPosts();
+
+        setStats({
+          totalPosts: posts.length,
+          latest: posts.length
+            ? new Date(posts[0].published).toLocaleDateString()
+            : "-",
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    loadAuthor();
+  }, []);
 
   return (
     <Layout>
-      <h1>Authors</h1>
+      <div style={{ padding: "20px", color: "white" }}>
+        <h2>Author</h2>
 
-      <button className="btn" style={{ marginBottom: "20px" }}>
-        + Add Author
-      </button>
+        <div
+          style={{
+            background: "#1e293b",
+            padding: "20px",
+            borderRadius: "10px",
+            maxWidth: "500px",
+          }}
+        >
+          <h3>FlashNews24 Admin</h3>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {authors.map((author) => (
-            <tr key={author.id}>
-              <td>{author.name}</td>
-              <td>{author.role}</td>
-              <td>{author.email}</td>
-              <td>{author.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <p><strong>Role:</strong> Administrator</p>
+          <p><strong>Total Posts:</strong> {stats.totalPosts}</p>
+          <p><strong>Latest Post:</strong> {stats.latest}</p>
+          <p><strong>Status:</strong> Active</p>
+        </div>
+      </div>
     </Layout>
   );
 }
