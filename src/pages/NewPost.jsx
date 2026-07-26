@@ -29,6 +29,7 @@ const postId = searchParams.get("id");
   const [image, setImage] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const wordCount = content
   .trim()
   .split(/\s+/)
@@ -299,6 +300,41 @@ setLoading(false);
     minHeight: "500px",
   }}
 />
+          {showPreview && (
+  <div
+    style={{
+      background: "#fff",
+      color: "#000",
+      padding: "20px",
+      borderRadius: "10px",
+      marginTop: "20px",
+    }}
+  >
+    <h1>{title}</h1>
+
+    <p style={{ color: "#666" }}>
+      {description}
+    </p>
+
+    {image && (
+      <img
+        src={image}
+        alt={title}
+        style={{
+          width: "100%",
+          borderRadius: "10px",
+          marginBottom: "20px",
+        }}
+      />
+    )}
+
+    <div
+      dangerouslySetInnerHTML={{
+        __html: content,
+      }}
+    />
+  </div>
+)}
           <div style={{ marginTop: "20px" }}>
             <button
               style={{
@@ -329,6 +365,19 @@ setLoading(false);
   ? (postId ? "Updating..." : "Publishing...")
   : (postId ? "Update" : "Publish")}
             </button>
+            <button
+  onClick={() => setShowPreview(!showPreview)}
+  style={{
+    background: "#f59e0b",
+    color: "white",
+    border: "none",
+    padding: "12px 22px",
+    borderRadius: "8px",
+    marginRight: "10px",
+  }}
+>
+  {showPreview ? "Hide Preview" : "Preview"}
+</button>
     </div>
         </div>
       </div>
