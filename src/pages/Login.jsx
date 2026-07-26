@@ -5,21 +5,23 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-  if (email === "admin@flashnews24.site" && password === "Admin@123") {
-    localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("role", "admin");
-    window.location.href = "/flashnews24-cms/";
-  } else if (
-    email === "author@flashnews24.site" &&
-    password === "Author@123"
-  ) {
-    localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("role", "author");
-    window.location.href = "/flashnews24-cms/";
-  } else {
-    alert("Invalid email or password");
+  if (
+  email.trim() === "admin@flashnews24.site" &&
+  password === "Admin@123"
+) {
+  localStorage.setItem("loggedIn", "true");
+  localStorage.setItem("role", "admin");
+  window.location.href = "/";
+} else if (
+  email.trim() === "author@flashnews24.site" &&
+  password === "Author@123"
+) {
+  localStorage.setItem("loggedIn", "true");
+  localStorage.setItem("role", "author");
+  window.location.href = "/";
+} else {
+  alert("Invalid email or password");
   }
-};
   return (
     
     <div
