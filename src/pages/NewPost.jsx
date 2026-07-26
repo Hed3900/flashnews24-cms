@@ -107,7 +107,6 @@ const handleImageUpload = async (e) => {
     const html = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
-${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>` : ""}
 ${content.replace(/\n/g, "<br/>")}
 `;
 
