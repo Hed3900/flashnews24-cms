@@ -29,35 +29,35 @@ return (
         <h2>Dashboard</h2>
 
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
-            gap: "20px",
-            marginTop: "20px",
-          }}
-        >
-          <div
-            style={{
-              background: "#1e293b",
-              padding: "20px",
-              borderRadius: "10px",
-            }}
-          >
-            <h3>Total Posts</h3>
-            <h1>{posts.length}</h1>
-          </div>
-
-          <div
   style={{
-    background: "#1e293b",
-    padding: "20px",
-    borderRadius: "10px",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
+    gap: "20px",
+    marginTop: "20px",
   }}
 >
-  <h3>Categories</h3>
-  <h1>{categories.length}</h1>
-</div>
+  <div
+    style={{
+      background: "#1e293b",
+      padding: "20px",
+      borderRadius: "10px",
+    }}
+  >
+    <h3>Total Posts</h3>
+    <h1>{posts.length}</h1>
+  </div>
 
+  <div
+    style={{
+      background: "#1e293b",
+      padding: "20px",
+      borderRadius: "10px",
+    }}
+  >
+    <h3>Categories</h3>
+    <h1>{categories.length}</h1>
+  </div>
+</div> {/* <-- Ee closing div miss ayindi */}
         <div
           style={{
             background: "#1e293b",
