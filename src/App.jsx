@@ -17,16 +17,25 @@ const role = localStorage.getItem("role");
 
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/posts" element={<Posts />} />
-      <Route path="/new-post" element={<NewPost />} />
-      <Route path="/categories" element={<Categories />} />
-      <Route path="/authors" element={<Authors />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/authors" element={role === "admin" ? <Authors /> : <Dashboard />} />
-<Route path="/categories" element={role === "admin" ? <Categories /> : <Dashboard />} />
-<Route path="/settings" element={role === "admin" ? <Settings /> : <Dashboard />} />
-    </Routes>
+  <Route path="/" element={<Dashboard />} />
+  <Route path="/posts" element={<Posts />} />
+  <Route path="/new-post" element={<NewPost />} />
+
+  <Route
+    path="/authors"
+    element={role === "admin" ? <Authors /> : <Dashboard />}
+  />
+
+  <Route
+    path="/categories"
+    element={role === "admin" ? <Categories /> : <Dashboard />}
+  />
+
+  <Route
+    path="/settings"
+    element={role === "admin" ? <Settings /> : <Dashboard />}
+  />
+</Routes>
   );
 }
 
