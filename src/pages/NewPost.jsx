@@ -8,7 +8,7 @@ import { useRef } from "react";
 function NewPost() {
   const fileInputRef = useRef(null);
 
-const CLOUD_NAME = "ye80lxro";
+const CLOUD_NAME = "ye80kxro";
 const UPLOAD_PRESET = "flashnews24";
   const modules = {
   toolbar: [
