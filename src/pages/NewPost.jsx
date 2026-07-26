@@ -31,8 +31,13 @@ function NewPost() {
       setImage("");
       setContent("");
     } catch (error) {
-      console.error(error);
-      alert("Publish failed.");
+  console.error(error);
+
+  alert(
+    error?.result?.error?.message ||
+    error?.message ||
+    JSON.stringify(error)
+  );
     }
 
     setLoading(false);
