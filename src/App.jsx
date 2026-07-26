@@ -8,7 +8,7 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 
 function App() {
-
+const role = localStorage.getItem("role");
   const isLoggedIn = localStorage.getItem("loggedIn");
 
   if (!isLoggedIn) {
@@ -23,6 +23,9 @@ function App() {
       <Route path="/categories" element={<Categories />} />
       <Route path="/authors" element={<Authors />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/authors" element={role === "admin" ? <Authors /> : <Dashboard />} />
+<Route path="/categories" element={role === "admin" ? <Categories /> : <Dashboard />} />
+<Route path="/settings" element={role === "admin" ? <Settings /> : <Dashboard />} />
     </Routes>
   );
 }
