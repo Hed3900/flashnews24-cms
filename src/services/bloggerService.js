@@ -44,13 +44,17 @@ export async function signIn() {
 
   return new Promise((resolve, reject) => {
     tokenClient.callback = async (resp) => {
-      if (resp.error) {
-        reject(resp);
-        return;
-      }
+  if (resp.error) {
+    reject(resp);
+    return;
+  }
 
-      try {
-        resolve(resp);
+  window.gapi.client.setToken({
+    access_token: resp.access_token,
+  });
+
+  resolve(resp);
+};
       } catch (err) {
         reject(err);
       }
@@ -63,7 +67,9 @@ export async function signIn() {
 export async function publishPost(title, content, labels = []) {
   await signIn();
 
-  return window.gapi.client.blogger.posts.insert({
+  console.log("Token:", window.gapi.client.getToken());
+
+  return await window.gapi.client.blogger.posts.insert({
     blogId: BLOG_ID,
     isDraft: false,
     resource: {
