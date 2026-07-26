@@ -51,6 +51,7 @@ function Dashboard() {
             }}
           >
             <h3>Categories</h3>
+<h1>{categories.length}</h1>
             <h1>
               const categories = [
   ...new Set(posts.flatMap((post) => post.labels || [])),
