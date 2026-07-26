@@ -316,12 +316,24 @@ setLoading(false);
   borderRadius: "12px"
 }}
   >
-    <h1>{title}</h1>
+    <h1
+  style={{
+    fontSize: "36px",
+    fontWeight: "700",
+    color: "#111",
+    marginBottom: "16px",
+    lineHeight: "1.3",
+  }}
+>
+  {title}
+</h1>
 
     <p style={{ color: "#666" }}>
       {description}
     </p>
-
+<p style={{ color: "red" }}>
+  Title: {title}
+</p>
     {image && (
       <img
         src={image}
