@@ -283,3 +283,39 @@ th {
 .preview-content * {
   max-width: 100% !important;
 }
+.ql-editor {
+  font-size: 20px !important;
+  line-height: 1.9 !important;
+  color: #111827;
+  min-height: 500px;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.ql-editor p {
+  margin: 0 0 18px;
+}
+
+.ql-editor h1 {
+  font-size: 34px;
+  margin: 24px 0 16px;
+}
+
+.ql-editor h2 {
+  font-size: 28px;
+  margin: 22px 0 14px;
+}
+
+.ql-editor h3 {
+  font-size: 24px;
+  margin: 20px 0 12px;
+}
+.preview-content {
+  font-size: 20px;
+  line-height: 1.9;
+  color: #222;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.preview-content p {
+  margin-bottom: 18px;
+}
