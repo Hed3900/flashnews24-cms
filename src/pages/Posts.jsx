@@ -84,14 +84,61 @@ const [loading, setLoading] = useState(true);
   <tbody>
   {loading ? (
     <tr>
-      <td colSpan="3">Loading...</td>
+      <td colSpan="5" style={{ padding: "20px", textAlign: "center" }}>
+        Loading...
+      </td>
+    </tr>
+  ) : posts.length === 0 ? (
+    <tr>
+      <td colSpan="5" style={{ padding: "20px", textAlign: "center" }}>
+        No posts found
+      </td>
     </tr>
   ) : (
     posts.map((post) => (
       <tr key={post.id}>
-        <td>{post.title}</td>
-        <td>{new Date(post.published).toLocaleDateString()}</td>
-        <td>Published</td>
+        <td style={{ padding: "12px" }}>{post.title}</td>
+
+        <td style={{ padding: "12px" }}>
+          {post.labels?.[0] || "-"}
+        </td>
+
+        <td style={{ padding: "12px" }}>
+          {post.status || "Published"}
+        </td>
+
+        <td style={{ padding: "12px" }}>
+          {new Date(post.published).toLocaleDateString()}
+        </td>
+
+        <td style={{ padding: "12px" }}>
+          <button
+            style={{
+              background: "#2563eb",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              borderRadius: "6px",
+              marginRight: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Edit
+          </button>
+
+          <button
+            style={{
+              background: "#dc2626",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              borderRadius: "6px",
+              cursor: "pointer",
+            }}
+          >
+            Delete
+          </button>
+        </td>
       </tr>
     ))
   )}
