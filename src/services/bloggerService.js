@@ -56,24 +56,25 @@ export async function signIn() {
   resolve(resp);
 };
 
-    tokenClient.requestAccessToken({ prompt: "consent" });
-  });
-}
+    const hasToken = window.gapi.client.getToken();
+
+tokenClient.requestAccessToken({
+  prompt: hasToken ? "" : "consent",
+});
 export async function getPosts() {
-  await signIn();
+  const token = window.gapi.client.getToken();
 
-  try {
-    const response = await window.gapi.client.blogger.posts.list({
-      blogId: BLOG_ID,
-      fetchBodies: false,
-      maxResults: 50,
-    });
-
-    return response.result.items || [];
-  } catch (err) {
-    console.error("Get Posts Error:", err);
-    throw err;
+  if (!token) {
+    await signIn();
   }
+
+  const response = await window.gapi.client.blogger.posts.list({
+    blogId: BLOG_ID,
+    maxResults: 50,
+    fetchBodies: false,
+  });
+
+  return response.result.items || [];
 }
 export async function publishPost(title, content, labels = []) {
   await signIn();
