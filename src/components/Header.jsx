@@ -1,5 +1,3 @@
-
-
 function Header() {
   
 
@@ -35,11 +33,14 @@ function Header() {
         </span>
 
         <button
-          className="btn btn-danger"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
+  onClick={() => {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("role");
+    window.location.reload();
+  }}
+>
+  Logout
+</button>
       </div>
     </header>
   );
