@@ -283,31 +283,43 @@ th {
 .preview-content * {
   max-width: 100% !important;
 }
+.ql-toolbar {
+  padding: 12px !important;
+  border-radius: 8px 8px 0 0;
+}
+
+.ql-toolbar .ql-picker-label,
+.ql-toolbar button {
+  font-size: 18px !important;
+}
+
+.ql-container {
+  font-size: 20px !important;
+  border-radius: 0 0 8px 8px;
+}
+
 .ql-editor {
+  min-height: 500px;
+  padding: 20px !important;
   font-size: 20px !important;
   line-height: 1.9 !important;
-  color: #111827;
-  min-height: 500px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Arial, sans-serif;
 }
 
 .ql-editor p {
-  margin: 0 0 18px;
+  margin-bottom: 18px;
 }
 
 .ql-editor h1 {
   font-size: 34px;
-  margin: 24px 0 16px;
 }
 
 .ql-editor h2 {
-  font-size: 28px;
-  margin: 22px 0 14px;
+  font-size: 30px;
 }
 
 .ql-editor h3 {
-  font-size: 24px;
-  margin: 20px 0 12px;
+  font-size: 26px;
 }
 .preview-content {
   font-size: 20px;
