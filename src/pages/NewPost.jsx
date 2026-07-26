@@ -331,9 +331,6 @@ setLoading(false);
     <p style={{ color: "#666" }}>
       {description}
     </p>
-<p style={{ color: "red" }}>
-  Title: {title}
-</p>
     {image && (
       <img
         src={image}
