@@ -33,6 +33,7 @@ const postId = searchParams.get("id");
   .trim()
   .split(/\s+/)
   .filter(Boolean).length;
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
   const generateSlug = (text) =>
   text
     .toLowerCase()
@@ -262,6 +263,28 @@ setLoading(false);
   }}
 />
           <label>Article Content</label>
+<div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    color: "#888",
+    fontSize: "14px",
+    marginBottom: "10px",
+  }}
+>
+  <span>Words: {wordCount}</span>
+  <span>{readingTime} min read</span>
+</div>
+<div
+  style={{
+    textAlign: "right",
+    color: "#888",
+    marginBottom: "10px",
+    fontSize: "14px",
+  }}
+>
+  Words: {wordCount}
+</div>
 
 <ReactQuill
   theme="snow"
@@ -276,16 +299,6 @@ setLoading(false);
     minHeight: "500px",
   }}
 />
-<div
-  style={{
-    textAlign: "right",
-    color: "#888",
-    marginBottom: "10px",
-    fontSize: "14px",
-  }}
->
-  Words: {wordCount}
-</div>
           <div style={{ marginTop: "20px" }}>
             <button
               style={{
