@@ -103,20 +103,19 @@ const handleImageUpload = async (e) => {
   setLoading(true);
 
   try {
-
+const cleanContent = content.replace(/<img[^>]*>/gi, "");
     const html = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
 ${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>` : ""}
-${content.replace(/\n/g, "<br/>")}
+${cleanContent.replace(/\n/g, "<br/>")}
 `;
-
     let response;
 
 if (postId) {
   await updatePost(postId, title, html, [category]);
 } else {
-  response = await publishPost(title, html, [category]);
+  const response = await publishPost(title, html, [category]);
 
   const email = localStorage.getItem("email");
   const name = localStorage.getItem("name");
