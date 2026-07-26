@@ -22,6 +22,7 @@ function Login() {
 } else {
   alert("Invalid email or password");
   }
+    };
   return (
     
     <div
