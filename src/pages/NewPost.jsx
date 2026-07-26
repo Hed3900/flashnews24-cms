@@ -222,6 +222,21 @@ setLoading(false);
 }}>
   {description.length}/160
 </div>
+          <label>SEO Slug</label>
+
+<input
+  type="text"
+  value={slug}
+  onChange={(e) => setSlug(e.target.value)}
+  placeholder="seo-friendly-url"
+  style={{
+    width: "100%",
+    padding: "12px",
+    marginTop: "8px",
+    marginBottom: "20px",
+    borderRadius: "8px"
+  }}
+/>
           <label>Article Content</label>
 
 <ReactQuill
