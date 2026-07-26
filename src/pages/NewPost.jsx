@@ -338,10 +338,20 @@ setLoading(false);
     )}
 
     <div
-      dangerouslySetInnerHTML={{
-        __html: content,
-      }}
-    />
+  style={{
+    maxWidth: "800px",
+    margin: "20px auto",
+    lineHeight: "1.8",
+    fontSize: "18px",
+    color: "#333",
+    wordBreak: "break-word",
+    overflowWrap: "break-word",
+    whiteSpace: "normal",
+  }}
+  dangerouslySetInnerHTML={{
+    __html: content,
+  }}
+/>
   </div>
 )}
           <div style={{ marginTop: "20px" }}>
