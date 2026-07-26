@@ -300,12 +300,11 @@ setLoading(false);
   onChange={setContent}
   modules={modules}
   style={{
-    marginTop: "8px",
-    marginBottom: "20px",
-    background: "white",
-    color: "black",
-    minHeight: "500px",
-  }}
+  maxWidth: "800px",
+  margin: "20px auto",
+  lineHeight: "1.8",
+  fontSize: "18px"
+}}
 />
           {showPreview && (
   <div
