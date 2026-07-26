@@ -39,29 +39,31 @@ setContent(temp.innerText);
     }
 
     setLoading(true);
+try {
+  const html = image
+    ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>${content.replace(/\n/g, "<br/>")}`
+    : content.replace(/\n/g, "<br/>");
 
-    try {
-      const html = image
-  ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>${content.replace(/\n/g, "<br/>")}`
-  : content.replace(/\n/g, "<br/>");
+  if (postId) {
+    await updatePost(postId, title, html, [category]);
+  } else {
+    await publishPost(title, html, [category]);
+  }
 
-if (postId) {
-  await updatePost(postId, title, html, [category]);
-} else {
-  await publishPost(title, html, [category]);
-}
+  alert(
+    postId
+      ? "Article Updated Successfully!"
+      : "Article Published Successfully!"
+  );
 
-      alert(
-  postId
-    ? "Article Updated Successfully!"
-    : "Article Published Successfully!"
-);
+  if (!postId) {
+    setTitle("");
+    setCategory("World");
+    setImage("");
+    setContent("");
+  }
 
-      setTitle("");
-      setCategory("World");
-      setImage("");
-      setContent("");
-    } catch (error) {
+} catch (error) {
   console.error(error);
 
   alert(
@@ -69,10 +71,9 @@ if (postId) {
     error?.message ||
     JSON.stringify(error)
   );
-    }
+}
 
-    setLoading(false);
-  };
+setLoading(false);
 
   return (
     <Layout>
