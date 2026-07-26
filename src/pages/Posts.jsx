@@ -11,12 +11,13 @@ const [loading, setLoading] = useState(true);
       const data = await getPosts();
       setPosts(data);
     } catch (err) {
-      console.error(err);
-      alert("Failed to load posts");
-    } finally {
-      setLoading(false);
+  console.error(err);
+  alert(
+    err?.result?.error?.message ||
+    err?.message ||
+    JSON.stringify(err)
+  );
     }
-  }
 
   loadPosts();
 }, []);
