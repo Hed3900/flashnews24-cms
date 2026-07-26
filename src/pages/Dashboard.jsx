@@ -18,10 +18,12 @@ function Dashboard() {
 
     loadDashboard();
   }, []);
+
 const categories = [
   ...new Set(posts.flatMap((post) => post.labels || [])),
 ];
-  return (
+
+return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
         <h2>Dashboard</h2>
