@@ -349,19 +349,17 @@ setLoading(false);
     )}
 
     <div
+  className="preview-content"
   style={{
-    maxWidth: "800px",
-    margin: "20px auto",
-    lineHeight: "1.8",
+    maxWidth: "100%",
+    width: "100%",
     fontSize: "18px",
+    lineHeight: "1.8",
     color: "#333",
-    wordBreak: "break-word",
     overflowWrap: "break-word",
-    whiteSpace: "normal",
+    wordBreak: "break-word",
   }}
-  dangerouslySetInnerHTML={{
-    __html: content,
-  }}
+  dangerouslySetInnerHTML={{ __html: content }}
 />
   </div>
 )}
