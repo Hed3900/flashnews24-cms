@@ -16,11 +16,11 @@ function Login() {
   }
 
   const user = userSnap.data();
-
-  if (user.status !== "active") {
-    alert("Account is disabled");
-    return;
-  }
+console.log(user);
+//  if (user.status !== "active") {
+ //   alert("Account is disabled");
+   // return;
+//  }
 
   if (user.password !== password) {
     alert("Invalid password");
