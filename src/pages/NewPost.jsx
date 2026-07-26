@@ -333,15 +333,17 @@ setLoading(false);
     </p>
     {image && (
       <img
-        src={image}
-        alt={title}
-        style={{
-  maxWidth: "900px",
-  margin: "30px auto",
-  background: "#fff",
-  padding: "25px",
-  borderRadius: "12px"
-}}
+  src={image}
+  alt={title}
+  style={{
+    width: "70%",
+    maxWidth: "600px",
+    height: "auto",
+    display: "block",
+    margin: "20px auto",
+    borderRadius: "12px",
+    objectFit: "cover",
+  }}
       />
     )}
 
