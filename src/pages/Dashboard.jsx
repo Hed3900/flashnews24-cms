@@ -18,7 +18,9 @@ function Dashboard() {
 
     loadDashboard();
   }, []);
-
+const categories = [
+  ...new Set(posts.flatMap((post) => post.labels || [])),
+];
   return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
@@ -44,21 +46,15 @@ function Dashboard() {
           </div>
 
           <div
-            style={{
-              background: "#1e293b",
-              padding: "20px",
-              borderRadius: "10px",
-            }}
-          >
-            <h3>Categories</h3>
-<h1>{categories.length}</h1>
-            <h1>
-              const categories = [
-  ...new Set(posts.flatMap((post) => post.labels || [])),
-];
-            </h1>
-          </div>
-        </div>
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "10px",
+  }}
+>
+  <h3>Categories</h3>
+  <h1>{categories.length}</h1>
+</div>
 
         <div
           style={{
