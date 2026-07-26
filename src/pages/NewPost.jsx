@@ -22,6 +22,7 @@ const UPLOAD_PRESET = "flashnews24";
   const [searchParams] = useSearchParams();
 const postId = searchParams.get("id");
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("World");
   const [image, setImage] = useState("");
   const [content, setContent] = useState("");
@@ -72,23 +73,28 @@ const handleImageUpload = async (e) => {
   }
 };
   const handlePublish = async () => {
-    if (!title || !content) {
-      alert("Please enter headline and article content.");
-      return;
-    }
-
-    setLoading(true);
-try {
-  const html = image
-    ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>${content.replace(/\n/g, "<br/>")}`
-    : content.replace(/\n/g, "<br/>");
-
-  if (postId) {
-    await updatePost(postId, title, html, [category]);
-  } else {
-    await publishPost(title, html, [category]);
+  if (!title || !content) {
+    alert("Please enter headline and article content.");
+    return;
   }
 
+  setLoading(true);
+
+  try {
+
+    const html = `
+<!-- META_DESCRIPTION:${description} -->
+${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>` : ""}
+${content.replace(/\n/g, "<br/>")}
+`;
+
+    if (postId) {
+      await updatePost(postId, title, html, [category]);
+    } else {
+      await publishPost(title, html, [category]);
+    }
+
+    // migatha code...
   alert(
     postId
       ? "Article Updated Successfully!"
@@ -182,7 +188,31 @@ setLoading(false);
     marginBottom: "20px",
   }}
 />
+ <label>Meta Description</label>
 
+<textarea
+  value={description}
+  onChange={(e) => setDescription(e.target.value)}
+  placeholder="Enter SEO meta description (150-160 characters)"
+  rows={4}
+  maxLength={160}
+  style={{
+    width: "100%",
+    padding: "12px",
+    marginTop: "8px",
+    marginBottom: "20px",
+    borderRadius: "8px",
+    resize: "vertical"
+  }}
+/>
+
+<div style={{
+  textAlign: "right",
+  color: "#888",
+  marginBottom: "20px"
+}}>
+  {description.length}/160
+</div>
           <label>Article Content</label>
 
 <ReactQuill
@@ -229,7 +259,7 @@ setLoading(false);
   ? (postId ? "Updating..." : "Publishing...")
   : (postId ? "Update" : "Publish")}
             </button>
-          </div>
+    </div>
         </div>
       </div>
     </Layout>
