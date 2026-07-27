@@ -1,43 +1,61 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { getPosts } from "../services/bloggerService";
+import {
+  collection,
+  getDocs,
+  setDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { db } from "../firebase";
 
 function Categories() {
   const [categories, setCategories] = useState([]);
+  const [name, setName] = useState("");
 
   useEffect(() => {
-    async function loadCategories() {
-      try {
-        const posts = await getPosts();
+  loadCategories();
+}, []);
 
-        const map = {};
+async function loadCategories() {
+  try {
+    const snapshot = await getDocs(collection(db, "categories"));
 
-        posts.forEach((post) => {
-          (post.labels || []).forEach((label) => {
-            if (!map[label]) {
-              map[label] = 0;
-            }
-            map[label]++;
-          });
-        });
+    const data = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
-        const data = Object.keys(map).map((name, index) => ({
-          id: index + 1,
-          name,
-          slug: name.toLowerCase().replace(/\s+/g, "-"),
-          posts: map[name],
-        }));
+    setCategories(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
 
-        setCategories(data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
+async function addCategory() {
+  if (!name.trim()) {
+    alert("Enter category name");
+    return;
+  }
 
-    loadCategories();
-  }, []);
+  await setDoc(doc(db, "categories", name), {
+    name,
+    slug: name.toLowerCase().replace(/\s+/g, "-"),
+  });
 
-  return (
+  setName("");
+  loadCategories();
+}
+
+async function removeCategory(id) {
+  if (!window.confirm("Delete Category?")) return;
+
+  await deleteDoc(doc(db, "categories", id));
+
+  loadCategories();
+}
+
+return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
         <h2>Categories</h2>
@@ -53,7 +71,7 @@ function Categories() {
             <tr>
               <th>Name</th>
               <th>Slug</th>
-              <th>Posts</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -62,7 +80,11 @@ function Categories() {
               <tr key={category.id}>
                 <td>{category.name}</td>
                 <td>{category.slug}</td>
-                <td>{category.posts}</td>
+                <td>
+  <button onClick={() => removeCategory(category.id)}>
+    Delete
+  </button>
+</td>
               </tr>
             ))}
 
