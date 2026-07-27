@@ -139,7 +139,7 @@ setPosts(firestorePosts);
         <td style={{ padding: "12px" }}>{post.title}</td>
 
         <td style={{ padding: "12px" }}>
-          {post.labels?.[0] || "-"}
+          {post.category || "-"}
         </td>
 
         <td style={{ padding: "12px" }}>
@@ -147,12 +147,12 @@ setPosts(firestorePosts);
         </td>
 
         <td style={{ padding: "12px" }}>
-          {new Date(post.published).toLocaleDateString()}
+          {new Date(post.createdAt).toLocaleDateString()}
         </td>
 
         <td style={{ padding: "12px" }}>
           <button
-  onClick={() => handleEdit(post.id)}
+  onClick={() => handleEdit(post.bloggerPostId)}
   style={{
     background: "#2563eb",
     color: "white",
@@ -167,7 +167,7 @@ setPosts(firestorePosts);
 </button>
 
           <button
-  onClick={() => handleDelete(post.id)}
+onClick={() => handleDelete(post.bloggerPostId)}
   style={{
     background: "#dc2626",
     color: "white",
