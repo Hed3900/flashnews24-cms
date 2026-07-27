@@ -71,15 +71,11 @@ temp.querySelectorAll("p").forEach((p) => {
   }
 });
 
-const cleanContent = content
+const cleanedHtml = temp.innerHTML
   .replace(/&nbsp;/g, " ")
+  .replace(/&#39;/g, "'")
+  .replace(/<br\s*\/?>/gi, "")
   .trim();
-
-const html = `
-<!-- META_DESCRIPTION:${description} -->
-<!-- META_KEYWORDS:${keywords} -->
-${cleanContent}
-`;
 
 setContent(cleanedHtml);
 setDescription(post.summary || "");
@@ -125,11 +121,11 @@ const handleImageUpload = async (e) => {
   try {
 const cleanContent = content
   .replace(/&nbsp;/g, " ")
-  .replace(/<img[^>]*>/gi, "")
   .trim();
     const html = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
+${image ? `<img src="${image}" style="max-width:100%;height:auto;" />` : ""}
 ${cleanContent}
 `;
     let response;
