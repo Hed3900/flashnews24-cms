@@ -59,7 +59,44 @@ return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
         <h2>Categories</h2>
+<div
+  style={{
+    marginTop: "20px",
+    marginBottom: "20px",
+    display: "flex",
+    gap: "10px",
+    alignItems: "center",
+  }}
+>
+  <input
+    type="text"
+    placeholder="Category Name"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+    style={{
+      padding: "10px",
+      borderRadius: "6px",
+      border: "1px solid #555",
+      background: "#1f2937",
+      color: "#fff",
+      width: "250px",
+    }}
+  />
 
+  <button
+    onClick={addCategory}
+    style={{
+      padding: "10px 18px",
+      background: "#2563eb",
+      color: "#fff",
+      border: "none",
+      borderRadius: "6px",
+      cursor: "pointer",
+    }}
+  >
+    Add Category
+  </button>
+</div>
         <table
           style={{
             width: "100%",
