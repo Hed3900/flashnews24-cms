@@ -127,25 +127,26 @@ await setDoc(doc(db, "posts", response.result.id), {
   authorName: name,
   title,
   category,
-  status: "Published",
+  status: "published",
   createdAt: new Date().toISOString(),
 });
 
+// migatha code...
 alert(
   postId
     ? "Article Updated Successfully!"
     : "Article Published Successfully!"
 );
 
-  if (!postId) {
-    setTitle("");
-    setCategory("World");
-    setImage("");
-    setContent("");
-    setDescription("");
-setKeywords("");
-setSlug("");
-  }
+if (!postId) {
+  setTitle("");
+  setCategory("World");
+  setImage("");
+  setContent("");
+  setDescription("");
+  setKeywords("");
+  setSlug("");
+}
 
 } catch (error) {
   console.error(error);
