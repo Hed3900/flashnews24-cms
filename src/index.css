@@ -443,3 +443,18 @@ th {
 .preview-content li {
   margin-bottom: 10px;
 }
+.preview-content,
+.preview-content * {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.preview-content img,
+.preview-content table,
+.preview-content iframe,
+.preview-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
