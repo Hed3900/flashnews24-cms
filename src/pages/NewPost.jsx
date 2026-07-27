@@ -6,7 +6,12 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useRef } from "react";
 import { db } from "../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 function NewPost() {
@@ -24,6 +29,7 @@ const UPLOAD_PRESET = "flashnews24";
     ["clean"],
   ],
 };
+  const [categories, setCategories] = useState([]);
   const [searchParams] = useSearchParams();
 const postId = searchParams.get("id");
   const [title, setTitle] = useState("");
@@ -47,15 +53,23 @@ const postId = searchParams.get("id");
     .trim()
     .replace(/\s+/g, "-");
   useEffect(() => {
-  async function loadPost() {
-    if (!postId) return;
+  async function loadCategories() {
+    const snapshot = await getDocs(collection(db, "categories"));
 
-    const post = await getPost(postId);
-    alert(post.content.substring(0, 1500));
-    setTitle(post.title);
-    setCategory(post.labels?.[0] || "World");
-    const temp = document.createElement("div");
-temp.innerHTML = post.content;
+    const data = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    setCategories(data);
+
+    if (data.length > 0 && !category) {
+      setCategory(data[0].name);
+    }
+  }
+
+  loadCategories();
+}, []);
 
 // Featured image remove
 const img = temp.querySelector("img");
@@ -218,23 +232,22 @@ return (
           <label>Category</label>
 
           <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "12px",
-              marginTop: "8px",
-              marginBottom: "20px",
-              borderRadius: "8px",
-            }}
-          >
-            <option>World</option>
-            <option>India</option>
-            <option>Politics</option>
-            <option>Technology</option>
-            <option>Sports</option>
-            <option>Entertainment</option>
-          </select>
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+  style={{
+    width: "100%",
+    padding: "12px",
+    marginTop: "8px",
+    marginBottom: "20px",
+    borderRadius: "8px",
+  }}
+>
+  {categories.map((cat) => (
+    <option key={cat.id} value={cat.name}>
+      {cat.name}
+    </option>
+  ))}
+</select>
 
           <label>Featured Image URL</label>
 
