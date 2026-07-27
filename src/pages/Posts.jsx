@@ -155,7 +155,7 @@ const handleEdit = (postId) => {
         Loading...
       </td>
     </tr>
-  ) : filteredPosts.length === 0 (
+  ) : filteredPosts.length === 0 ? (
     <tr>
       <td colSpan="5" style={{ padding: "20px", textAlign: "center" }}>
         No posts found
