@@ -388,20 +388,18 @@ objectFit: "cover",
 <div
   className="preview-content"
   style={{
-  width: "100%",
-  marginTop: "24px",
-  fontSize: "20px",
-  lineHeight: "2",
-  color: "#222",
-  fontFamily: 'Georgia, "Times New Roman", serif',
-  letterSpacing: "0.2px",
-
-  whiteSpace: "normal",
-}}
+    width: "100%",
+    marginTop: "24px",
+    fontSize: "20px",
+    lineHeight: "2",
+    color: "#222",
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    letterSpacing: "0.2px",
+    whiteSpace: "normal",
+  }}
   dangerouslySetInnerHTML={{ __html: previewHtml }}
-  }
-  </div>
-)}
+}
+</div>
           <div style={{ marginTop: "20px" }}>
             <button
               style={{
