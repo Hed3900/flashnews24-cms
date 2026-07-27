@@ -40,8 +40,10 @@ async function addCategory() {
 
   await setDoc(doc(db, "categories", name), {
     name,
-    slug: name.toLowerCase().replace(/\s+/g, "-"),
-  });
+    slug: name
+  .trim()
+  .toLowerCase()
+  .replace(/\s+/g, "-")  });
 
   setName("");
   loadCategories();
