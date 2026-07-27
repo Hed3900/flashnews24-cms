@@ -118,25 +118,24 @@ if (postId) {
   response = await publishPost(title, html, [category]);
 }
 
-  const email = localStorage.getItem("email");
-  const name = localStorage.getItem("name");
+const email = localStorage.getItem("email");
+const name = localStorage.getItem("name");
 
-  await setDoc(doc(db, "posts", response.result.id), {
-    bloggerPostId: response.result.id,
-    authorEmail: email,
-    authorName: name,
-    title,
-    category,
-    status: "published",
-    createdAt: new Date().toISOString(),
-  });
-}
-    // migatha code...
-  alert(
-    postId
-      ? "Article Updated Successfully!"
-      : "Article Published Successfully!"
-  );
+await setDoc(doc(db, "posts", response.result.id), {
+  bloggerPostId: response.result.id,
+  authorEmail: email,
+  authorName: name,
+  title,
+  category,
+  status: "Published",
+  createdAt: new Date().toISOString(),
+});
+
+alert(
+  postId
+    ? "Article Updated Successfully!"
+    : "Article Published Successfully!"
+);
 
   if (!postId) {
     setTitle("");
