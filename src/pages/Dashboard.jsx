@@ -53,8 +53,7 @@ return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
         <h2>Dashboard</h2>
-
-        <div
+<div
   style={{
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
@@ -67,6 +66,10 @@ return (
       background: "#1e293b",
       padding: "20px",
       borderRadius: "10px",
+      minHeight: "120px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
     }}
   >
     <h3>Total Posts</h3>
@@ -78,43 +81,60 @@ return (
       background: "#1e293b",
       padding: "20px",
       borderRadius: "10px",
+      minHeight: "120px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
     }}
   >
     <h3>Categories</h3>
     <h1>{stats.categories}</h1>
   </div>
-</div> {/* <-- Ee closing div miss ayindi */}
-       <div
-  style={{
-    background: "#1e293b",
-    padding: "20px",
-    borderRadius: "10px",
-  }}
->
-  <h3>Published</h3>
-  <h1>{stats.published}</h1>
-</div>
 
-<div
-  style={{
-    background: "#1e293b",
-    padding: "20px",
-    borderRadius: "10px",
-  }}
->
-  <h3>Drafts</h3>
-  <h1>{stats.drafts}</h1>
-</div>
+  <div
+    style={{
+      background: "#1e293b",
+      padding: "20px",
+      borderRadius: "10px",
+      minHeight: "120px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    }}
+  >
+    <h3>Published</h3>
+    <h1>{stats.published}</h1>
+  </div>
 
-<div
-  style={{
-    background: "#1e293b",
-    padding: "20px",
-    borderRadius: "10px",
-  }}
->
-  <h3>Authors</h3>
-  <h1>{stats.authors}</h1>
+  <div
+    style={{
+      background: "#1e293b",
+      padding: "20px",
+      borderRadius: "10px",
+      minHeight: "120px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    }}
+  >
+    <h3>Drafts</h3>
+    <h1>{stats.drafts}</h1>
+  </div>
+
+  <div
+    style={{
+      background: "#1e293b",
+      padding: "20px",
+      borderRadius: "10px",
+      minHeight: "120px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    }}
+  >
+    <h3>Authors</h3>
+    <h1>{stats.authors}</h1>
+  </div>
 </div>
         <div
           style={{
