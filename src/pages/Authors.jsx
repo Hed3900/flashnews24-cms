@@ -30,8 +30,6 @@ async function loadAuthors() {
 
   setAuthors(data);
 }
-console.log("Create button clicked");
-alert("Button clicked");
 async function createAuthor() {
   if (!name || !email || !password) {
     alert("Fill all fields");
