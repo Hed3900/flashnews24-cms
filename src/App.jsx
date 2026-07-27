@@ -8,6 +8,8 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Preview from "./pages/Preview";
 import Drafts from "./pages/Drafts";
+import MediaLibrary from "./pages/MediaLibrary";
+
 
 function App() {
 const role = localStorage.getItem("role");
@@ -38,6 +40,7 @@ const role = localStorage.getItem("role");
     element={role === "admin" ? <Settings /> : <Dashboard />}
   />
       <Route path="/preview" element={<Preview />} />
+      <Route path="/media" element={<MediaLibrary />} />
       
 </Routes>
   );
