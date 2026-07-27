@@ -13,6 +13,7 @@ function Posts() {
   const [posts, setPosts] = useState([]);
 const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
 const handleEdit = (postId) => {
   navigate(`/new-post?id=${postId}`);
@@ -75,6 +76,15 @@ const handleEdit = (postId) => {
 
   loadPosts();
 }, []);
+  const filteredPosts = posts.filter((post) => {
+  const text = search.toLowerCase();
+
+  return (
+    post.title?.toLowerCase().includes(text) ||
+    post.category?.toLowerCase().includes(text) ||
+    post.authorName?.toLowerCase().includes(text)
+  );
+});
   return (
     <Layout>
       <h2 style={{ color: "white", padding: "20px" }}>Posts</h2>
@@ -108,6 +118,8 @@ const handleEdit = (postId) => {
 <input
   type="text"
   placeholder="Search posts..."
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
   style={{
     width: "100%",
     padding: "12px",
@@ -143,14 +155,14 @@ const handleEdit = (postId) => {
         Loading...
       </td>
     </tr>
-  ) : posts.length === 0 ? (
+  ) : filteredPosts.length === 0
     <tr>
       <td colSpan="5" style={{ padding: "20px", textAlign: "center" }}>
         No posts found
       </td>
     </tr>
   ) : (
-    posts.map((post) => (
+    filteredPosts.map((post) => (
       <tr key={post.id}>
         <td style={{ padding: "12px" }}>{post.title}</td>
 
