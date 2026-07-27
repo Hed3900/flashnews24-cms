@@ -48,11 +48,16 @@ const postId = searchParams.get("id");
     if (!postId) return;
 
     const post = await getPost(postId);
+    alert(post.content.substring(0, 1500));
     setTitle(post.title);
     setCategory(post.labels?.[0] || "World");
     const temp = document.createElement("div");
 temp.innerHTML = post.content;
-
+temp.innerHTML = temp.innerHTML
+  .replace(/&nbsp;/g, " ")
+  .replace(/<br\s*\/?>/gi, "")
+  .replace(/<p>\s*<\/p>/gi, "")
+  .trim();
 const img = temp.querySelector("img");
 
 if (img) {
@@ -60,7 +65,11 @@ if (img) {
   img.remove(); // Article HTML nundi image remove
 }
 const cleanedHtml = temp.innerHTML
-  .replace(/&nbsp;/g, " ");
+  .replace(/&nbsp;/g, " ")
+  .replace(/<br\s*\/?>/gi, "")
+  .replace(/<p>\s*<\/p>/gi, "")
+  .replace(/\s{2,}/g, " ")
+  .trim();
 
 setContent(cleanedHtml);
 
