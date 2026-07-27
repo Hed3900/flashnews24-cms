@@ -130,6 +130,44 @@ const handleImageUpload = async (e) => {
   alert(JSON.stringify(data));
   }
 };
+  const handleSaveDraft = async () => {
+  if (!title) {
+    alert("Please enter headline.");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const email = localStorage.getItem("email");
+    const name = localStorage.getItem("name");
+
+    const draftId = postId || crypto.randomUUID();
+
+    await setDoc(doc(db, "posts", draftId), {
+      bloggerPostId: "",
+      authorEmail: email,
+      authorName: name,
+      title,
+      category,
+      image,
+      description,
+      keywords,
+      slug,
+      content,
+      status: "draft",
+      createdAt: new Date().toISOString(),
+    });
+
+    alert("Draft Saved Successfully!");
+    navigate("/drafts");
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
+
+  setLoading(false);
+};
   const handlePublish = async () => {
     console.log(content);
   if (!title || !content) {
@@ -434,17 +472,20 @@ objectFit: "cover",
   )}
           <div style={{ marginTop: "20px" }}>
             <button
-              style={{
-                background: "#2563eb",
-                color: "white",
-                border: "none",
-                padding: "12px 22px",
-                borderRadius: "8px",
-                marginRight: "10px",
-              }}
-            >
-              Save Draft
-            </button>
+  onClick={handleSaveDraft}
+  disabled={loading}
+  style={{
+    background: "#2563eb",
+    color: "white",
+    border: "none",
+    padding: "12px 22px",
+    borderRadius: "8px",
+    marginRight: "10px",
+    cursor: "pointer",
+  }}
+>
+  Save Draft
+</button>
 
             <button
               onClick={handlePublish}
