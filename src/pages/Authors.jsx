@@ -1,32 +1,10 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { getPosts } from "../services/bloggerService";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 function Authors() {
-  const [stats, setStats] = useState({
-    totalPosts: 0,
-    latest: "-",
-  });
-
-  useEffect(() => {
-    async function loadAuthor() {
-      try {
-        const posts = await getPosts();
-
-        setStats({
-          totalPosts: posts.length,
-          latest: posts.length
-            ? new Date(posts[0].published).toLocaleDateString()
-            : "-",
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    loadAuthor();
-  }, []);
-
+  const [authors, setAuthors] = useState([]);
   return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
