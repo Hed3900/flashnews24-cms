@@ -61,7 +61,9 @@ async function removeAuthor(email) {
 
   loadAuthors();
 }
-    <Layout>
+
+return (
+  <Layout>
       <div style={{ padding: "20px", color: "white" }}>
         <h2 style={{ marginBottom: "20px" }}>Author Management</h2>
 
