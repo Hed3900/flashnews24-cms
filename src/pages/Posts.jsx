@@ -37,8 +37,9 @@ const handleEdit = (postId) => {
       const data = await getPosts();
       const snapshot = await getDocs(collection(db, "posts"));
 
-console.log(snapshot.docs.length);
-      setPosts(data);
+alert("Firestore posts: " + snapshot.docs.length);
+
+setPosts(data);
     } catch (err) {
       console.error(err);
       alert(
