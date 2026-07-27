@@ -121,7 +121,6 @@ const handleImageUpload = async (e) => {
   try {
 const cleanContent = content
   .replace(/&nbsp;/g, " ")
-  .replace(/<img[^>]*>/gi, "")
   .trim();
     const html = `
 <!-- META_DESCRIPTION:${description} -->
