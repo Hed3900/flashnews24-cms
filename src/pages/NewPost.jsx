@@ -312,32 +312,41 @@ return (
     boxShadow: "0 4px 12px rgba(0,0,0,.15)"
   }}
 />
-          <input
-  type="file"
-  accept="image/*"
-  onChange={handleImageUpload}
+          <div
   style={{
-    width: "100%",
+    display: "flex",
+    gap: "10px",
+    alignItems: "center",
     marginTop: "10px",
     marginBottom: "20px",
-  }}
-/>
-
-<button
-  type="button"
-  onClick={() => setShowMediaPicker(true)}
-  style={{
-    marginTop: "10px",
-    background: "#2563eb",
-    color: "#fff",
-    border: "none",
-    padding: "10px 16px",
-    borderRadius: "6px",
-    cursor: "pointer",
+    flexWrap: "wrap",
   }}
 >
-  📁 Choose From Media Library
-</button>
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handleImageUpload}
+    style={{
+      flex: 1,
+    }}
+  />
+
+  <button
+    type="button"
+    onClick={() => setShowMediaPicker(true)}
+    style={{
+      background: "#2563eb",
+      color: "#fff",
+      border: "none",
+      padding: "10px 16px",
+      borderRadius: "6px",
+      cursor: "pointer",
+      whiteSpace: "nowrap",
+    }}
+  >
+    📁 Media Library
+  </button>
+</div>
 
 <input
   type="text"
