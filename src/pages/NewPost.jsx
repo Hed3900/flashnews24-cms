@@ -147,6 +147,10 @@ await setDoc(doc(db, "posts", bloggerPostId), {
   title,
   category,
   image,
+  description,
+  keywords,
+  slug,
+  content,
   status: "published",
   createdAt: new Date().toISOString(),
 });
