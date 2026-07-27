@@ -32,6 +32,8 @@ async function loadAuthors() {
 }
 
 async function createAuthor() {
+  console.log("Create button clicked");
+alert("Button clicked");
   if (!name || !email || !password) {
     alert("Fill all fields");
     return;
