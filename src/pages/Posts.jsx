@@ -2,8 +2,13 @@ import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 import { getPosts, deletePost } from "../services/bloggerService";
 import { Link, useNavigate } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import {
+  collection,
+  getDocs,
+  query,
+  where
+} from "firebase/firestore";
 function Posts() {
   const [posts, setPosts] = useState([]);
 const [loading, setLoading] = useState(true);
@@ -33,18 +38,29 @@ const handleEdit = (postId) => {
 };
   useEffect(() => {
   async function loadPosts() {
-    try {
-      const data = await getPosts();
-      const snapshot = await getDocs(collection(db, "posts"));
+  try {
+    const role = localStorage.getItem("role");
+    const email = localStorage.getItem("email");
 
-alert("Firestore posts: " + snapshot.docs.length);
+    let snapshot;
 
-const firestorePosts = snapshot.docs.map(doc => ({
-  id: doc.id,
-  ...doc.data(),
-}));
+    if (role === "admin") {
+      snapshot = await getDocs(collection(db, "posts"));
+    } else {
+      const q = query(
+        collection(db, "posts"),
+        where("authorEmail", "==", email)
+      );
 
-setPosts(firestorePosts);
+      snapshot = await getDocs(q);
+    }
+
+    const firestorePosts = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    setPosts(firestorePosts);
     } catch (err) {
       console.error(err);
       alert(
