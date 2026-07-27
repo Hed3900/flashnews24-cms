@@ -7,6 +7,10 @@ import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
+  const [mediaCount, setMediaCount] = useState(0);
+const [recentPosts, setRecentPosts] = useState([]);
+const [topCategories, setTopCategories] = useState([]);
+const [topAuthors, setTopAuthors] = useState([]);
   const [stats, setStats] = useState({
   totalPosts: 0,
   published: 0,
@@ -48,7 +52,39 @@ function Dashboard() {
 const categories = [
   ...new Set(posts.map((post) => post.category).filter(Boolean)),
 ];
+const mediaSnap = await getDocs(collection(db, "media"));
+setMediaCount(mediaSnap.size);
 
+const posts = postsSnap.docs.map(doc => ({
+  id: doc.id,
+  ...doc.data(),
+}));
+
+setRecentPosts(posts.slice(0, 5));
+
+const categoryMap = {};
+posts.forEach(post => {
+  const cat = post.category || "Uncategorized";
+  categoryMap[cat] = (categoryMap[cat] || 0) + 1;
+});
+
+setTopCategories(
+  Object.entries(categoryMap)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+);
+
+const authorMap = {};
+posts.forEach(post => {
+  const author = post.authorName || "Unknown";
+  authorMap[author] = (authorMap[author] || 0) + 1;
+});
+
+setTopAuthors(
+  Object.entries(authorMap)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+);
 return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
