@@ -179,8 +179,16 @@ if (!postId) {
 }
 
 setLoading(false);
-  }
-  return (
+}
+
+const previewHtml = `
+<!-- META_DESCRIPTION:${description} -->
+<!-- META_KEYWORDS:${keywords} -->
+${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>` : ""}
+${content}
+`;
+
+return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
         <h2>{postId ? "Edit Post" : "Create New Post"}</h2>
