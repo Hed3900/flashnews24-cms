@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { getPosts } from "../services/bloggerService";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 import { Link } from "react-router-dom";
 
 function Dashboard() {
@@ -9,8 +10,14 @@ function Dashboard() {
   useEffect(() => {
     async function loadDashboard() {
       try {
-        const data = await getPosts();
-        setPosts(data);
+        const snapshot = await getDocs(collection(db, "posts"));
+
+const data = snapshot.docs.map((doc) => ({
+  id: doc.id,
+  ...doc.data(),
+}));
+
+setPosts(data);
       } catch (err) {
         console.error(err);
       }
@@ -20,7 +27,7 @@ function Dashboard() {
   }, []);
 
 const categories = [
-  ...new Set(posts.flatMap((post) => post.labels || [])),
+  ...new Set(posts.map((post) => post.category).filter(Boolean)),
 ];
 
 return (
@@ -69,8 +76,10 @@ return (
           <h3>Latest Posts</h3>
 
           {posts.slice(0, 5).map((post) => (
-            <p key={post.id}>
-              • {post.title}
+  <p key={post.id}>
+    • {post.title || post.headline}
+  </p>
+))}
             </p>
           ))}
         </div>
