@@ -126,7 +126,6 @@ const cleanContent = content
     const html = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
-${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>` : ""}
 ${cleanContent}
 `;
     let response;
@@ -148,6 +147,7 @@ await setDoc(doc(db, "posts", bloggerPostId), {
   authorName: name,
   title,
   category,
+  image,
   status: "published",
   createdAt: new Date().toISOString(),
 });
