@@ -7,6 +7,7 @@ import Authors from "./pages/Authors";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Preview from "./pages/Preview";
+import Drafts from "./pages/Drafts";
 
 function App() {
 const role = localStorage.getItem("role");
@@ -21,7 +22,7 @@ const role = localStorage.getItem("role");
   <Route path="/" element={<Dashboard />} />
   <Route path="/posts" element={<Posts />} />
   <Route path="/new-post" element={<NewPost />} />
-
+<Route path="/drafts" element={<Drafts />} />
   <Route
     path="/authors"
     element={role === "admin" ? <Authors /> : <Dashboard />}
@@ -37,6 +38,7 @@ const role = localStorage.getItem("role");
     element={role === "admin" ? <Settings /> : <Dashboard />}
   />
       <Route path="/preview" element={<Preview />} />
+      
 </Routes>
   );
 }
