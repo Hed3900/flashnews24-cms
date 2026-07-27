@@ -30,10 +30,9 @@ async function loadAuthors() {
 
   setAuthors(data);
 }
-
-async function createAuthor() {
-  console.log("Create button clicked");
+console.log("Create button clicked");
 alert("Button clicked");
+async function createAuthor() {
   if (!name || !email || !password) {
     alert("Fill all fields");
     return;
