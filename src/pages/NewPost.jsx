@@ -121,8 +121,10 @@ if (postId) {
 const email = localStorage.getItem("email");
 const name = localStorage.getItem("name");
 
-await setDoc(doc(db, "posts", response.result.id), {
-  bloggerPostId: response.result.id,
+const bloggerPostId = postId || response.result.id;
+
+await setDoc(doc(db, "posts", bloggerPostId), {
+  bloggerPostId,
   authorEmail: email,
   authorName: name,
   title,
