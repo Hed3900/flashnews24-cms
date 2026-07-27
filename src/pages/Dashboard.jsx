@@ -80,8 +80,6 @@ return (
     • {post.title || post.headline}
   </p>
 ))}
-            </p>
-          ))}
         </div>
 
         <div style={{ marginTop: "30px" }}>
