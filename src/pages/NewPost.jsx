@@ -352,7 +352,22 @@ return (
     borderRadius: "8px",
   }}
 />
-
+<button
+  type="button"
+  onClick={() => setImage("")}
+  style={{
+    background: "#dc2626",
+    color: "#fff",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    marginLeft: "10px",
+  }}
+>
+  ❌ Remove Image
+</button>
+          
 <label>Meta Description</label>
 
 <textarea
