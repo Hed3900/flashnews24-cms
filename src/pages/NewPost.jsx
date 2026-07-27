@@ -400,6 +400,7 @@ objectFit: "cover",
   dangerouslySetInnerHTML={{ __html: previewHtml }}
 }
 </div>
+  )}
           <div style={{ marginTop: "20px" }}>
             <button
               style={{
