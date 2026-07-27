@@ -4,24 +4,42 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
 
+
 function Dashboard() {
   const [posts, setPosts] = useState([]);
+  const [stats, setStats] = useState({
+  totalPosts: 0,
+  published: 0,
+  drafts: 0,
+  categories: 0,
+  authors: 0,
+});
 
   useEffect(() => {
     async function loadDashboard() {
       try {
-        const snapshot = await getDocs(collection(db, "posts"));
+  const postsSnap = await getDocs(collection(db, "posts"));
+  const categoriesSnap = await getDocs(collection(db, "categories"));
+  const usersSnap = await getDocs(collection(db, "users"));
 
-const data = snapshot.docs.map((doc) => ({
-  id: doc.id,
-  ...doc.data(),
-}));
+  const data = postsSnap.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 
-setPosts(data);
-      } catch (err) {
-        console.error(err);
+  setPosts(data);
+
+  setStats({
+    totalPosts: data.length,
+    published: data.filter((p) => p.status === "published").length,
+    drafts: data.filter((p) => p.status === "draft").length,
+    categories: categoriesSnap.size,
+    authors: usersSnap.size,
+  });
+
+} catch (err) {
+  console.error(err);
       }
-    }
 
     loadDashboard();
   }, []);
@@ -51,7 +69,7 @@ return (
     }}
   >
     <h3>Total Posts</h3>
-    <h1>{posts.length}</h1>
+    <h1>{stats.totalPosts}</h1>
   </div>
 
   <div
@@ -62,9 +80,41 @@ return (
     }}
   >
     <h3>Categories</h3>
-    <h1>{categories.length}</h1>
+    <h1>{stats.categories}</h1>
   </div>
 </div> {/* <-- Ee closing div miss ayindi */}
+       <div
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "10px",
+  }}
+>
+  <h3>Published</h3>
+  <h1>{stats.published}</h1>
+</div>
+
+<div
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "10px",
+  }}
+>
+  <h3>Drafts</h3>
+  <h1>{stats.drafts}</h1>
+</div>
+
+<div
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "10px",
+  }}
+>
+  <h3>Authors</h3>
+  <h1>{stats.authors}</h1>
+</div>
         <div
           style={{
             background: "#1e293b",
