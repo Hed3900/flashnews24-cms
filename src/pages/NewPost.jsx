@@ -322,13 +322,21 @@ return (
     flexWrap: "wrap",
   }}
 >
+  <div
+  style={{
+    display: "flex",
+    gap: "10px",
+    alignItems: "center",
+    flexWrap: "wrap",
+    marginTop: "10px",
+    marginBottom: "20px",
+  }}
+>
   <input
     type="file"
     accept="image/*"
     onChange={handleImageUpload}
-    style={{
-      flex: 1,
-    }}
+    style={{ flex: 1 }}
   />
 
   <button
@@ -341,11 +349,27 @@ return (
       padding: "10px 16px",
       borderRadius: "6px",
       cursor: "pointer",
-      whiteSpace: "nowrap",
     }}
   >
     📁 Media Library
   </button>
+
+  {image && (
+    <button
+      type="button"
+      onClick={() => setImage("")}
+      style={{
+        background: "#dc2626",
+        color: "#fff",
+        border: "none",
+        padding: "10px 16px",
+        borderRadius: "6px",
+        cursor: "pointer",
+      }}
+    >
+      ❌ Remove
+    </button>
+  )}
 </div>
 
 <input
@@ -361,27 +385,6 @@ return (
     borderRadius: "8px",
   }}
 />
-<div
-  style={{
-    marginTop: "10px",
-    marginBottom: "20px",
-  }}
->
-  <button
-    type="button"
-    onClick={() => setImage("")}
-    style={{
-      background: "#dc2626",
-      color: "#fff",
-      border: "none",
-      padding: "10px 16px",
-      borderRadius: "6px",
-      cursor: "pointer",
-    }}
-  >
-    ❌ Remove Image
-  </button>
-</div>
 
 <label>Meta Description</label>
           
