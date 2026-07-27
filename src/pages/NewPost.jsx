@@ -13,6 +13,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import MediaPickerModal from "../components/MediaPickerModal";
 
 function NewPost() {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const UPLOAD_PRESET = "flashnews24";
     ["clean"],
   ],
 };
+  const [showMediaPicker, setShowMediaPicker] = useState(false);
   const [categories, setCategories] = useState([]);
   const [searchParams] = useSearchParams();
 const postId = searchParams.get("id");
@@ -320,6 +322,21 @@ return (
     marginBottom: "20px",
   }}
 />
+          <button
+  type="button"
+  onClick={() => setShowMediaPicker(true)}
+  style={{
+    marginTop: "10px",
+    background: "#2563eb",
+    color: "#fff",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "6px",
+    cursor: "pointer",
+  }}
+>
+  📁 Choose From Media Library
+</button>
  <label>Meta Description</label>
 
 <textarea
@@ -528,6 +545,14 @@ objectFit: "cover",
     </div>
         </div>
       </div>
+      <MediaPickerModal
+  open={showMediaPicker}
+  onClose={() => setShowMediaPicker(false)}
+  onSelect={(url) => {
+    setImage(url);
+    setShowMediaPicker(false);
+  }}
+/>
     </Layout>
   );
 }
