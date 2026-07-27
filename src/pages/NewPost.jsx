@@ -341,7 +341,13 @@ setLoading(false);
   margin: "20px auto"
 }}
 />
-          {showPreview && (
+          const previewHtml = `
+<!-- META_DESCRIPTION:${description} -->
+<!-- META_KEYWORDS:${keywords} -->
+${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>` : ""}
+${content}
+`;
+  {showPreview && (
   <div
     style={{
   width: "100%",
@@ -398,8 +404,7 @@ objectFit: "cover",
 
   whiteSpace: "normal",
 }}
-  dangerouslySetInnerHTML={{ __html: content }}
-/>
+  dangerouslySetInnerHTML={{ __html: previewHtml }}
     }
   </div>
 )}
