@@ -38,9 +38,22 @@ function Preview() {
       )}
 
       <div
-        className="preview-content"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+  className="preview-content"
+  style={{
+    fontSize: "22px",
+    lineHeight: "2",
+    color: "#222",
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    wordBreak: "normal",
+    overflowWrap: "normal",
+    whiteSpace: "normal",
+  }}
+  dangerouslySetInnerHTML={{
+    __html: content
+      .replace(/&nbsp;/g, " ")
+      .replace(/<p><br><\/p>/g, "")
+  }}
+/>
     </div>
   );
 }
