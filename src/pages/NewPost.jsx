@@ -48,7 +48,6 @@ const postId = searchParams.get("id");
     if (!postId) return;
 
     const post = await getPost(postId);
-console.log(post.content);
     setTitle(post.title);
     setCategory(post.labels?.[0] || "World");
     const temp = document.createElement("div");
@@ -60,8 +59,10 @@ if (img) {
   setImage(img.src);
   img.remove(); // Article HTML nundi image remove
 }
-alert(temp.innerHTML.substring(0, 1000));
-setContent(temp.innerHTML);
+const cleanedHtml = temp.innerHTML
+  .replace(/&nbsp;/g, " ");
+
+setContent(cleanedHtml);
 
 setDescription(post.summary || "");
 setSlug(generateSlug(post.title));
@@ -105,8 +106,8 @@ const handleImageUpload = async (e) => {
 
   try {
 const cleanContent = content
-  .replace(/<img[^>]*>/gi, "")
-  .replace(/<\/p>\s*<p>/g, "</p>\n\n<p>");
+  .replace(/&nbsp;/g, " ")
+  .replace(/<img[^>]*>/gi, "");
     const html = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
