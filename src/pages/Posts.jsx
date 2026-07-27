@@ -2,6 +2,8 @@ import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 import { getPosts, deletePost } from "../services/bloggerService";
 import { Link, useNavigate } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 function Posts() {
   const [posts, setPosts] = useState([]);
 const [loading, setLoading] = useState(true);
@@ -33,6 +35,9 @@ const handleEdit = (postId) => {
   async function loadPosts() {
     try {
       const data = await getPosts();
+      const snapshot = await getDocs(collection(db, "posts"));
+
+console.log(snapshot.docs.length);
       setPosts(data);
     } catch (err) {
       console.error(err);
