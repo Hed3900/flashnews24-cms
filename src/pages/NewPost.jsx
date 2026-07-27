@@ -71,11 +71,15 @@ temp.querySelectorAll("p").forEach((p) => {
   }
 });
 
-const cleanedHtml = temp.innerHTML
+const cleanContent = content
   .replace(/&nbsp;/g, " ")
-  .replace(/&#39;/g, "'")
-  .replace(/<br\s*\/?>/gi, "")
   .trim();
+
+const html = `
+<!-- META_DESCRIPTION:${description} -->
+<!-- META_KEYWORDS:${keywords} -->
+${cleanContent}
+`;
 
 setContent(cleanedHtml);
 setDescription(post.summary || "");
