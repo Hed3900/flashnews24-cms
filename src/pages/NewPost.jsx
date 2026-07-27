@@ -321,8 +321,9 @@ return (
     marginTop: "10px",
     marginBottom: "20px",
   }}
+/>
 
-          <button
+<button
   type="button"
   onClick={() => setShowMediaPicker(true)}
   style={{
@@ -337,24 +338,22 @@ return (
 >
   📁 Choose From Media Library
 </button>
-          <button
-  type="button"
-  onClick={() => setImage("")}
+
+<input
+  type="text"
+  value={image}
+  onChange={(e) => setImage(e.target.value)}
+  placeholder="Featured Image URL"
   style={{
-    background: "#dc2626",
-    color: "#fff",
-    border: "none",
-    padding: "10px 16px",
-    borderRadius: "6px",
-    cursor: "pointer",
-    marginLeft: "10px",
+    width: "100%",
+    padding: "12px",
+    marginTop: "15px",
+    marginBottom: "15px",
+    borderRadius: "8px",
   }}
->
-  ❌ Remove Image
-</button>
 />
 
- <label>Meta Description</label>
+<label>Meta Description</label>
 
 <textarea
   value={description}
