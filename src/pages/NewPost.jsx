@@ -376,27 +376,6 @@ objectFit: "cover",
 }}
   dangerouslySetInnerHTML={{ __html: content }}
 />
-    .preview-content p {
-  margin: 0 0 22px 0;
-  line-height: 2;
-}
-
-.preview-content h1,
-.preview-content h2,
-.preview-content h3 {
-  margin-top: 32px;
-  margin-bottom: 16px;
-  line-height: 1.3;
-}
-
-.preview-content ul,
-.preview-content ol {
-  margin: 20px 0;
-  padding-left: 28px;
-}
-
-.preview-content li {
-  margin-bottom: 10px;
     }
   </div>
 )}
