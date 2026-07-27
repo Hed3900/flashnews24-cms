@@ -298,22 +298,41 @@ return (
 
           <label>Featured Image</label>
 
-{image && (
-  <img
-    src={image}
-    alt={title}
-    style={{
-      width: "100%",
-      maxWidth: "900px",
-      height: "350px",
-      objectFit: "cover",
-      display: "block",
-      margin: "20px auto",
-      borderRadius: "12px",
-      boxShadow: "0 4px 12px rgba(0,0,0,.15)",
-    }}
-  />
-)}
+<div
+  style={{
+    width: "100%",
+    height: "350px",
+    border: "2px dashed #334155",
+    borderRadius: "12px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "20px auto",
+    overflow: "hidden",
+    background: "#111827",
+  }}
+>
+  {image ? (
+    <img
+      src={image}
+      alt={title}
+      style={{
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+      }}
+    />
+  ) : (
+    <span
+      style={{
+        color: "#94a3b8",
+        fontSize: "18px",
+      }}
+    >
+      📷 No Featured Image Selected
+    </span>
+  )}
+</div>
 
 <div
   style={{
