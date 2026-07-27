@@ -95,6 +95,7 @@ const handleImageUpload = async (e) => {
   }
 };
   const handlePublish = async () => {
+    console.log(content);
   if (!title || !content) {
     alert("Please enter headline and article content.");
     return;
