@@ -352,24 +352,30 @@ return (
     borderRadius: "8px",
   }}
 />
-<button
-  type="button"
-  onClick={() => setImage("")}
+<div
   style={{
-    background: "#dc2626",
-    color: "#fff",
-    border: "none",
-    padding: "10px 16px",
-    borderRadius: "6px",
-    cursor: "pointer",
-    marginLeft: "10px",
+    marginTop: "10px",
+    marginBottom: "20px",
   }}
 >
-  ❌ Remove Image
-</button>
-          
-<label>Meta Description</label>
+  <button
+    type="button"
+    onClick={() => setImage("")}
+    style={{
+      background: "#dc2626",
+      color: "#fff",
+      border: "none",
+      padding: "10px 16px",
+      borderRadius: "6px",
+      cursor: "pointer",
+    }}
+  >
+    ❌ Remove Image
+  </button>
+</div>
 
+<label>Meta Description</label>
+          
 <textarea
   value={description}
   onChange={(e) => setDescription(e.target.value)}
