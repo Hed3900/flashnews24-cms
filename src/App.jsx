@@ -6,6 +6,7 @@ import Categories from "./pages/Categories";
 import Authors from "./pages/Authors";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
+import Preview from "./pages/Preview";
 
 function App() {
 const role = localStorage.getItem("role");
@@ -35,6 +36,7 @@ const role = localStorage.getItem("role");
     path="/settings"
     element={role === "admin" ? <Settings /> : <Dashboard />}
   />
+      <Route path="/preview" element={<Preview />} />
 </Routes>
   );
 }
