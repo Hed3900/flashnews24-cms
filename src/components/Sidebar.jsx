@@ -11,16 +11,17 @@ function Sidebar() {
 
       <nav>
         <NavLink to="/">Dashboard</NavLink><br />
-        <NavLink to="/posts">Posts</NavLink><br />
-        <NavLink to="/new-post">New Post</NavLink><br />
+<NavLink to="/posts">Posts</NavLink><br />
+<NavLink to="/new-post">New Post</NavLink><br />
+<NavLink to="/drafts">Drafts</NavLink><br />
 
-        {role === "admin" && (
-          <>
-            <NavLink to="/authors">Authors</NavLink><br />
-            <NavLink to="/categories">Categories</NavLink><br />
-            <NavLink to="/settings">Settings</NavLink>
-          </>
-        )}
+{role === "admin" && (
+  <>
+    <NavLink to="/authors">Authors</NavLink><br />
+    <NavLink to="/categories">Categories</NavLink><br />
+    <NavLink to="/settings">Settings</NavLink>
+  </>
+)}
       </nav>
     </aside>
   );
