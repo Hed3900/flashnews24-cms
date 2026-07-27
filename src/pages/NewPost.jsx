@@ -296,33 +296,26 @@ return (
   ))}
 </select>
 
-          <label>Featured Image URL</label>
+          <label>Featured Image</label>
 
-          <img
-  src={image}
-  alt={title}
-  style={{
-    width: "100%",
-    maxWidth: "900px",
-    height: "350px",
-    objectFit: "cover",
-    display: "block",
-    margin: "20px auto",
-    borderRadius: "12px",
-    boxShadow: "0 4px 12px rgba(0,0,0,.15)"
-  }}
-/>
-          <div
-  style={{
-    display: "flex",
-    gap: "10px",
-    alignItems: "center",
-    marginTop: "10px",
-    marginBottom: "20px",
-    flexWrap: "wrap",
-  }}
->
-  <div
+{image && (
+  <img
+    src={image}
+    alt={title}
+    style={{
+      width: "100%",
+      maxWidth: "900px",
+      height: "350px",
+      objectFit: "cover",
+      display: "block",
+      margin: "20px auto",
+      borderRadius: "12px",
+      boxShadow: "0 4px 12px rgba(0,0,0,.15)",
+    }}
+  />
+)}
+
+<div
   style={{
     display: "flex",
     gap: "10px",
@@ -336,7 +329,9 @@ return (
     type="file"
     accept="image/*"
     onChange={handleImageUpload}
-    style={{ flex: 1 }}
+    style={{
+      flex: 1,
+    }}
   />
 
   <button
@@ -372,19 +367,20 @@ return (
   )}
 </div>
 
-<input
-  type="text"
-  value={image}
-  onChange={(e) => setImage(e.target.value)}
-  placeholder="Featured Image URL"
-  style={{
-    width: "100%",
-    padding: "12px",
-    marginTop: "15px",
-    marginBottom: "15px",
-    borderRadius: "8px",
-  }}
-/>
+{image && (
+  <input
+    type="text"
+    value={image}
+    onChange={(e) => setImage(e.target.value)}
+    placeholder="Featured Image URL"
+    style={{
+      width: "100%",
+      padding: "12px",
+      marginBottom: "20px",
+      borderRadius: "8px",
+    }}
+  />
+)}
 
 <label>Meta Description</label>
           
