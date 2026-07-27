@@ -62,38 +62,45 @@ const postId = searchParams.get("id");
     }));
 
     setCategories(data);
-
-    if (data.length > 0 && !category) {
-      setCategory(data[0].name);
-    }
   }
 
   loadCategories();
 }, []);
 
-// Featured image remove
-const img = temp.querySelector("img");
-if (img) {
-  setImage(img.src);
- img.remove();
-}
+useEffect(() => {
+  async function loadPost() {
+    if (!postId) return;
 
-// Empty tags remove
-temp.querySelectorAll("p").forEach((p) => {
-  if (!p.textContent.trim() && !p.querySelector("img")) {
-    p.remove();
-  }
-});
+    const post = await getPost(postId);
 
-const cleanedHtml = temp.innerHTML
-  .replace(/&nbsp;/g, " ")
-  .replace(/&#39;/g, "'")
-  .replace(/<br\s*\/?>/gi, "")
-  .trim();
+    setTitle(post.title);
+    setCategory(post.labels?.[0] || "World");
 
-setContent(cleanedHtml);
-setDescription(post.summary || "");
-setSlug(generateSlug(post.title));
+    const temp = document.createElement("div");
+    temp.innerHTML = post.content;
+
+    // 👇 Ikkadi nundi nee existing code
+    const img = temp.querySelector("img");
+    if (img) {
+      setImage(img.src);
+      img.remove();
+    }
+
+    temp.querySelectorAll("p").forEach((p) => {
+      if (!p.textContent.trim() && !p.querySelector("img")) {
+        p.remove();
+      }
+    });
+
+    const cleanedHtml = temp.innerHTML
+      .replace(/&nbsp;/g, " ")
+      .replace(/&#39;/g, "'")
+      .replace(/<br\s*\/?>/gi, "")
+      .trim();
+
+    setContent(cleanedHtml);
+    setDescription(post.summary || "");
+    setSlug(generateSlug(post.title));
   }
 
   loadPost();
