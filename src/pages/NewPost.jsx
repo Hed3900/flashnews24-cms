@@ -7,7 +7,10 @@ import "react-quill-new/dist/quill.snow.css";
 import { useRef } from "react";
 import { db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+
 function NewPost() {
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
 const CLOUD_NAME = "ye80kxro";
@@ -439,7 +442,16 @@ objectFit: "cover",
   : (postId ? "Update" : "Publish")}
             </button>
             <button
-  onClick={() => setShowPreview(!showPreview)}
+  onClick={() =>
+  navigate("/preview", {
+    state: {
+      title,
+      description,
+      image,
+      content,
+    },
+  })
+  }
   style={{
     background: "#f59e0b",
     color: "white",
@@ -449,7 +461,7 @@ objectFit: "cover",
     marginRight: "10px",
   }}
 >
-  {showPreview ? "Hide Preview" : "Preview"}
+  Preview
 </button>
     </div>
         </div>
