@@ -107,7 +107,10 @@ const handleImageUpload = async (e) => {
   try {
 const cleanContent = content
   .replace(/&nbsp;/g, " ")
-  .replace(/<img[^>]*>/gi, "");
+  .replace(/<img[^>]*>/gi, "")
+  .replace(/\n+/g, " ")
+  .replace(/\s{2,}/g, " ")
+  .trim();
     const html = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
@@ -382,10 +385,7 @@ objectFit: "cover",
   fontFamily: 'Georgia, "Times New Roman", serif',
   letterSpacing: "0.2px",
 
-  overflowWrap: "break-word",
-  wordBreak: "break-word",
   whiteSpace: "normal",
-  overflow: "hidden",
 }}
   dangerouslySetInnerHTML={{ __html: content }}
 />
