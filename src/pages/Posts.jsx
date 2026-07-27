@@ -7,7 +7,9 @@ import {
   collection,
   getDocs,
   query,
-  where
+  where,
+  doc,
+  deleteDoc,
 } from "firebase/firestore";
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -18,14 +20,21 @@ const [loading, setLoading] = useState(true);
 const handleEdit = (postId) => {
   navigate(`/new-post?id=${postId}`);
 };
-  const handleDelete = async (postId) => {
+  const handleDelete = async (post) => {
   const ok = window.confirm("Are you sure you want to delete this post?");
   if (!ok) return;
 
   try {
-    await deletePost(postId);
+    // Delete from Blogger only if it has a Blogger post ID
+    if (post.bloggerPostId) {
+      await deletePost(post.bloggerPostId);
+    }
 
-    setPosts((prev) => prev.filter((post) => post.id !== postId));
+    // Delete from Firestore
+    await deleteDoc(doc(db, "posts", post.id));
+
+    // Update UI
+    setPosts((prev) => prev.filter((p) => p.id !== post.id));
 
     alert("Post deleted successfully!");
   } catch (err) {
@@ -199,7 +208,7 @@ const handleEdit = (postId) => {
 </button>
 
           <button
-onClick={() => handleDelete(post.bloggerPostId)}
+onClick={() => handleDelete(post)}
   style={{
     background: "#dc2626",
     color: "white",
