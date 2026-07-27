@@ -399,6 +399,7 @@ objectFit: "cover",
   whiteSpace: "normal",
 }}
   dangerouslySetInnerHTML={{ __html: previewHtml }}
+  }
   </div>
 )}
           <div style={{ marginTop: "20px" }}>
