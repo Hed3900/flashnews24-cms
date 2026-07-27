@@ -363,19 +363,18 @@ objectFit: "cover",
       />
     )}
 
-    <div
-  className="preview-content"
+<pre
   style={{
-  width: "100%",
-  marginTop: "24px",
-  fontSize: "20px",
-  lineHeight: "2",
-  color: "#222",
-  fontFamily: 'Georgia, "Times New Roman", serif',
-  letterSpacing: "0.2px",
-}}
-  dangerouslySetInnerHTML={{ __html: content }}
-/>
+    whiteSpace: "pre-wrap",
+    wordBreak: "break-word",
+    color: "#000",
+    background: "#f5f5f5",
+    padding: "15px",
+    fontSize: "14px",
+  }}
+>
+  {content}
+</pre>
     }
   </div>
 )}
