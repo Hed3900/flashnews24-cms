@@ -53,26 +53,28 @@ const postId = searchParams.get("id");
     setCategory(post.labels?.[0] || "World");
     const temp = document.createElement("div");
 temp.innerHTML = post.content;
-temp.innerHTML = temp.innerHTML
-  .replace(/&nbsp;/g, " ")
-  .replace(/<br\s*\/?>/gi, "")
-  .replace(/<p>\s*<\/p>/gi, "")
-  .trim();
-const img = temp.querySelector("img");
 
+// Featured image remove
+const img = temp.querySelector("img");
 if (img) {
   setImage(img.src);
-  img.remove(); // Article HTML nundi image remove
+  img.remove();
 }
+
+// Empty tags remove
+temp.querySelectorAll("p").forEach((p) => {
+  if (!p.textContent.trim() && !p.querySelector("img")) {
+    p.remove();
+  }
+});
+
 const cleanedHtml = temp.innerHTML
   .replace(/&nbsp;/g, " ")
+  .replace(/&#39;/g, "'")
   .replace(/<br\s*\/?>/gi, "")
-  .replace(/<p>\s*<\/p>/gi, "")
-  .replace(/\s{2,}/g, " ")
   .trim();
 
 setContent(cleanedHtml);
-
 setDescription(post.summary || "");
 setSlug(generateSlug(post.title));
   }
