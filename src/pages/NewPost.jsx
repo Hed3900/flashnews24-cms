@@ -371,14 +371,19 @@ objectFit: "cover",
 <div
   className="preview-content"
   style={{
-    width: "100%",
-    marginTop: "24px",
-    fontSize: "20px",
-    lineHeight: "2",
-    color: "#222",
-    fontFamily: 'Georgia, "Times New Roman", serif',
-    letterSpacing: "0.2px",
-  }}
+  width: "100%",
+  marginTop: "24px",
+  fontSize: "20px",
+  lineHeight: "2",
+  color: "#222",
+  fontFamily: 'Georgia, "Times New Roman", serif',
+  letterSpacing: "0.2px",
+
+  overflowWrap: "break-word",
+  wordBreak: "break-word",
+  whiteSpace: "normal",
+  overflow: "hidden",
+}}
   dangerouslySetInnerHTML={{ __html: content }}
 />
     }
