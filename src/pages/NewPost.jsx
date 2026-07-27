@@ -108,14 +108,15 @@ const cleanContent = content.replace(/<img[^>]*>/gi, "");
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
 ${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>` : ""}
-${cleanContent.replace(/\n/g, "<br/>")}
+${cleanContent}
 `;
     let response;
 
 if (postId) {
-  await updatePost(postId, title, html, [category]);
+  response = await updatePost(postId, title, html, [category]);
 } else {
-  const response = await publishPost(title, html, [category]);
+  response = await publishPost(title, html, [category]);
+}
 
   const email = localStorage.getItem("email");
   const name = localStorage.getItem("name");
@@ -363,18 +364,19 @@ objectFit: "cover",
       />
     )}
 
-<pre
+<div
+  className="preview-content"
   style={{
-    whiteSpace: "pre-wrap",
-    wordBreak: "break-word",
-    color: "#000",
-    background: "#f5f5f5",
-    padding: "15px",
-    fontSize: "14px",
+    width: "100%",
+    marginTop: "24px",
+    fontSize: "20px",
+    lineHeight: "2",
+    color: "#222",
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    letterSpacing: "0.2px",
   }}
->
-  {content}
-</pre>
+  dangerouslySetInnerHTML={{ __html: content }}
+/>
     }
   </div>
 )}
