@@ -16,6 +16,10 @@ function Posts() {
 const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
+
+const POSTS_PER_PAGE = 10;
+const [currentPage, setCurrentPage] = useState(1);
 
 const handleEdit = (postId) => {
   navigate(`/new-post?id=${postId}`);
@@ -94,6 +98,12 @@ const handleEdit = (postId) => {
     post.authorName?.toLowerCase().includes(text)
   );
 });
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+
+const paginatedPosts = filteredPosts.slice(
+  (currentPage - 1) * POSTS_PER_PAGE,
+  currentPage * POSTS_PER_PAGE
+);
   return (
     <Layout>
       <h2 style={{ color: "white", padding: "20px" }}>Posts</h2>
@@ -128,7 +138,10 @@ const handleEdit = (postId) => {
   type="text"
   placeholder="Search posts..."
   value={search}
-  onChange={(e) => setSearch(e.target.value)}
+  onChange={(e) => {
+  setSearch(e.target.value);
+  setCurrentPage(1);
+}}
   style={{
     width: "100%",
     padding: "12px",
@@ -171,7 +184,7 @@ const handleEdit = (postId) => {
       </td>
     </tr>
   ) : (
-    filteredPosts.map((post) => (
+    paginatedPosts.map((post) => (
       <tr key={post.id}>
         <td style={{ padding: "12px" }}>{post.title}</td>
 
@@ -226,6 +239,33 @@ onClick={() => handleDelete(post)}
   )}
 </tbody>
 </table>
+      <div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "10px",
+    marginTop: "20px",
+  }}
+>
+  <button
+    disabled={currentPage === 1}
+    onClick={() => setCurrentPage((p) => p - 1)}
+  >
+    Previous
+  </button>
+
+  <span style={{ color: "white" }}>
+    Page {currentPage} of {totalPages || 1}
+  </span>
+
+  <button
+    disabled={currentPage === totalPages || totalPages === 0}
+    onClick={() => setCurrentPage((p) => p + 1)}
+  >
+    Next
+  </button>
+</div>
     </Layout>
   );
 }
