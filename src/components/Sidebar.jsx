@@ -14,6 +14,7 @@ function Sidebar() {
 <NavLink to="/posts">Posts</NavLink><br />
 <NavLink to="/new-post">New Post</NavLink><br />
 <NavLink to="/drafts">Drafts</NavLink><br />
+        <NavLink to="/media">Media Library</NavLink><br />
 
 {role === "admin" && (
   <>
