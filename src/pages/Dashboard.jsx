@@ -16,33 +16,34 @@ function Dashboard() {
 });
 
   useEffect(() => {
-    async function loadDashboard() {
-      try {
-  const postsSnap = await getDocs(collection(db, "posts"));
-  const categoriesSnap = await getDocs(collection(db, "categories"));
-  const usersSnap = await getDocs(collection(db, "users"));
+  async function loadDashboard() {
+    try {
+      const postsSnap = await getDocs(collection(db, "posts"));
+      const categoriesSnap = await getDocs(collection(db, "categories"));
+      const usersSnap = await getDocs(collection(db, "users"));
 
-  const data = postsSnap.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+      const data = postsSnap.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-  setPosts(data);
+      setPosts(data);
 
-  setStats({
-    totalPosts: data.length,
-    published: data.filter((p) => p.status === "published").length,
-    drafts: data.filter((p) => p.status === "draft").length,
-    categories: categoriesSnap.size,
-    authors: usersSnap.size,
-  });
+      setStats({
+        totalPosts: data.length,
+        published: data.filter((p) => p.status === "published").length,
+        drafts: data.filter((p) => p.status === "draft").length,
+        categories: categoriesSnap.size,
+        authors: usersSnap.size,
+      });
 
-} catch (err) {
-  console.error(err);
-      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
-    loadDashboard();
-  }, []);
+  loadDashboard();
+}, []);
 
 const categories = [
   ...new Set(posts.map((post) => post.category).filter(Boolean)),
