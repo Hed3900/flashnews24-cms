@@ -329,7 +329,40 @@ return (
         fontSize: "18px",
       }}
     >
-      📷 No Featured Image Selected
+      <div
+  style={{
+    textAlign: "center",
+    color: "#94a3b8",
+  }}
+>
+  <div
+    style={{
+      fontSize: "60px",
+      marginBottom: "10px",
+    }}
+  >
+    📷
+  </div>
+
+  <h3
+    style={{
+      margin: 0,
+      color: "#cbd5e1",
+    }}
+  >
+    No Featured Image
+  </h3>
+
+  <p
+    style={{
+      marginTop: "8px",
+      fontSize: "14px",
+      color: "#94a3b8",
+    }}
+  >
+    Upload an image or choose one from the Media Library
+  </p>
+</div>
     </span>
   )}
 </div>
