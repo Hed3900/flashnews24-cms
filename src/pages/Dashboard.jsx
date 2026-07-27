@@ -137,6 +137,35 @@ return (
   </div>
 </div>
         <div
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "10px",
+    minHeight: "120px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  }}
+>
+  <h3>Today's Posts</h3>
+  <h1>0</h1>
+</div>
+
+<div
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "10px",
+    minHeight: "120px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  }}
+>
+  <h3>Total Views</h3>
+  <h1>Coming Soon</h1>
+</div>
+        <div
           style={{
             background: "#1e293b",
             marginTop: "30px",
