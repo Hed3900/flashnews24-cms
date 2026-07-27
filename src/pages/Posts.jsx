@@ -39,7 +39,12 @@ const handleEdit = (postId) => {
 
 alert("Firestore posts: " + snapshot.docs.length);
 
-setPosts(data);
+const firestorePosts = snapshot.docs.map(doc => ({
+  id: doc.id,
+  ...doc.data(),
+}));
+
+setPosts(firestorePosts);
     } catch (err) {
       console.error(err);
       alert(
