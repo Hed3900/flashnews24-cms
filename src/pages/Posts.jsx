@@ -147,7 +147,11 @@ setPosts(firestorePosts);
         </td>
 
         <td style={{ padding: "12px" }}>
-          {new Date(post.createdAt).toLocaleDateString()}
+          {
+  post.createdAt?.toDate
+    ? post.createdAt.toDate().toLocaleDateString()
+    : new Date(post.createdAt).toLocaleDateString()
+}
         </td>
 
         <td style={{ padding: "12px" }}>
