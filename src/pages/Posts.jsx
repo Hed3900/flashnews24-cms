@@ -16,7 +16,6 @@ function Posts() {
 const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [search, setSearch] = useState("");
 
 const POSTS_PER_PAGE = 10;
 const [currentPage, setCurrentPage] = useState(1);
