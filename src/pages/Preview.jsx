@@ -25,18 +25,6 @@ function Preview() {
         {description}
       </p>
 
-      {image && (
-        <img
-          src={image}
-          alt={title}
-          style={{
-            width: "100%",
-            borderRadius: "12px",
-            marginBottom: "20px",
-          }}
-        />
-      )}
-
       <div
   className="preview-content"
   style={{
