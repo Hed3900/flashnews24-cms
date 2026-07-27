@@ -341,12 +341,6 @@ setLoading(false);
   margin: "20px auto"
 }}
 />
-          const previewHtml = `
-<!-- META_DESCRIPTION:${description} -->
-<!-- META_KEYWORDS:${keywords} -->
-${image ? `<img src="${image}" style="max-width:100%;height:auto;" /><br/><br/>` : ""}
-${content}
-`;
   {showPreview && (
   <div
     style={{
