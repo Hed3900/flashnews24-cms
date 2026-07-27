@@ -60,7 +60,7 @@ if (img) {
   setImage(img.src);
   img.remove(); // Article HTML nundi image remove
 }
-
+alert(temp.innerHTML.substring(0, 1000));
 setContent(temp.innerHTML);
 
 setDescription(post.summary || "");
