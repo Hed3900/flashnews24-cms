@@ -61,7 +61,7 @@ temp.innerHTML = post.content;
 const img = temp.querySelector("img");
 if (img) {
   setImage(img.src);
-//  img.remove();
+ img.remove();
 }
 
 // Empty tags remove
