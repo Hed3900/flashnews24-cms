@@ -197,7 +197,7 @@ if (postId) {
 const email = localStorage.getItem("email");
 const name = localStorage.getItem("name");
 
-const bloggerPostId = postId || response.result.id;
+const bloggerPostId = response.result.id;
 
 await setDoc(doc(db, "posts", bloggerPostId), {
   bloggerPostId,
