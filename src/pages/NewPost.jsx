@@ -103,7 +103,9 @@ const handleImageUpload = async (e) => {
   setLoading(true);
 
   try {
-const cleanContent = content.replace(/<img[^>]*>/gi, "");
+const cleanContent = content
+  .replace(/<img[^>]*>/gi, "")
+  .replace(/<\/p>\s*<p>/g, "</p>\n\n<p>");
     const html = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
