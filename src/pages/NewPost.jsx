@@ -329,12 +329,13 @@ setLoading(false);
   <div
     style={{
   width: "100%",
-  maxWidth: "1000px",
+  maxWidth: "100%",
   margin: "30px auto",
   background: "#fff",
-  padding: "40px",
+  padding: "20px",
   borderRadius: "12px",
   boxSizing: "border-box",
+  overflow: "hidden",
 }}
   >
     <h1
