@@ -18,6 +18,8 @@ const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 const [categoryFilter, setCategoryFilter] = useState("");
+const [selectedPosts, setSelectedPosts] = useState([]);
+
 
 const POSTS_PER_PAGE = 10;
 const [currentPage, setCurrentPage] = useState(1);
@@ -148,7 +150,21 @@ const paginatedPosts = filteredPosts.slice(
   </button>
 </Link>
 </div>
+{selectedPosts.length > 0 && (
+  <div
+    style={{
+      display: "flex",
+      gap: "10px",
+      marginBottom: "20px",
+    }}
+  >
+    <button>🗑 Delete Selected</button>
 
+    <button>✅ Publish Selected</button>
+
+    <button>📦 Move to Draft</button>
+  </div>
+)}
 <input
   type="text"
   placeholder="Search posts..."
@@ -227,6 +243,18 @@ const paginatedPosts = filteredPosts.slice(
 >
   <thead>
     <tr>
+      <th style={{ padding: "12px" }}>
+  <input
+    type="checkbox"
+    onChange={(e) => {
+      if (e.target.checked) {
+        setSelectedPosts(paginatedPosts.map((p) => p.id));
+      } else {
+        setSelectedPosts([]);
+      }
+    }}
+  />
+</th>
 <th style={{ padding: "12px", textAlign: "left" }}>Image</th>
 <th style={{ padding: "12px", textAlign: "left" }}>Title</th>
       <th>Category</th>
@@ -252,6 +280,22 @@ const paginatedPosts = filteredPosts.slice(
   ) : (
     paginatedPosts.map((post) => (
       <tr key={post.id}>
+<td style={{ padding: "12px" }}>
+  <input
+    type="checkbox"
+    checked={selectedPosts.includes(post.id)}
+    onChange={(e) => {
+      if (e.target.checked) {
+        setSelectedPosts([...selectedPosts, post.id]);
+      } else {
+        setSelectedPosts(
+          selectedPosts.filter((id) => id !== post.id)
+        );
+      }
+    }}
+  />
+</td>
+
   {/* Image */}
   <td style={{ padding: "12px" }}>
     {post.image ? (
