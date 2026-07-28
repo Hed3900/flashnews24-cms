@@ -289,13 +289,63 @@ return (
   )}
 </div>
           
-          <h3>Latest Posts</h3>
+          <div
+  style={{
+    background: "#1e293b",
+    borderRadius: "12px",
+    padding: "20px",
+    marginTop: "20px",
+  }}
+>
+  <h3 style={{ marginBottom: "15px" }}>
+    📰 Recent Posts
+  </h3>
 
-          {posts.slice(0, 5).map((post) => (
-  <p key={post.id}>
-    • {post.title || post.headline}
-  </p>
-))}
+  <table
+    style={{
+      width: "100%",
+      borderCollapse: "collapse",
+      color: "white",
+    }}
+  >
+    <thead>
+      <tr
+        style={{
+          borderBottom: "1px solid #334155",
+        }}
+      >
+        <th align="left">Title</th>
+        <th>Status</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {recentPosts.map((post) => (
+        <tr
+          key={post.id}
+          style={{
+            borderBottom: "1px solid #334155",
+          }}
+        >
+          <td style={{ padding: "12px 0" }}>
+            {post.title}
+          </td>
+
+          <td align="center">
+            {post.status === "published"
+              ? "🟢 Published"
+              : "🟡 Draft"}
+          </td>
+
+          <td align="center">
+            {post.category || "-"}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
         </div>
 
         <div style={{ marginTop: "30px" }}>
