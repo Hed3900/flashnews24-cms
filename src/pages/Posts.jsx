@@ -161,7 +161,8 @@ const paginatedPosts = filteredPosts.slice(
 >
   <thead>
     <tr>
-      <th style={{ padding: "12px", textAlign: "left" }}>Title</th>
+<th style={{ padding: "12px", textAlign: "left" }}>Image</th>
+<th style={{ padding: "12px", textAlign: "left" }}>Title</th>
       <th>Category</th>
       <th>Status</th>
       <th>Date</th>
@@ -173,7 +174,20 @@ const paginatedPosts = filteredPosts.slice(
   <tbody>
   {loading ? (
     <tr>
-      <td>
+      <td colSpan="6" style={{ padding: "20px", textAlign: "center" }}>
+        Loading...
+      </td>
+    </tr>
+  ) : filteredPosts.length === 0 ? (
+    <tr>
+      <td colSpan="6" style={{ padding: "20px", textAlign: "center" }}>
+        No posts found
+      </td>
+    </tr>
+  ) : (
+    paginatedPosts.map((post) => (
+      <tr key={post.id}>
+        <td style={{ padding: "12px" }}>
   <img
     src={
       post.image ||
@@ -189,20 +203,6 @@ const paginatedPosts = filteredPosts.slice(
     }}
   />
 </td>
-      <td colSpan="5" style={{ padding: "20px", textAlign: "center" }}>
-        Loading...
-      </td>
-    </tr>
-  ) : filteredPosts.length === 0 ? (
-    <tr>
-      <td colSpan="5" style={{ padding: "20px", textAlign: "center" }}>
-        No posts found
-      </td>
-    </tr>
-  ) : (
-    paginatedPosts.map((post) => (
-      <tr key={post.id}>
-        <td style={{ padding: "12px" }}>{post.title}</td>
 
         <td style={{ padding: "12px" }}>
           {post.category || "-"}
