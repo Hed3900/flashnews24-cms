@@ -387,3 +387,29 @@ font-size:28px;
 line-height:1.9;
 font-size:18px;
 }
+.logout-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  box-shadow: 0 8px 18px rgba(239, 68, 68, 0.45);
+}
+
+.logout-btn:active {
+  transform: scale(0.96);
+}
+
+.logout-btn:focus {
+  outline: none;
+}
