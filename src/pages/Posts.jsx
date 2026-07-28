@@ -10,6 +10,7 @@ import {
   where,
   doc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -159,49 +160,139 @@ const paginatedPosts = filteredPosts.slice(
     }}
   >
     <button
-style={{
-  background: "#dc2626",
-  color: "#fff",
-  border: "none",
-  padding: "8px 14px",
-  borderRadius: "6px",
-  marginRight: "8px",
-  cursor: "pointer",
-  fontWeight: "600",
-}}
-    >
-    🗑 Delete Selected
-  </button>
+  type="button"
+  onClick={async () => {
+    if (selectedPosts.length === 0) {
+      alert("Please select at least one post.");
+      return;
+    }
 
-    <button
-      style={{
-  background: "#dc2626",
-  color: "#fff",
-  border: "none",
-  padding: "8px 14px",
-  borderRadius: "6px",
-  marginRight: "8px",
-  cursor: "pointer",
-  fontWeight: "600",
-}}
-      >
-      ✅ Publish Selected
-    </button>
+    const ok = window.confirm(
+      `Delete ${selectedPosts.length} selected post(s)?`
+    );
 
-    <button
+    if (!ok) return;
+
+    try {
+      for (const id of selectedPosts) {
+        const post = posts.find((p) => p.id === id);
+
+        if (post?.bloggerPostId) {
+          await deletePost(post.bloggerPostId);
+        }
+
+        await deleteDoc(doc(db, "posts", id));
+      }
+
+      setPosts(posts.filter((p) => !selectedPosts.includes(p.id)));
+      setSelectedPosts([]);
+
+      alert("Selected posts deleted successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete selected posts.");
+    }
+  }}
   style={{
-  background: "#dc2626",
-  color: "#fff",
-  border: "none",
-  padding: "8px 14px",
-  borderRadius: "6px",
-  marginRight: "8px",
-  cursor: "pointer",
-  fontWeight: "600",
-}}
-      >
+    background: "#dc2626",
+    color: "#fff",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "600",
+    marginRight: "10px",
+  }}
+>
+  🗑 Delete Selected
+</button>
+
+    <button
+  type="button"
+  onClick={async () => {
+    if (selectedPosts.length === 0) {
+      alert("Please select at least one post.");
+      return;
+    }
+
+    try {
+      for (const id of selectedPosts) {
+        await updateDoc(doc(db, "posts", id), {
+          status: "published",
+        });
+      }
+
+      setPosts(
+        posts.map((post) =>
+          selectedPosts.includes(post.id)
+            ? { ...post, status: "published" }
+            : post
+        )
+      );
+
+      setSelectedPosts([]);
+      alert("Selected posts published successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to publish selected posts.");
+    }
+  }}
+  style={{
+    background: "#16a34a",
+    color: "#fff",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "600",
+    marginRight: "10px",
+  }}
+>
+  ✅ Publish Selected
+</button>
+
+    <button
+  type="button"
+  onClick={async () => {
+    if (selectedPosts.length === 0) {
+      alert("Please select at least one post.");
+      return;
+    }
+
+    try {
+      for (const id of selectedPosts) {
+        await updateDoc(doc(db, "posts", id), {
+          status: "draft",
+        });
+      }
+
+      setPosts(
+        posts.map((post) =>
+          selectedPosts.includes(post.id)
+            ? { ...post, status: "draft" }
+            : post
+        )
+      );
+
+      setSelectedPosts([]);
+      alert("Selected posts moved to draft!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to move posts.");
+    }
+  }}
+  style={{
+    background: "#f59e0b",
+    color: "#fff",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "600",
+  }}
+>
   📦 Move to Draft
-    </button>
+</button>
   </div>
 )}
 <input
