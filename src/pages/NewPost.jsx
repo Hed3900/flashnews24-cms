@@ -188,12 +188,119 @@ const cleanContent = content
   .replace(/&nbsp;/g, " ")
   .trim();
     const html = `
-<!-- META_DESCRIPTION:${description} -->
-<!-- META_KEYWORDS:${keywords} -->
+<div class="fn24-article">
 
-${image ? `<img src="${image}" alt="${title}" style="width:100%;max-width:100%;height:auto;border-radius:8px;margin-bottom:20px;" />` : ""}
+${image ? `
+<div class="fn24-cover">
+<img src="${image}" alt="${title}" />
+</div>
+` : ""}
 
+<h1 class="fn24-h1">${title}</h1>
+
+<div class="fn24-meta">
+<span>📰 News DESK</span>
+<span>•</span>
+<span>${new Date().toLocaleDateString()}</span>
+<span>•</span>
+<span>5 min read</span>
+</div>
+
+${description ? `
+<div class="fn24-summary">
+${description}
+</div>
+` : ""}
+
+<div class="fn24-content">
 ${cleanContent}
+</div>
+
+<hr>
+
+<div class="fn24-share">
+<a href="https://www.facebook.com/sharer/sharer.php?u=">Facebook</a> |
+<a href="https://twitter.com/intent/tweet">X</a> |
+<a href="https://api.whatsapp.com/send">WhatsApp</a> |
+<a href="https://t.me/share/url">Telegram</a>
+</div>
+
+<style>
+
+.fn24-cover img{
+width:100%;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+.fn24-h1{
+color:#d50000;
+font-size:38px;
+font-weight:800;
+line-height:1.3;
+margin:15px 0;
+}
+
+.fn24-h2,
+.fn24-content h2{
+color:#d50000;
+font-size:28px;
+font-weight:700;
+margin-top:35px;
+border-left:5px solid #d50000;
+padding-left:12px;
+}
+
+.fn24-content h3{
+color:#111;
+font-size:22px;
+font-weight:700;
+}
+
+.fn24-content p{
+font-size:18px;
+line-height:1.9;
+margin:18px 0;
+color:#333;
+}
+
+.fn24-content img{
+width:100%;
+border-radius:10px;
+margin:20px 0;
+}
+
+.fn24-meta{
+display:flex;
+gap:12px;
+font-size:14px;
+color:#777;
+margin-bottom:18px;
+flex-wrap:wrap;
+}
+
+.fn24-summary{
+background:#fff4f4;
+border-left:5px solid red;
+padding:15px;
+border-radius:8px;
+font-size:18px;
+margin-bottom:20px;
+}
+
+.fn24-share{
+margin-top:30px;
+font-size:17px;
+font-weight:bold;
+}
+
+.fn24-share a{
+margin-right:18px;
+text-decoration:none;
+color:#d50000;
+}
+
+</style>
 `;
     let response;
 
