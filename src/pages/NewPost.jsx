@@ -191,6 +191,8 @@ const cleanContent = content
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
 
+${image ? `<img src="${image}" alt="${title}" style="width:100%;max-width:100%;height:auto;border-radius:8px;margin-bottom:20px;" />` : ""}
+
 ${cleanContent}
 `;
     let response;
@@ -208,22 +210,33 @@ const bloggerPostId = response.result.id;
 const bloggerUrl = response.result.url || "";
 const now = new Date().toISOString();
 
-await setDoc(doc(db, "posts", bloggerPostId), {
-  bloggerPostId,
-  authorEmail: email,
-  authorName: name,
-  title,
-  category,
-  image,
-  description,
-  keywords,
-  slug,
-  content,
-  status: "published",
-  scheduledDate: scheduleDate,
-scheduledTime: scheduleTime,
-  createdAt: new Date().toISOString(),
-});
+await setDoc(
+  doc(db, "posts", bloggerPostId),
+  {
+    bloggerPostId,
+    bloggerUrl,
+    authorEmail: email,
+    authorName: name,
+    title,
+    category,
+    image,
+    description,
+    keywords,
+    slug,
+    content,
+    status: "published",
+    scheduledDate: scheduleDate,
+    scheduledTime: scheduleTime,
+
+    ...(postId
+      ? { updatedAt: now }
+      : {
+          createdAt: now,
+          publishedAt: now,
+        }),
+  },
+  { merge: true }
+);
 
 // migatha code...
 alert(
@@ -258,6 +271,9 @@ setLoading(false);
 const previewHtml = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
+
+${image ? `<img src="${image}" alt="${title}" style="width:100%;max-width:100%;height:auto;border-radius:8px;margin-bottom:20px;" />` : ""}
+
 ${content}
 `;
 
