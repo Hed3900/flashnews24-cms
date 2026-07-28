@@ -185,8 +185,8 @@ style={{
   fontWeight: "600",
 }}
       >
+      ✅ Publish Selected
     </button>
-      ✅ Publish Selected</button>
 
     <button
   style={{
@@ -200,7 +200,8 @@ style={{
   fontWeight: "600",
 }}
       >
-  📦 Move to Draft</button>
+  📦 Move to Draft
+    </button>
   </div>
 )}
 <input
