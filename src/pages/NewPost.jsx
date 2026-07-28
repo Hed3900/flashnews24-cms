@@ -190,7 +190,6 @@ const cleanContent = content
     const html = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
-${image ? `<img src="${image}" alt="${title}" />` : ""}
 
 ${cleanContent}
 `;
