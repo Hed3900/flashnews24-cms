@@ -2,7 +2,7 @@ import React from "react";
 
 function Header() {
   const role = localStorage.getItem("role") || "Author";
-  const username = localStorage.getItem("username") || "Harish";
+  const username = localStorage.getItem("name") || "";
 
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
