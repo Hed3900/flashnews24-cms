@@ -38,8 +38,30 @@ function Header() {
     localStorage.removeItem("role");
     window.location.reload();
   }}
+  style={{
+    background: "linear-gradient(135deg, #ef4444, #dc2626)",
+    color: "#fff",
+    border: "none",
+    padding: "8px 16px",
+    borderRadius: "20px",
+    fontSize: "14px",
+    fontWeight: "600",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(239,68,68,0.35)",
+    transition: "all 0.3s ease"
+  }}
+  onMouseEnter={(e) => {
+    e.target.style.background =
+      "linear-gradient(135deg, #dc2626, #b91c1c)";
+    e.target.style.transform = "translateY(-2px)";
+  }}
+  onMouseLeave={(e) => {
+    e.target.style.background =
+      "linear-gradient(135deg, #ef4444, #dc2626)";
+    e.target.style.transform = "translateY(0)";
+  }}
 >
-  Logout
+  🚪 Logout
 </button>
       </div>
     </header>
