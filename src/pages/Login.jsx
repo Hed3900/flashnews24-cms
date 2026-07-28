@@ -29,6 +29,8 @@ console.log(user);
 
   localStorage.setItem("loggedIn", "true");
   localStorage.setItem("role", user.role);
+    localStorage.setItem("role", author.role);
+localStorage.setItem("username", author.name);
   localStorage.setItem("email", user.email);
   localStorage.setItem("name", user.name);
 
