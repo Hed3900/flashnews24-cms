@@ -23,7 +23,7 @@ function Header() {
       <div>
         <h2>FlashNews24 CMS</h2>
         <p style={{ color: "#cbd5e1", fontSize: "14px" }}>
-          Welcome back, {username}
+          Welcome back, {localStorage.getItem("username")}
         </p>
       </div>
 
@@ -51,7 +51,9 @@ function Header() {
                 : "0 4px 12px rgba(22,163,74,.35)",
           }}
         >
-          {role === "Admin" ? "👑 Admin" : "✍️ Author"}
+          {localStorage.getItem("role") === "Admin"
+  ? "👑 Admin"
+  : "✍️ Author"}
         </span>
 
         <button
