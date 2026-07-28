@@ -166,17 +166,7 @@ const paginatedPosts = filteredPosts.slice(
   >
     <button>🗑 Delete Selected</button>
 
-    <button>style={{
-  background: "#dc2626",
-  color: "#fff",
-  border: "none",
-  padding: "8px 14px",
-  borderRadius: "6px",
-  marginRight: "8px",
-  cursor: "pointer",
-  fontWeight: "600",
-}}
-✅ Publish Selected</button>
+    <button>✅ Publish Selected</button>
 
     <button>📦 Move to Draft</button>
   </div>
