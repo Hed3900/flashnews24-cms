@@ -189,8 +189,7 @@ const cleanContent = content
   .replace(/<p><br><\/p>/g, "")
   .trim();
     const html = `
-<!-- META_DESCRIPTION:${description} -->
-<!-- META_KEYWORDS:${keywords} -->
+${image ? `<img src="${image}" alt="${title}" style="width:100%;height:auto;border-radius:8px;margin-bottom:20px;" />` : ""}
 
 ${cleanContent}
 `;
