@@ -191,8 +191,6 @@ const cleanContent = content
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
 
-${image ? `<img src="${image}" alt="${title}" />` : ""}
-
 ${cleanContent}
 `;
     let response;
