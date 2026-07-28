@@ -16,6 +16,8 @@ function Posts() {
 const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+const [categoryFilter, setCategoryFilter] = useState("");
 
 const POSTS_PER_PAGE = 10;
 const [currentPage, setCurrentPage] = useState(1);
@@ -88,13 +90,27 @@ const handleEdit = (postId) => {
 
   loadPosts();
 }, []);
+  const categories = [
+  ...new Set(posts.map((post) => post.category).filter(Boolean)),
+];
   const filteredPosts = posts.filter((post) => {
   const text = search.toLowerCase();
 
-  return (
+  const matchesSearch =
     post.title?.toLowerCase().includes(text) ||
     post.category?.toLowerCase().includes(text) ||
-    post.authorName?.toLowerCase().includes(text)
+    post.authorName?.toLowerCase().includes(text);
+
+  const matchesStatus =
+    statusFilter === "" || post.status === statusFilter;
+
+  const matchesCategory =
+    categoryFilter === "" || post.category === categoryFilter;
+
+  return (
+    matchesSearch &&
+    matchesStatus &&
+    matchesCategory
   );
 });
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
@@ -151,6 +167,56 @@ const paginatedPosts = filteredPosts.slice(
     marginBottom: "20px",
   }}
 />
+      <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    marginBottom: "20px",
+    flexWrap: "wrap",
+  }}
+>
+  <select
+    value={statusFilter}
+    onChange={(e) => {
+      setStatusFilter(e.target.value);
+      setCurrentPage(1);
+    }}
+    style={{
+      padding: "10px",
+      borderRadius: "8px",
+      background: "#1e293b",
+      color: "white",
+      border: "1px solid #334155",
+    }}
+  >
+    <option value="">All Status</option>
+    <option value="published">Published</option>
+    <option value="draft">Draft</option>
+  </select>
+
+  <select
+    value={categoryFilter}
+    onChange={(e) => {
+      setCategoryFilter(e.target.value);
+      setCurrentPage(1);
+    }}
+    style={{
+      padding: "10px",
+      borderRadius: "8px",
+      background: "#1e293b",
+      color: "white",
+      border: "1px solid #334155",
+    }}
+  >
+    <option value="">All Categories</option>
+
+    {categories.map((cat) => (
+      <option key={cat} value={cat}>
+        {cat}
+      </option>
+    ))}
+  </select>
+</div>
       <table
   style={{
     width: "100%",
