@@ -95,6 +95,7 @@ return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
         <h2>Dashboard</h2>
+        
         <div
   style={{
     background: "#1e293b",
@@ -229,6 +230,65 @@ return (
             borderRadius: "10px",
           }}
         >
+          <div
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "10px",
+    marginTop: "20px",
+  }}
+>
+  <h3 style={{ marginBottom: "15px" }}>🏆 Top Categories</h3>
+
+  {topCategories.length === 0 ? (
+    <p>No Categories Yet</p>
+  ) : (
+    topCategories.slice(0, 5).map((cat) => (
+      <div
+        key={cat.name}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "10px 0",
+          borderBottom: "1px solid #334155",
+        }}
+      >
+        <span>{cat.name}</span>
+        <strong>{cat.count}</strong>
+      </div>
+    ))
+  )}
+</div>
+          <div
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "10px",
+    marginTop: "20px",
+  }}
+>
+  <h3 style={{ marginBottom: "15px" }}>👤 Top Authors</h3>
+
+  {topAuthors.length === 0 ? (
+    <p>No Authors Yet</p>
+  ) : (
+    topAuthors.slice(0, 5).map((author) => (
+      <div
+        key={author.name}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "10px 0",
+          borderBottom: "1px solid #334155",
+        }}
+      >
+        <span>{author.name}</span>
+        <strong>{author.count}</strong>
+      </div>
+    ))
+  )}
+</div>
+          
           <h3>Latest Posts</h3>
 
           {posts.slice(0, 5).map((post) => (
