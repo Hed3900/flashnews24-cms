@@ -42,6 +42,8 @@ const postId = searchParams.get("id");
   const [image, setImage] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const [scheduleDate, setScheduleDate] = useState("");
+const [scheduleTime, setScheduleTime] = useState("");
   const [showPreview, setShowPreview] = useState(false);
   const wordCount = content
   .trim()
@@ -158,6 +160,8 @@ const handleImageUpload = async (e) => {
       slug,
       content,
       status: "draft",
+      scheduledDate: scheduleDate,
+scheduledTime: scheduleTime,
       createdAt: new Date().toISOString(),
     });
 
@@ -213,6 +217,8 @@ await setDoc(doc(db, "posts", bloggerPostId), {
   slug,
   content,
   status: "published",
+  scheduledDate: scheduleDate,
+scheduledTime: scheduleTime,
   createdAt: new Date().toISOString(),
 });
 
@@ -600,6 +606,46 @@ objectFit: "cover",
 >
   Save Draft
 </button>
+            <hr
+  style={{
+    margin: "30px 0",
+    borderColor: "#334155",
+  }}
+/>
+
+<h3>📅 Schedule Post</h3>
+
+<div
+  style={{
+    display: "flex",
+    gap: "15px",
+    flexWrap: "wrap",
+    marginTop: "15px",
+    marginBottom: "25px",
+  }}
+>
+  <input
+    type="date"
+    value={scheduleDate}
+    onChange={(e) => setScheduleDate(e.target.value)}
+    style={{
+      padding: "10px",
+      borderRadius: "8px",
+      flex: 1,
+    }}
+  />
+
+  <input
+    type="time"
+    value={scheduleTime}
+    onChange={(e) => setScheduleTime(e.target.value)}
+    style={{
+      padding: "10px",
+      borderRadius: "8px",
+      flex: 1,
+    }}
+  />
+</div>
 
             <button
               onClick={handlePublish}
