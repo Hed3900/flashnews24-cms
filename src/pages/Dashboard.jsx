@@ -23,9 +23,24 @@ const [topAuthors, setTopAuthors] = useState([]);
   async function loadDashboard() {
     try {
       const postsSnap = await getDocs(collection(db, "posts"));
-      const categoriesSnap = await getDocs(collection(db, "categories"));
-      const usersSnap = await getDocs(collection(db, "users"));
-      const mediaSnap = await getDocs(collection(db, "media"));
+const categoriesSnap = await getDocs(collection(db, "categories"));
+const usersSnap = await getDocs(collection(db, "users"));
+const mediaSnap = await getDocs(collection(db, "media"));
+
+const data = postsSnap.docs.map((doc) => ({
+  id: doc.id,
+  ...doc.data(),
+}));
+
+setPosts(data);
+
+setStats({
+  totalPosts: data.length,
+  published: data.filter((p) => p.status === "published").length,
+  drafts: data.filter((p) => p.status === "draft").length,
+  categories: categoriesSnap.size,
+  authors: usersSnap.size,
+});
 
 setMediaCount(mediaSnap.size);
 
@@ -56,8 +71,7 @@ const authorMap = {};
 
 data.forEach((post) => {
   const author = post.authorName || "Unknown";
-  authorMap[author] =
-    (authorMap[author] || 0) + 1;
+  authorMap[author] = (authorMap[author] || 0) + 1;
 });
 
 setTopAuthors(
@@ -65,7 +79,6 @@ setTopAuthors(
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count)
 );
-
       const data = postsSnap.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
