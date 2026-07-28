@@ -151,20 +151,46 @@ const paginatedPosts = filteredPosts.slice(
     marginBottom: "20px",
   }}
 />
-      <select>
-  <option value="">All Status</option>
-  <option value="published">Published</option>
-  <option value="draft">Draft</option>
-</select>
+     <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    marginTop: "15px",
+    marginBottom: "20px",
+    flexWrap: "wrap",
+  }}
+>
+  <select
+    style={{
+      padding: "10px",
+      borderRadius: "8px",
+      background: "#1e293b",
+      color: "white",
+      border: "1px solid #334155",
+    }}
+  >
+    <option value="">All Status</option>
+    <option value="published">Published</option>
+    <option value="draft">Draft</option>
+  </select>
 
-<select>
-  <option value="">All Categories</option>
-  {categories.map((cat) => (
-    <option key={cat} value={cat}>
-      {cat}
-    </option>
-  ))}
-</select>
+  <select
+    style={{
+      padding: "10px",
+      borderRadius: "8px",
+      background: "#1e293b",
+      color: "white",
+      border: "1px solid #334155",
+    }}
+  >
+    <option value="">All Categories</option>
+    {categories.map((cat) => (
+      <option key={cat} value={cat}>
+        {cat}
+      </option>
+    ))}
+  </select>
+</div>
       <table
   style={{
     width: "100%",
