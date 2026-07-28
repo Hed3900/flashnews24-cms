@@ -7,7 +7,7 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("role");
-    localStorage.removeItem("username");
+    localStorage.removeItem("name");
     window.location.reload();
   };
 
@@ -23,7 +23,7 @@ function Header() {
       <div>
         <h2>FlashNews24 CMS</h2>
         <p style={{ color: "#cbd5e1", fontSize: "14px" }}>
-          Welcome back, {localStorage.getItem("username")}
+          Welcome back, {username}
         </p>
       </div>
 
@@ -46,12 +46,12 @@ function Header() {
             fontSize: "14px",
             fontWeight: "600",
             boxShadow:
-              role === "Admin"
+              role === "admin"
                 ? "0 4px 12px rgba(37,99,235,.35)"
                 : "0 4px 12px rgba(22,163,74,.35)",
           }}
         >
-          {localStorage.getItem("role") === "Admin"
+          {role === "admin"
   ? "👑 Admin"
   : "✍️ Author"}
         </span>
