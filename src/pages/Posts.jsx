@@ -153,6 +153,13 @@ const paginatedPosts = filteredPosts.slice(
 {selectedPosts.length > 0 && (
   <div
     style={{
+      display: "flex",
+      gap: "10px",
+      marginBottom: "20px",
+    }}
+  >
+    <button
+style={{
   background: "#dc2626",
   color: "#fff",
   border: "none",
@@ -162,13 +169,38 @@ const paginatedPosts = filteredPosts.slice(
   cursor: "pointer",
   fontWeight: "600",
 }}
-    }}
-  >
-    <button>🗑 Delete Selected</button>
+    >
+    🗑 Delete Selected
+  </button>
 
-    <button>✅ Publish Selected</button>
+    <button
+      style={{
+  background: "#dc2626",
+  color: "#fff",
+  border: "none",
+  padding: "8px 14px",
+  borderRadius: "6px",
+  marginRight: "8px",
+  cursor: "pointer",
+  fontWeight: "600",
+}}
+      >
+    </button>
+      ✅ Publish Selected</button>
 
-    <button>📦 Move to Draft</button>
+    <button
+  style={{
+  background: "#dc2626",
+  color: "#fff",
+  border: "none",
+  padding: "8px 14px",
+  borderRadius: "6px",
+  marginRight: "8px",
+  cursor: "pointer",
+  fontWeight: "600",
+}}
+      >
+  📦 Move to Draft</button>
   </div>
 )}
 <input
