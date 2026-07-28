@@ -151,6 +151,20 @@ const paginatedPosts = filteredPosts.slice(
     marginBottom: "20px",
   }}
 />
+      <select>
+  <option value="">All Status</option>
+  <option value="published">Published</option>
+  <option value="draft">Draft</option>
+</select>
+
+<select>
+  <option value="">All Categories</option>
+  {categories.map((cat) => (
+    <option key={cat} value={cat}>
+      {cat}
+    </option>
+  ))}
+</select>
       <table
   style={{
     width: "100%",
