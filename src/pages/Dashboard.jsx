@@ -25,6 +25,46 @@ const [topAuthors, setTopAuthors] = useState([]);
       const postsSnap = await getDocs(collection(db, "posts"));
       const categoriesSnap = await getDocs(collection(db, "categories"));
       const usersSnap = await getDocs(collection(db, "users"));
+      const mediaSnap = await getDocs(collection(db, "media"));
+
+setMediaCount(mediaSnap.size);
+
+const recent = [...data]
+  .sort(
+    (a, b) =>
+      new Date(b.createdAt || 0) -
+      new Date(a.createdAt || 0)
+  )
+  .slice(0, 5);
+
+setRecentPosts(recent);
+
+const categoryMap = {};
+
+data.forEach((post) => {
+  const cat = post.category || "Uncategorized";
+  categoryMap[cat] = (categoryMap[cat] || 0) + 1;
+});
+
+setTopCategories(
+  Object.entries(categoryMap)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+);
+
+const authorMap = {};
+
+data.forEach((post) => {
+  const author = post.authorName || "Unknown";
+  authorMap[author] =
+    (authorMap[author] || 0) + 1;
+});
+
+setTopAuthors(
+  Object.entries(authorMap)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+);
 
       const data = postsSnap.docs.map((doc) => ({
         id: doc.id,
@@ -52,43 +92,24 @@ const [topAuthors, setTopAuthors] = useState([]);
 const categories = [
   ...new Set(posts.map((post) => post.category).filter(Boolean)),
 ];
-const mediaSnap = await getDocs(collection(db, "media"));
-setMediaCount(mediaSnap.size);
-
-const posts = postsSnap.docs.map(doc => ({
-  id: doc.id,
-  ...doc.data(),
-}));
-
-setRecentPosts(posts.slice(0, 5));
-
-const categoryMap = {};
-posts.forEach(post => {
-  const cat = post.category || "Uncategorized";
-  categoryMap[cat] = (categoryMap[cat] || 0) + 1;
-});
-
-setTopCategories(
-  Object.entries(categoryMap)
-    .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count)
-);
-
-const authorMap = {};
-posts.forEach(post => {
-  const author = post.authorName || "Unknown";
-  authorMap[author] = (authorMap[author] || 0) + 1;
-});
-
-setTopAuthors(
-  Object.entries(authorMap)
-    .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count)
-);
 return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
         <h2>Dashboard</h2>
+        <div
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "10px",
+    minHeight: "120px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  }}
+>
+  <h3>🖼 Media</h3>
+  <h1>{mediaCount}</h1>
+</div>
 <div
   style={{
     display: "grid",
