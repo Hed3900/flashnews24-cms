@@ -188,13 +188,12 @@ const cleanContent = content
   .replace(/&nbsp;/g, " ")
   .trim();
     const html = `
-<div class="fn24-article">
+<!-- META_DESCRIPTION:${description} -->
+<!-- META_KEYWORDS:${keywords} -->
+${image ? `<img src="${image}" alt="${title}" />` : ""}
 
-${image ? `
-<div class="fn24-cover">
-<img src="${image}" alt="${title}" />
-</div>
-` : ""}
+${cleanContent}
+`;
     let response;
 
 if (postId) {
