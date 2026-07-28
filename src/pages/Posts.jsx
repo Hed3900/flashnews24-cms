@@ -186,70 +186,108 @@ const paginatedPosts = filteredPosts.slice(
   ) : (
     paginatedPosts.map((post) => (
       <tr key={post.id}>
-        <td style={{ padding: "12px" }}>
-  <img
-    src={
-      post.image ||
-      "https://placehold.co/80x50?text=No+Image"
-    }
-    alt={post.title}
-    style={{
-      width: "80px",
-      height: "50px",
-      objectFit: "cover",
-      borderRadius: "6px",
-      border: "1px solid #334155",
-    }}
-  />
-</td>
+  {/* Image */}
+  <td style={{ padding: "12px" }}>
+    {post.image ? (
+      <img
+        src={post.image}
+        alt={post.title}
+        style={{
+          width: "60px",
+          height: "40px",
+          objectFit: "cover",
+          borderRadius: "6px",
+        }}
+      />
+    ) : (
+      <div
+        style={{
+          width: "60px",
+          height: "40px",
+          background: "#374151",
+          color: "#fff",
+          borderRadius: "6px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "11px",
+        }}
+      >
+        No Image
+      </div>
+    )}
+  </td>
 
-        <td style={{ padding: "12px" }}>
-          {post.category || "-"}
-        </td>
+  {/* Title */}
+  <td style={{ padding: "12px" }}>
+    {post.title || "-"}
+  </td>
 
-        <td style={{ padding: "12px" }}>
-          {post.status || "Published"}
-        </td>
+  {/* Category */}
+  <td style={{ padding: "12px" }}>
+    {post.category || "-"}
+  </td>
 
-        <td style={{ padding: "12px" }}>
-          {
-  post.createdAt?.toDate
-    ? post.createdAt.toDate().toLocaleDateString()
-    : new Date(post.createdAt).toLocaleDateString()
-}
-        </td>
+  {/* Status */}
+  <td style={{ padding: "12px" }}>
+    <span
+      style={{
+        background:
+          post.status === "published"
+            ? "#16a34a"
+            : "#f59e0b",
+        color: "#fff",
+        padding: "4px 10px",
+        borderRadius: "20px",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
+      {post.status || "draft"}
+    </span>
+  </td>
 
-        <td style={{ padding: "12px" }}>
-          <button
-  onClick={() => handleEdit(post.bloggerPostId)}
-  style={{
-    background: "#2563eb",
-    color: "white",
-    border: "none",
-    padding: "6px 12px",
-    borderRadius: "6px",
-    marginRight: "8px",
-    cursor: "pointer",
-  }}
->
-  Edit
-</button>
+  {/* Date */}
+  <td style={{ padding: "12px" }}>
+    {post.createdAt?.toDate
+      ? post.createdAt.toDate().toLocaleDateString()
+      : post.createdAt
+      ? new Date(post.createdAt).toLocaleDateString()
+      : "-"}
+  </td>
 
-          <button
-onClick={() => handleDelete(post)}
-  style={{
-    background: "#dc2626",
-    color: "white",
-    border: "none",
-    padding: "6px 12px",
-    borderRadius: "6px",
-    cursor: "pointer",
-  }}
->
-  Delete
-</button>
-        </td>
-      </tr>
+  {/* Actions */}
+  <td style={{ padding: "12px" }}>
+    <button
+      onClick={() => handleEdit(post.bloggerPostId)}
+      style={{
+        background: "#2563eb",
+        color: "#fff",
+        border: "none",
+        padding: "6px 12px",
+        borderRadius: "6px",
+        marginRight: "8px",
+        cursor: "pointer",
+      }}
+    >
+      Edit
+    </button>
+
+    <button
+      onClick={() => handleDelete(post)}
+      style={{
+        background: "#dc2626",
+        color: "#fff",
+        border: "none",
+        padding: "6px 12px",
+        borderRadius: "6px",
+        cursor: "pointer",
+      }}
+    >
+      Delete
+    </button>
+  </td>
+</tr>
     ))
   )}
 </tbody>
