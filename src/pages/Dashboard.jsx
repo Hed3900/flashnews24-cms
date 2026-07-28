@@ -342,6 +342,9 @@ return (
       >
         <th align="left">Title</th>
         <th>Status</th>
+        <td align="center">
+  {post.category || "General"}
+</td>
         <th>Category</th>
         <th>Actions</th>
       </tr>
