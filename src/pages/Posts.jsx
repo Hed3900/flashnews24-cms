@@ -20,6 +20,7 @@ const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("");
 const [categoryFilter, setCategoryFilter] = useState("");
 const [selectedPosts, setSelectedPosts] = useState([]);
+  const [previewPost, setPreviewPost] = useState(null);
 
 
 const POSTS_PER_PAGE = 10;
@@ -526,6 +527,21 @@ const paginatedPosts = filteredPosts.slice(
     >
       Delete
     </button>
+    
+    <button
+  onClick={() => setPreviewPost(post)}
+  style={{
+    background: "#0ea5e9",
+    color: "#fff",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    marginRight: "8px",
+    cursor: "pointer",
+  }}
+>
+  👁 View
+</button>
   </td>
 </tr>
     ))
@@ -559,6 +575,77 @@ const paginatedPosts = filteredPosts.slice(
     Next
   </button>
 </div>
+      {previewPost && (
+  <div
+    style={{
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,0.7)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9999,
+    }}
+  >
+    <div
+      style={{
+        width: "90%",
+        maxWidth: "700px",
+        maxHeight: "90vh",
+        overflowY: "auto",
+        background: "#1e293b",
+        color: "#fff",
+        padding: "20px",
+        borderRadius: "12px",
+      }}
+    >
+      <h2>{previewPost.title}</h2>
+
+      {previewPost.image && (
+        <img
+          src={previewPost.image}
+          alt={previewPost.title}
+          style={{
+            width: "100%",
+            borderRadius: "10px",
+            marginBottom: "15px",
+          }}
+        />
+      )}
+
+      <p>
+        <strong>Category:</strong> {previewPost.category}
+      </p>
+
+      <p>
+        <strong>Status:</strong> {previewPost.status}
+      </p>
+
+      <hr />
+
+      <div
+        dangerouslySetInnerHTML={{
+          __html: previewPost.content || "<p>No content</p>",
+        }}
+      />
+
+      <button
+        onClick={() => setPreviewPost(null)}
+        style={{
+          marginTop: "20px",
+          background: "#dc2626",
+          color: "#fff",
+          border: "none",
+          padding: "10px 20px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        Close
+      </button>
+    </div>
+  </div>
+)}
     </Layout>
   );
 }
