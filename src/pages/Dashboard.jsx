@@ -3,9 +3,13 @@ import Layout from "../components/Layout";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
+import { deleteDoc, doc } from "firebase/firestore";
+import { deletePost } from "../services/bloggerService";
+import { useNavigate } from "react-router-dom";
 
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [mediaCount, setMediaCount] = useState(0);
 const [recentPosts, setRecentPosts] = useState([]);
@@ -20,6 +24,28 @@ const [topAuthors, setTopAuthors] = useState([]);
 });
 
   useEffect(() => {
+    async function handleDelete(post) {
+  const ok = window.confirm(
+    `Delete "${post.title}"?`
+  );
+
+  if (!ok) return;
+
+  try {
+    if (post.bloggerPostId) {
+      await deletePost(post.bloggerPostId);
+    }
+
+    await deleteDoc(doc(db, "posts", post.id));
+
+    alert("Post Deleted Successfully");
+
+    loadDashboard();
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+    }
   async function loadDashboard() {
     try {
       const postsSnap = await getDocs(collection(db, "posts"));
@@ -317,6 +343,7 @@ return (
         <th align="left">Title</th>
         <th>Status</th>
         <th>Category</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -339,8 +366,47 @@ return (
           </td>
 
           <td align="center">
-            {post.category || "-"}
-          </td>
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      gap: "8px",
+      flexWrap: "wrap",
+    }}
+  >
+    <button
+      onClick={() =>
+        navigate(
+          `/new-post?id=${post.bloggerPostId || post.id}`
+        )
+      }
+      style={{
+        background: "#2563eb",
+        color: "#fff",
+        border: "none",
+        padding: "6px 12px",
+        borderRadius: "6px",
+        cursor: "pointer",
+      }}
+    >
+      ✏ Edit
+    </button>
+
+    <button
+      onClick={() => handleDelete(post)}
+      style={{
+        background: "#dc2626",
+        color: "#fff",
+        border: "none",
+        padding: "6px 12px",
+        borderRadius: "6px",
+        cursor: "pointer",
+      }}
+    >
+      🗑 Delete
+    </button>
+  </div>
+</td>
         </tr>
       ))}
     </tbody>
