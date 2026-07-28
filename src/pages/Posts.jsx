@@ -166,12 +166,29 @@ const paginatedPosts = filteredPosts.slice(
       <th>Status</th>
       <th>Date</th>
       <th>Actions</th>
+      <th>Image</th>
     </tr>
   </thead>
 
   <tbody>
   {loading ? (
     <tr>
+      <td>
+  <img
+    src={
+      post.image ||
+      "https://placehold.co/80x50?text=No+Image"
+    }
+    alt={post.title}
+    style={{
+      width: "80px",
+      height: "50px",
+      objectFit: "cover",
+      borderRadius: "6px",
+      border: "1px solid #334155",
+    }}
+  />
+</td>
       <td colSpan="5" style={{ padding: "20px", textAlign: "center" }}>
         Loading...
       </td>
