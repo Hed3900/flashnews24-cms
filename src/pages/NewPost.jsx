@@ -186,6 +186,7 @@ scheduledTime: scheduleTime,
   try {
 const cleanContent = content
   .replace(/&nbsp;/g, " ")
+  .replace(/<p><br><\/p>/g, "")
   .trim();
     const html = `
 <!-- META_DESCRIPTION:${description} -->
