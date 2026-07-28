@@ -190,6 +190,9 @@ const cleanContent = content
     const html = `
 <!-- META_DESCRIPTION:${description} -->
 <!-- META_KEYWORDS:${keywords} -->
+
+${image ? `<img src="${image}" alt="${title}" style="width:100%;max-width:800px;border-radius:10px;margin-bottom:20px;" />` : ""}
+
 ${cleanContent}
 `;
     let response;
