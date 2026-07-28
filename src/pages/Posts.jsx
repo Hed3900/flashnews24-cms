@@ -622,9 +622,6 @@ const paginatedPosts = filteredPosts.slice(
       </p>
 
       <hr />
-<pre style={{ whiteSpace: "pre-wrap", color: "#fff" }}>
-  {previewPost.content}
-</pre>
       <div
         dangerouslySetInnerHTML={{
           __html: previewPost.content || "<p>No content</p>",
