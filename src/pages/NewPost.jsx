@@ -200,7 +200,12 @@ ${cleanContent}
 if (postId) {
   response = await updatePost(postId, title, html, [category]);
 } else {
-  response = await publishPost(title, html, [category]);
+  response = await publishPost(
+  title,
+  html,
+  [...keywords.split(",").map(k => k.trim()), category],
+  description
+);
 }
 
 const email = localStorage.getItem("email");
