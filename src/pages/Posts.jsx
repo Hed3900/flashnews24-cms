@@ -167,7 +167,6 @@ const paginatedPosts = filteredPosts.slice(
       <th>Status</th>
       <th>Date</th>
       <th>Actions</th>
-      <th>Image</th>
     </tr>
   </thead>
 
