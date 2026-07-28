@@ -23,62 +23,10 @@ const [topAuthors, setTopAuthors] = useState([]);
   async function loadDashboard() {
     try {
       const postsSnap = await getDocs(collection(db, "posts"));
-const categoriesSnap = await getDocs(collection(db, "categories"));
-const usersSnap = await getDocs(collection(db, "users"));
-const mediaSnap = await getDocs(collection(db, "media"));
+      const categoriesSnap = await getDocs(collection(db, "categories"));
+      const usersSnap = await getDocs(collection(db, "users"));
+      const mediaSnap = await getDocs(collection(db, "media"));
 
-const data = postsSnap.docs.map((doc) => ({
-  id: doc.id,
-  ...doc.data(),
-}));
-
-setPosts(data);
-
-setStats({
-  totalPosts: data.length,
-  published: data.filter((p) => p.status === "published").length,
-  drafts: data.filter((p) => p.status === "draft").length,
-  categories: categoriesSnap.size,
-  authors: usersSnap.size,
-});
-
-setMediaCount(mediaSnap.size);
-
-const recent = [...data]
-  .sort(
-    (a, b) =>
-      new Date(b.createdAt || 0) -
-      new Date(a.createdAt || 0)
-  )
-  .slice(0, 5);
-
-setRecentPosts(recent);
-
-const categoryMap = {};
-
-data.forEach((post) => {
-  const cat = post.category || "Uncategorized";
-  categoryMap[cat] = (categoryMap[cat] || 0) + 1;
-});
-
-setTopCategories(
-  Object.entries(categoryMap)
-    .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count)
-);
-
-const authorMap = {};
-
-data.forEach((post) => {
-  const author = post.authorName || "Unknown";
-  authorMap[author] = (authorMap[author] || 0) + 1;
-});
-
-setTopAuthors(
-  Object.entries(authorMap)
-    .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count)
-);
       const data = postsSnap.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -93,6 +41,44 @@ setTopAuthors(
         categories: categoriesSnap.size,
         authors: usersSnap.size,
       });
+
+      setMediaCount(mediaSnap.size);
+
+      const recent = [...data]
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt || 0) -
+            new Date(a.createdAt || 0)
+        )
+        .slice(0, 5);
+
+      setRecentPosts(recent);
+
+      const categoryMap = {};
+
+      data.forEach((post) => {
+        const cat = post.category || "Uncategorized";
+        categoryMap[cat] = (categoryMap[cat] || 0) + 1;
+      });
+
+      setTopCategories(
+        Object.entries(categoryMap)
+          .map(([name, count]) => ({ name, count }))
+          .sort((a, b) => b.count - a.count)
+      );
+
+      const authorMap = {};
+
+      data.forEach((post) => {
+        const author = post.authorName || "Unknown";
+        authorMap[author] = (authorMap[author] || 0) + 1;
+      });
+
+      setTopAuthors(
+        Object.entries(authorMap)
+          .map(([name, count]) => ({ name, count }))
+          .sort((a, b) => b.count - a.count)
+      );
 
     } catch (err) {
       console.error(err);
