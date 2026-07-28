@@ -413,7 +413,49 @@ return (
   </table>
 </div>
         </div>
+<div
+  style={{
+    background: "#1e293b",
+    padding: "20px",
+    borderRadius: "12px",
+    marginTop: "20px",
+  }}
+>
+  <h3>⏰ Scheduled Posts</h3>
 
+  {posts.filter(p => p.scheduledDate).length === 0 ? (
+
+    <p style={{ color: "#94a3b8" }}>
+      No Scheduled Posts
+    </p>
+
+  ) : (
+
+    posts
+      .filter(p => p.scheduledDate)
+      .map(post => (
+
+        <div
+          key={post.id}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            borderBottom: "1px solid #334155",
+            padding: "10px 0",
+          }}
+        >
+          <span>{post.title}</span>
+
+          <span>
+            {post.scheduledDate} {post.scheduledTime}
+          </span>
+        </div>
+
+      ))
+
+  )}
+</div>
+        
         <div style={{ marginTop: "30px" }}>
           <Link to="/new-post">
             <button
