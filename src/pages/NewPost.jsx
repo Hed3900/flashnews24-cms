@@ -77,6 +77,8 @@ useEffect(() => {
 
     const post = await getPost(postId);
 console.log(post);
+    alert("Post ID: " + postId);
+alert("Title: " + post.title);
     setTitle(post.title);
     setCategory(post.labels?.[0] || "World");
 
