@@ -70,13 +70,13 @@ const [scheduleTime, setScheduleTime] = useState("");
 
   loadCategories();
 }, []);
-
+console.log("postId:", postId);
 useEffect(() => {
   async function loadPost() {
     if (!postId) return;
 
     const post = await getPost(postId);
-
+console.log(post);
     setTitle(post.title);
     setCategory(post.labels?.[0] || "World");
 
