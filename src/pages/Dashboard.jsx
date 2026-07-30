@@ -73,6 +73,7 @@ setCurrentUser({
   role,
 });
       const postsSnap = await getDocs(collection(db, "posts"));
+      alert("Posts = " + postsSnap.size);
 const categoriesSnap = await getDocs(collection(db, "categories"));
 const usersSnap = await getDocs(collection(db, "users"));
 const mediaSnap = await getDocs(collection(db, "media"));
