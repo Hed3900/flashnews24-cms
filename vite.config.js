@@ -2,8 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: "/flashnews24-cms/",
-
+  base: "/",
   plugins: [react()],
 
   server: {
