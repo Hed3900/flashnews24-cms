@@ -25,12 +25,8 @@ const auth = getAuth();
   categories: 0,
   authors: 0,
 });
-
-  useEffect(() => {
-    async function handleDelete(post) {
-
-  // Only Admin can delete
-  if (currentUser.role !== "admin") {
+async function handleDelete(post) {
+  if (!currentUser || currentUser.role !== "admin") {
     alert("Access Denied");
     return;
   }
@@ -39,22 +35,19 @@ const auth = getAuth();
   if (!ok) return;
 
   try {
-
     if (post.bloggerPostId) {
       await deletePost(post.bloggerPostId);
     }
 
     await deleteDoc(doc(db, "posts", post.id));
-
     alert("Post Deleted Successfully");
-
-    loadDashboard();
-
+    await loadDashboard();
   } catch (err) {
     console.error(err);
     alert(err.message);
   }
 }
+  useEffect(() => {
   async function loadDashboard() {
     try {
       const firebaseUser = auth.currentUser;
@@ -80,17 +73,14 @@ setCurrentUser({
   role,
 });
       const postsSnap = await getDocs(collection(db, "posts"));
-      console.log("Firebase User:", firebaseUser.email);
-console.log("Role:", role);
-console.log("Posts Count:", postsSnap.size);
-console.log("Categories Count:", categoriesSnap.size);
-console.log("Users Count:", usersSnap.size);
-console.log("Media Count:", mediaSnap.size);
+const categoriesSnap = await getDocs(collection(db, "categories"));
+const usersSnap = await getDocs(collection(db, "users"));
+const mediaSnap = await getDocs(collection(db, "media"));
 
-alert("Posts: " + postsSnap.size);
-      const categoriesSnap = await getDocs(collection(db, "categories"));
-      const usersSnap = await getDocs(collection(db, "users"));
-      const mediaSnap = await getDocs(collection(db, "media"));
+console.log(postsSnap.size);
+console.log(categoriesSnap.size);
+console.log(usersSnap.size);
+console.log(mediaSnap.size);
 
       const data = postsSnap.docs.map((doc) => ({
         id: doc.id,
