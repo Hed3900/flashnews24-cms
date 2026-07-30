@@ -79,18 +79,7 @@ setCurrentUser({
   email: firebaseUser.email,
   role,
 });
-      let postsSnap;
-
-if (role === "admin" || role === "editor") {
-  postsSnap = await getDocs(collection(db, "posts"));
-} else {
-  postsSnap = await getDocs(
-    query(
-      collection(db, "posts"),
-      where("authorEmail", "==", firebaseUser.email)
-    )
-  );
-}
+      const postsSnap = await getDocs(collection(db, "posts"));
       const categoriesSnap = await getDocs(collection(db, "categories"));
       const usersSnap = await getDocs(collection(db, "users"));
       const mediaSnap = await getDocs(collection(db, "media"));
