@@ -87,7 +87,7 @@ if (role === "admin" || role === "editor") {
   postsSnap = await getDocs(
     query(
       collection(db, "posts"),
-      where("authorId", "==", firebaseUser.uid)
+      where("authorEmail", "==", firebaseUser.email)
     )
   );
 }
