@@ -33,7 +33,7 @@ localStorage.setItem("username", user.name);
 localStorage.setItem("email", user.email);
 localStorage.setItem("name", user.name);
 
-  window.location.hash = "/";
+  window.location.href = "/";
 };
   return (
     
