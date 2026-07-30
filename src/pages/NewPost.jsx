@@ -14,10 +14,12 @@ import {
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import MediaPickerModal from "../components/MediaPickerModal";
+import { getAuth } from "firebase/auth";
 
 function NewPost() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const auth = getAuth();
 
 const CLOUD_NAME = "ye80kxro";
 const UPLOAD_PRESET = "flashnews24";
@@ -152,8 +154,9 @@ const handleImageUpload = async (e) => {
 
     await setDoc(doc(db, "posts", draftId), {
       bloggerPostId: "",
-      authorEmail: email,
-      authorName: name,
+      authorId: auth.currentUser?.uid || "",
+authorEmail: email,
+authorName: name,
       title,
       category,
       image,
@@ -220,8 +223,9 @@ await setDoc(
   {
     bloggerPostId,
     bloggerUrl,
-    authorEmail: email,
-    authorName: name,
+    authorId: auth.currentUser?.uid || "",
+authorEmail: email,
+authorName: name,
     title,
     category,
     image,
