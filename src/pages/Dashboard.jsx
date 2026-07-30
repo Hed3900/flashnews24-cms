@@ -117,6 +117,16 @@ const [topAuthors, setTopAuthors] = useState([]);
 const categories = [
   ...new Set(posts.map((post) => post.category).filter(Boolean)),
 ];
+  const isAdmin = currentUser.role === "admin";
+const isOwner = post.authorId === currentUser.uid;
+
+{(isAdmin || isOwner) && (
+  <button>Edit</button>
+)}
+
+{isAdmin && (
+  <button>Delete</button>
+)}
 return (
     <Layout>
       <div style={{ padding: "20px", color: "white" }}>
