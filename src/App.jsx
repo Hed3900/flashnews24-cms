@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Preview from "./pages/Preview";
 import Drafts from "./pages/Drafts";
 import MediaLibrary from "./pages/MediaLibrary";
+import Notification from "./pages/Notification";
 
 
 function App() {
@@ -41,6 +42,7 @@ const role = localStorage.getItem("role");
   />
       <Route path="/preview" element={<Preview />} />
       <Route path="/media" element={<MediaLibrary />} />
+      <Route path="/notification" element={<Notification />} />
       
 </Routes>
   );
