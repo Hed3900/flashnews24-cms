@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deletePost } from "../services/bloggerService";
 import { useNavigate } from "react-router-dom";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { query, where } from "firebase/firestore";
 
 function Dashboard() {
@@ -41,7 +41,7 @@ async function handleDelete(post) {
 
     await deleteDoc(doc(db, "posts", post.id));
     alert("Post Deleted Successfully");
-    await loadDashboard();
+    await loadDashboard(auth.currentUser);
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -58,8 +58,9 @@ async function handleDelete(post) {
 }, []);
   async function loadDashboard(firebaseUser) {
     try {
+      if (!firebaseUser) return;
 alert("loadDashboard started");
-      import { onAuthStateChanged } from "firebase/auth";
+      
 alert(firebaseUser?.email || "No User");
 
 const userSnap = await getDocs(
@@ -150,8 +151,6 @@ console.log(mediaSnap.size);
     }
   }
 
-  loadDashboard();
-}, []);
 
 const categories = [
   ...new Set(posts.map((post) => post.category).filter(Boolean)),
