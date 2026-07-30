@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deletePost } from "../services/bloggerService";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { query, where } from "firebase/firestore";
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -16,8 +15,6 @@ function Dashboard() {
 const [recentPosts, setRecentPosts] = useState([]);
 const [topCategories, setTopCategories] = useState([]);
 const [topAuthors, setTopAuthors] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
-const auth = getAuth();
   const [stats, setStats] = useState({
   totalPosts: 0,
   published: 0,
@@ -25,13 +22,13 @@ const auth = getAuth();
   categories: 0,
   authors: 0,
 });
-async function handleDelete(post) {
-  if (!currentUser || currentUser.role !== "admin") {
-    alert("Access Denied");
-    return;
-  }
 
-  const ok = window.confirm(`Delete "${post.title}"?`);
+  useEffect(() => {
+    async function handleDelete(post) {
+  const ok = window.confirm(
+    `Delete "${post.title}"?`
+  );
+
   if (!ok) return;
 
   try {
@@ -40,58 +37,21 @@ async function handleDelete(post) {
     }
 
     await deleteDoc(doc(db, "posts", post.id));
+
     alert("Post Deleted Successfully");
-    await loadDashboard(auth.currentUser);
+
+    loadDashboard();
   } catch (err) {
     console.error(err);
     alert(err.message);
   }
-}
-  useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-    if (firebaseUser) {
-      loadDashboard(firebaseUser);
     }
-  });
-
-  return () => unsubscribe();
-}, []);
-  async function loadDashboard(firebaseUser) {
+  async function loadDashboard() {
     try {
-      if (!firebaseUser) return;
-alert("loadDashboard started");
-      
-alert(firebaseUser?.email || "No User");
-
-const userSnap = await getDocs(
-  query(
-    collection(db, "users"),
-    where("email", "==", firebaseUser.email)
-  )
-);
-
-alert("User docs: " + userSnap.size);
-
-let role = "author";
-
-if (!userSnap.empty) {
-  role = userSnap.docs[0].data().role;
-}
-
-setCurrentUser({
-  uid: firebaseUser.uid,
-  email: firebaseUser.email,
-  role,
-});
-const categoriesSnap = await getDocs(collection(db, "categories"));
-const usersSnap = await getDocs(collection(db, "users"));
-const mediaSnap = await getDocs(collection(db, "media"));
- const postsSnap = await getDocs(collection(db, "posts"));
-alert("Posts = " + postsSnap.size);
-console.log(postsSnap.size);
-console.log(categoriesSnap.size);
-console.log(usersSnap.size);
-console.log(mediaSnap.size);
+      const postsSnap = await getDocs(collection(db, "posts"));
+      const categoriesSnap = await getDocs(collection(db, "categories"));
+      const usersSnap = await getDocs(collection(db, "users"));
+      const mediaSnap = await getDocs(collection(db, "media"));
 
       const data = postsSnap.docs.map((doc) => ({
         id: doc.id,
@@ -151,6 +111,8 @@ console.log(mediaSnap.size);
     }
   }
 
+  loadDashboard();
+}, []);
 
 const categories = [
   ...new Set(posts.map((post) => post.category).filter(Boolean)),
@@ -414,41 +376,37 @@ return (
       flexWrap: "wrap",
     }}
   >
-    {(currentUser?.role === "admin" ||
-      currentUser?.role === "editor" ||
-      post.authorId === currentUser?.uid) && (
-      <button
-        onClick={() =>
-          navigate(`/new-post?id=${post.bloggerPostId || post.id}`)
-        }
-        style={{
-          background: "#2563eb",
-          color: "#fff",
-          border: "none",
-          padding: "6px 12px",
-          borderRadius: "6px",
-          cursor: "pointer",
-        }}
-      >
-        ✏ Edit
-      </button>
-    )}
+    <button
+      onClick={() =>
+        navigate(
+          `/new-post?id=${post.bloggerPostId || post.id}`
+        )
+      }
+      style={{
+        background: "#2563eb",
+        color: "#fff",
+        border: "none",
+        padding: "6px 12px",
+        borderRadius: "6px",
+        cursor: "pointer",
+      }}
+    >
+      ✏ Edit
+    </button>
 
-    {currentUser?.role === "admin" && (
-      <button
-        onClick={() => handleDelete(post)}
-        style={{
-          background: "#dc2626",
-          color: "#fff",
-          border: "none",
-          padding: "6px 12px",
-          borderRadius: "6px",
-          cursor: "pointer",
-        }}
-      >
-        🗑 Delete
-      </button>
-    )}
+    <button
+      onClick={() => handleDelete(post)}
+      style={{
+        background: "#dc2626",
+        color: "#fff",
+        border: "none",
+        padding: "6px 12px",
+        borderRadius: "6px",
+        cursor: "pointer",
+      }}
+    >
+      🗑 Delete
+    </button>
   </div>
 </td>
         </tr>
