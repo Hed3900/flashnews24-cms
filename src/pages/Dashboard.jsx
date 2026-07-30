@@ -419,31 +419,41 @@ return (
     }}
   >
     {(currentUser?.role === "admin" ||
-  currentUser?.role === "editor" ||
-  post.authorId === currentUser?.uid) && (
-  <button
-    onClick={() =>
-      navigate(`/new-post?id=${post.bloggerPostId || post.id}`)
-    }
-  >
-    ✏ Edit
-  </button>
-)}
+      currentUser?.role === "editor" ||
+      post.authorId === currentUser?.uid) && (
+      <button
+        onClick={() =>
+          navigate(`/new-post?id=${post.bloggerPostId || post.id}`)
+        }
+        style={{
+          background: "#2563eb",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        ✏ Edit
+      </button>
+    )}
+
     {currentUser?.role === "admin" && (
-  <button
-    onClick={() => handleDelete(post)}
-    style={{
-      background: "#dc2626",
-      color: "#fff",
-      border: "none",
-      padding: "6px 12px",
-      borderRadius: "6px",
-      cursor: "pointer",
-    }}
-  >
-    🗑 Delete
-  </button>
-)}
+      <button
+        onClick={() => handleDelete(post)}
+        style={{
+          background: "#dc2626",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        🗑 Delete
+      </button>
+    )}
+  </div>
 </td>
         </tr>
       ))}
