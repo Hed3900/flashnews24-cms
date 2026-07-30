@@ -50,8 +50,16 @@ async function handleDelete(post) {
   useEffect(() => {
   async function loadDashboard() {
     try {
+alert("loadDashboard started");
       const firebaseUser = auth.currentUser;
+const userSnap = await getDocs(
+  query(
+    collection(db, "users"),
+    where("email", "==", firebaseUser.email)
+  )
+);
 
+alert("User docs: " + userSnap.size);
 if (!firebaseUser) return;
 
 const userSnap = await getDocs(
@@ -72,12 +80,11 @@ setCurrentUser({
   email: firebaseUser.email,
   role,
 });
-      const postsSnap = await getDocs(collection(db, "posts"));
-      alert("Posts = " + postsSnap.size);
 const categoriesSnap = await getDocs(collection(db, "categories"));
 const usersSnap = await getDocs(collection(db, "users"));
 const mediaSnap = await getDocs(collection(db, "media"));
-
+ const postsSnap = await getDocs(collection(db, "posts"));
+alert("Posts = " + postsSnap.size);
 console.log(postsSnap.size);
 console.log(categoriesSnap.size);
 console.log(usersSnap.size);
