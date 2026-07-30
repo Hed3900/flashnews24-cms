@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deletePost } from "../services/bloggerService";
 import { useNavigate } from "react-router-dom";
-
+import { getAuth } from "firebase/auth";
+import { query, where } from "firebase/firestore";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ function Dashboard() {
 const [recentPosts, setRecentPosts] = useState([]);
 const [topCategories, setTopCategories] = useState([]);
 const [topAuthors, setTopAuthors] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+const auth = getAuth();
   const [stats, setStats] = useState({
   totalPosts: 0,
   published: 0,
@@ -54,7 +57,18 @@ const [topAuthors, setTopAuthors] = useState([]);
 }
   async function loadDashboard() {
     try {
-      const postsSnap = await getDocs(collection(db, "posts"));
+      let postsSnap;
+
+if (role === "admin" || role === "editor") {
+  postsSnap = await getDocs(collection(db, "posts"));
+} else {
+  postsSnap = await getDocs(
+    query(
+      collection(db, "posts"),
+      where("authorId", "==", firebaseUser.uid)
+    )
+  );
+}
       const categoriesSnap = await getDocs(collection(db, "categories"));
       const usersSnap = await getDocs(collection(db, "users"));
       const mediaSnap = await getDocs(collection(db, "media"));
@@ -382,38 +396,32 @@ return (
       flexWrap: "wrap",
     }}
   >
-    <button
-      onClick={() =>
-        navigate(
-          `/new-post?id=${post.bloggerPostId || post.id}`
-        )
-      }
-      style={{
-        background: "#2563eb",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        cursor: "pointer",
-      }}
-    >
-      ✏ Edit
-    </button>
-
-    <button
-      onClick={() => handleDelete(post)}
-      style={{
-        background: "#dc2626",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        cursor: "pointer",
-      }}
-    >
-      🗑 Delete
-    </button>
-  </div>
+    {(currentUser?.role === "admin" ||
+  currentUser?.role === "editor" ||
+  post.authorId === currentUser?.uid) && (
+  <button
+    onClick={() =>
+      navigate(`/new-post?id=${post.bloggerPostId || post.id}`)
+    }
+  >
+    ✏ Edit
+  </button>
+)}
+    {currentUser?.role === "admin" && (
+  <button
+    onClick={() => handleDelete(post)}
+    style={{
+      background: "#dc2626",
+      color: "#fff",
+      border: "none",
+      padding: "6px 12px",
+      borderRadius: "6px",
+      cursor: "pointer",
+    }}
+  >
+    🗑 Delete
+  </button>
+)}
 </td>
         </tr>
       ))}
