@@ -368,46 +368,46 @@ return (
   {post.category || "General"}
 </td>
           <td align="center">
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      gap: "8px",
-      flexWrap: "wrap",
-    }}
-  >
-    <button
-      onClick={() =>
-        navigate(
-          `/new-post?id=${post.bloggerPostId || post.id}`
-        )
-      }
+  {currentUser?.role === "admin" && (
+    <div
       style={{
-        background: "#2563eb",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        cursor: "pointer",
+        display: "flex",
+        justifyContent: "center",
+        gap: "8px",
+        flexWrap: "wrap",
       }}
     >
-      ✏ Edit
-    </button>
+      <button
+        onClick={() =>
+          navigate(`/new-post?id=${post.bloggerPostId || post.id}`)
+        }
+        style={{
+          background: "#2563eb",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        ✏ Edit
+      </button>
 
-    <button
-      onClick={() => handleDelete(post)}
-      style={{
-        background: "#dc2626",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        cursor: "pointer",
-      }}
-    >
-      🗑 Delete
-    </button>
-  </div>
+      <button
+        onClick={() => handleDelete(post)}
+        style={{
+          background: "#dc2626",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        🗑 Delete
+      </button>
+    </div>
+  )}
 </td>
         </tr>
       ))}
