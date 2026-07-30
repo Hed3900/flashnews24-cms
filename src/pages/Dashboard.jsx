@@ -80,6 +80,14 @@ setCurrentUser({
   role,
 });
       const postsSnap = await getDocs(collection(db, "posts"));
+      console.log("Firebase User:", firebaseUser.email);
+console.log("Role:", role);
+console.log("Posts Count:", postsSnap.size);
+console.log("Categories Count:", categoriesSnap.size);
+console.log("Users Count:", usersSnap.size);
+console.log("Media Count:", mediaSnap.size);
+
+alert("Posts: " + postsSnap.size);
       const categoriesSnap = await getDocs(collection(db, "categories"));
       const usersSnap = await getDocs(collection(db, "users"));
       const mediaSnap = await getDocs(collection(db, "media"));
