@@ -48,13 +48,19 @@ async function handleDelete(post) {
   }
 }
   useEffect(() => {
-  async function loadDashboard() {
+  const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    if (firebaseUser) {
+      loadDashboard(firebaseUser);
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+  async function loadDashboard(firebaseUser) {
     try {
 alert("loadDashboard started");
-      const firebaseUser = auth.currentUser;
+      import { onAuthStateChanged } from "firebase/auth";
 alert(firebaseUser?.email || "No User");
-
-if (!firebaseUser) return;
 
 const userSnap = await getDocs(
   query(
