@@ -33,7 +33,7 @@ localStorage.setItem("username", user.name);
 localStorage.setItem("email", user.email);
 localStorage.setItem("name", user.name);
 
-  window.location.href = "/flashnews24-cms/";
+  window.location.hash = "/";
 };
   return (
     
