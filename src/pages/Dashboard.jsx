@@ -52,14 +52,8 @@ async function handleDelete(post) {
     try {
 alert("loadDashboard started");
       const firebaseUser = auth.currentUser;
-const userSnap = await getDocs(
-  query(
-    collection(db, "users"),
-    where("email", "==", firebaseUser.email)
-  )
-);
+alert(firebaseUser?.email || "No User");
 
-alert("User docs: " + userSnap.size);
 if (!firebaseUser) return;
 
 const userSnap = await getDocs(
@@ -68,6 +62,8 @@ const userSnap = await getDocs(
     where("email", "==", firebaseUser.email)
   )
 );
+
+alert("User docs: " + userSnap.size);
 
 let role = "author";
 
