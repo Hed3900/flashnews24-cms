@@ -25,13 +25,18 @@ const [topAuthors, setTopAuthors] = useState([]);
 
   useEffect(() => {
     async function handleDelete(post) {
-  const ok = window.confirm(
-    `Delete "${post.title}"?`
-  );
 
+  // Only Admin can delete
+  if (currentUser.role !== "admin") {
+    alert("Access Denied");
+    return;
+  }
+
+  const ok = window.confirm(`Delete "${post.title}"?`);
   if (!ok) return;
 
   try {
+
     if (post.bloggerPostId) {
       await deletePost(post.bloggerPostId);
     }
@@ -41,11 +46,12 @@ const [topAuthors, setTopAuthors] = useState([]);
     alert("Post Deleted Successfully");
 
     loadDashboard();
+
   } catch (err) {
     console.error(err);
     alert(err.message);
   }
-    }
+}
   async function loadDashboard() {
     try {
       const postsSnap = await getDocs(collection(db, "posts"));
