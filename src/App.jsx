@@ -43,7 +43,6 @@ const role = localStorage.getItem("role");
       <Route path="/preview" element={<Preview />} />
       <Route path="/media" element={<MediaLibrary />} />
       <Route path="/notification" element={<Notification />} />
-      
 </Routes>
   );
 }
