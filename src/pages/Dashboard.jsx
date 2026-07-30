@@ -57,6 +57,28 @@ const auth = getAuth();
 }
   async function loadDashboard() {
     try {
+      const firebaseUser = auth.currentUser;
+
+if (!firebaseUser) return;
+
+const userSnap = await getDocs(
+  query(
+    collection(db, "users"),
+    where("email", "==", firebaseUser.email)
+  )
+);
+
+let role = "author";
+
+if (!userSnap.empty) {
+  role = userSnap.docs[0].data().role;
+}
+
+setCurrentUser({
+  uid: firebaseUser.uid,
+  email: firebaseUser.email,
+  role,
+});
       let postsSnap;
 
 if (role === "admin" || role === "editor") {
