@@ -84,7 +84,6 @@ const [htmlMode, setHtmlMode] = useState(false);
       id: doc.id,
       ...doc.data(),
     }));
-alert(JSON.stringify(data));
     setCategories(data);
   }
 
