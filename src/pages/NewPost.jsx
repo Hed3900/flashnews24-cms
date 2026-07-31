@@ -66,7 +66,7 @@ const [scheduleTime, setScheduleTime] = useState("");
       id: doc.id,
       ...doc.data(),
     }));
-
+alert(JSON.stringify(data));
     setCategories(data);
   }
 
