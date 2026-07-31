@@ -25,12 +25,28 @@ const CLOUD_NAME = "ye80kxro";
 const UPLOAD_PRESET = "flashnews24";
   const modules = {
   toolbar: [
-    [{ header: [1, 2, 3, false] }],
+    [{ header: [1, 2, 3, 4, false] }],
+
     ["bold", "italic", "underline", "strike"],
+
+    [{ color: [] }, { background: [] }],
+
     [{ list: "ordered" }, { list: "bullet" }],
-    ["link"],
-    ["clean"],
+
+    [{ align: [] }],
+
+    ["blockquote", "code-block"],
+
+    ["link", "image", "video"],
+
+    ["clean"]
   ],
+
+  history: {
+    delay: 1000,
+    maxStack: 100,
+    userOnly: true
+  }
 };
   const [showMediaPicker, setShowMediaPicker] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -47,6 +63,10 @@ const postId = searchParams.get("id");
   const [scheduleDate, setScheduleDate] = useState("");
 const [scheduleTime, setScheduleTime] = useState("");
   const [showPreview, setShowPreview] = useState(false);
+  const quillRef = useRef(null);
+
+const [content, setContent] = useState("");
+const [htmlMode, setHtmlMode] = useState(false);
   const wordCount = content
   .trim()
   .split(/\s+/)
@@ -546,18 +566,108 @@ return (
 >
   Words: {wordCount}
 </div>
+<div
+  style={{
+    display: "flex",
+    gap: "10px",
+    marginBottom: "12px"
+  }}
+>
+
+<button
+onClick={()=>setHtmlMode(false)}
+style={{
+padding:"10px 18px",
+borderRadius:"8px",
+border:"none",
+background:!htmlMode?"#e11d48":"#333",
+color:"#fff",
+cursor:"pointer"
+}}
+>
+📝 Visual
+</button>
+
+<button
+onClick={()=>setHtmlMode(true)}
+style={{
+padding:"10px 18px",
+borderRadius:"8px",
+border:"none",
+background:htmlMode?"#2563eb":"#333",
+color:"#fff",
+cursor:"pointer"
+}}
+>
+💻 HTML
+</button>
+
+</div>
+{
+htmlMode?
+
+(
+
+<textarea
+
+value={content}
+
+onChange={(e)=>setContent(e.target.value)}
+
+style={{
+
+width:"100%",
+
+height:"600px",
+
+background:"#0f172a",
+
+color:"#fff",
+
+padding:"16px",
+
+fontSize:"15px",
+
+fontFamily:"monospace",
+
+borderRadius:"10px",
+
+border:"1px solid #333"
+
+}}
+
+/>
+
+)
+
+:
+
+(
 
 <ReactQuill
-  theme="snow"
-  value={content}
-  onChange={setContent}
-  modules={modules}
-  style={{
-  width: "100%",
-  maxWidth: "100%",
-  margin: "20px auto"
+
+ref={quillRef}
+
+theme="snow"
+
+value={content}
+
+onChange={setContent}
+
+modules={modules}
+
+style={{
+
+height:"600px",
+
+marginBottom:"60px"
+
 }}
+
 />
+
+)
+}
   {showPreview && (
   <div
     style={{
