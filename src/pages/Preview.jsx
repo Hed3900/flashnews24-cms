@@ -19,7 +19,16 @@ function Preview() {
         borderRadius: "12px",
       }}
     >
-      <h1>{title}</h1>
+      <h1
+  style={{
+    fontSize: "38px",
+    fontWeight: "700",
+    color: "#111",
+    marginBottom: "20px",
+  }}
+>
+  {title || "No Title"}
+</h1>
 
       <p style={{ color: "#666", marginBottom: "20px" }}>
         {description}
