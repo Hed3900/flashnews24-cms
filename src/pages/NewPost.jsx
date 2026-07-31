@@ -154,11 +154,15 @@ const handleImageUpload = async (e) => {
   setImage(data.secure_url);
 
   await addDoc(collection(db, "media"), {
-    url: data.secure_url,
+    imageUrl: data.secure_url,
     publicId: data.public_id,
-    name: file.name,
-    uploadedBy: localStorage.getItem("email"),
+    fileName: file.name,
+    size: file.size,
+    format: data.format,
+    width: data.width,
+    height: data.height,
     createdAt: new Date().toISOString(),
+    uploadedBy: localStorage.getItem("email"),
   });
 
   alert("Image uploaded successfully!");
