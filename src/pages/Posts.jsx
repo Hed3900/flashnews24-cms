@@ -589,16 +589,16 @@ const paginatedPosts = filteredPosts.slice(
   >
     <div
       style={{
-        width: "90%",
-        maxWidth: "700px",
-        maxHeight: "90vh",
-        overflowY: "auto",
-        background: "#1e293b",
-        color: "#fff",
-        padding: "20px",
-        borderRadius: "12px",
-      }}
-    >
+  width: "90%",
+  maxWidth: "800px",
+  maxHeight: "90vh",
+  overflowY: "auto",
+  background: "#1e293b",
+  color: "#fff",
+  padding: "24px",
+  borderRadius: "12px",
+  boxSizing: "border-box",
+}}
       <h2>{previewPost.title}</h2>
 
       {previewPost.image && (
@@ -623,10 +623,18 @@ const paginatedPosts = filteredPosts.slice(
 
       <hr />
       <div
-        dangerouslySetInnerHTML={{
-          __html: previewPost.content || "<p>No content</p>",
-        }}
-      />
+  style={{
+    marginTop: "20px",
+    lineHeight: "1.9",
+    fontSize: "17px",
+    color: "#e5e7eb",
+    wordBreak: "break-word",
+    overflowWrap: "break-word",
+  }}
+  dangerouslySetInnerHTML={{
+    __html: previewPost.content || "<p>No content</p>",
+  }}
+/>
 
       <button
         onClick={() => setPreviewPost(null)}
