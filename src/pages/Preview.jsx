@@ -30,9 +30,16 @@ function Preview() {
   {title || "No Title"}
 </h1>
 
-      <p style={{ color: "#666", marginBottom: "20px" }}>
-        {description}
-      </p>
+      {description && (
+  <p
+    style={{
+      color: "#666",
+      marginBottom: "20px",
+    }}
+  >
+    {description}
+  </p>
+)}
 {image && (
   <img
     src={image}
