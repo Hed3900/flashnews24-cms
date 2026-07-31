@@ -63,9 +63,6 @@ const postId = searchParams.get("id");
   const [scheduleDate, setScheduleDate] = useState("");
 const [scheduleTime, setScheduleTime] = useState("");
   const [showPreview, setShowPreview] = useState(false);
-  const quillRef = useRef(null);
-
-const [content, setContent] = useState("");
 const [htmlMode, setHtmlMode] = useState(false);
   const wordCount = content
   .trim()
