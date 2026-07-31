@@ -555,16 +555,6 @@ return (
 </div>
 <div
   style={{
-    textAlign: "right",
-    color: "#888",
-    marginBottom: "10px",
-    fontSize: "14px",
-  }}
->
-  Words: {wordCount}
-</div>
-<div
-  style={{
     display: "flex",
     gap: "10px",
     marginBottom: "12px"
