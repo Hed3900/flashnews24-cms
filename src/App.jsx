@@ -1,6 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard";    
+import Posts from "./pages/Posts";  
+import NewPost from "./pages/NewPost";  
+import Categories from "./pages/Categories";  
+import Authors from "./pages/Authors";  
+import Settings from "./pages/Settings";   
+import Preview from "./pages/Preview";  
+import Drafts from "./pages/Drafts";  
+import MediaLibrary from "./pages/MediaLibrary";  
+import Notification from "./pages/Notification";  
 // migatha imports...
 
 function App() {
