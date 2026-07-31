@@ -24,7 +24,20 @@ function Preview() {
       <p style={{ color: "#666", marginBottom: "20px" }}>
         {description}
       </p>
-
+{image && (
+  <img
+    src={image}
+    alt={title}
+    style={{
+      width: "100%",
+      maxWidth: "100%",
+      height: "auto",
+      borderRadius: "12px",
+      marginBottom: "24px",
+      display: "block",
+    }}
+  />
+)}
       <div
   className="preview-content"
   style={{
