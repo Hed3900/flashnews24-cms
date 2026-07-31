@@ -498,55 +498,51 @@ const paginatedPosts = filteredPosts.slice(
   </td>
 
   {/* Actions */}
-  <td style={{ padding: "12px" }}>
-  {localStorage.getItem("role") === "admin" && (
-    <>
-      <button
-        onClick={() => handleEdit(post.bloggerPostId)}
-        style={{
-          background: "#2563eb",
-          color: "#fff",
-          border: "none",
-          padding: "6px 12px",
-          borderRadius: "6px",
-          marginRight: "8px",
-          cursor: "pointer",
-        }}
-      >
-        Edit
-      </button>
+   <td style={{ padding: "12px" }}>
+    <button
+      onClick={() => handleEdit(post.bloggerPostId)}
+      style={{
+        background: "#2563eb",
+        color: "#fff",
+        border: "none",
+        padding: "6px 12px",
+        borderRadius: "6px",
+        marginRight: "8px",
+        cursor: "pointer",
+      }}
+    >
+      Edit
+    </button>
 
       <button
-        onClick={() => handleDelete(post)}
-        style={{
-          background: "#dc2626",
-          color: "#fff",
-          border: "none",
-          padding: "6px 12px",
-          borderRadius: "6px",
-          marginRight: "8px",
-          cursor: "pointer",
-        }}
-      >
-        Delete
-      </button>
-    </>
-  )}
-
-  <button
-    onClick={() => setPreviewPost(post)}
-    style={{
-      background: "#0ea5e9",
-      color: "#fff",
-      border: "none",
-      padding: "6px 12px",
-      borderRadius: "6px",
-      cursor: "pointer",
-    }}
-  >
-    View
-  </button>
-</td>
+      onClick={() => handleDelete(post)}
+      style={{
+        background: "#dc2626",
+        color: "#fff",
+        border: "none",
+        padding: "6px 12px",
+        borderRadius: "6px",
+        cursor: "pointer",
+      }}
+    >
+      Delete
+    </button>
+    
+    <button
+  onClick={() => setPreviewPost(post)}
+  style={{
+    background: "#0ea5e9",
+    color: "#fff",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    marginRight: "8px",
+    cursor: "pointer",
+  }}
+>
+  👁 View
+</button>
+  </td>
 </tr>
     ))
   )}
