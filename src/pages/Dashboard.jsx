@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { collection, getDocs } from "firebase/firestore";
@@ -113,7 +114,7 @@ const [topAuthors, setTopAuthors] = useState([]);
 
   loadDashboard();
 }, []);
-
+const role = localStorage.getItem("role");
 const categories = [
   ...new Set(posts.map((post) => post.category).filter(Boolean)),
 ];
@@ -368,46 +369,46 @@ return (
   {post.category || "General"}
 </td>
           <td align="center">
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      gap: "8px",
-      flexWrap: "wrap",
-    }}
-  >
-    <button
-      onClick={() =>
-        navigate(
-          `/new-post?id=${post.bloggerPostId || post.id}`
-        )
-      }
+  {role === "admin" && (
+    <div
       style={{
-        background: "#2563eb",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        cursor: "pointer",
+        display: "flex",
+        justifyContent: "center",
+        gap: "8px",
+        flexWrap: "wrap",
       }}
     >
-      ✏ Edit
-    </button>
+      <button
+        onClick={() =>
+          navigate(`/new-post?id=${post.bloggerPostId || post.id}`)
+        }
+        style={{
+          background: "#2563eb",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        ✏ Edit
+      </button>
 
-    <button
-      onClick={() => handleDelete(post)}
-      style={{
-        background: "#dc2626",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        cursor: "pointer",
-      }}
-    >
-      🗑 Delete
-    </button>
-  </div>
+      <button
+        onClick={() => handleDelete(post)}
+        style={{
+          background: "#dc2626",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        🗑 Delete
+      </button>
+    </div>
+  )}
 </td>
         </tr>
       ))}
