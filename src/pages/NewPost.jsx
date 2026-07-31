@@ -11,6 +11,7 @@ import {
   getDocs,
   doc,
   setDoc,
+  addDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import MediaPickerModal from "../components/MediaPickerModal";
@@ -149,7 +150,17 @@ const handleImageUpload = async (e) => {
   const data = await res.json();
 
   if (data.secure_url) {
+
   setImage(data.secure_url);
+
+  await addDoc(collection(db, "media"), {
+    url: data.secure_url,
+    publicId: data.public_id,
+    name: file.name,
+    uploadedBy: localStorage.getItem("email"),
+    createdAt: new Date().toISOString(),
+  });
+
   alert("Image uploaded successfully!");
 } else {
   alert(JSON.stringify(data));
