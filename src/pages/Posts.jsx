@@ -588,18 +588,19 @@ const paginatedPosts = filteredPosts.slice(
     }}
   >
     <div
-      style={{
-  width: "90%",
-  maxWidth: "800px",
-  maxHeight: "90vh",
-  overflowY: "auto",
-  background: "#1e293b",
-  color: "#fff",
-  padding: "24px",
-  borderRadius: "12px",
-  boxSizing: "border-box",
-}}
-      <h2>{previewPost.title}</h2>
+  style={{
+    width: "90%",
+    maxWidth: "800px",
+    maxHeight: "90vh",
+    overflowY: "auto",
+    background: "#1e293b",
+    color: "#fff",
+    padding: "24px",
+    borderRadius: "12px",
+    boxSizing: "border-box",
+  }}
+>
+  <h2>{previewPost.title}</h2>
 
       {previewPost.image && (
         <img
