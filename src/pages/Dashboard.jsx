@@ -365,47 +365,51 @@ return (
               : "🟡 Draft"}
           </td>
 <td align="center">
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      gap: "8px",
-      flexWrap: "wrap",
-    }}
-  >
-    <button
-      onClick={() =>
-        navigate(
-          `/new-post?id=${post.bloggerPostId || post.id}`
-        )
-      }
-      style={{
-        background: "#2563eb",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        cursor: "pointer",
-      }}
-    >
-      ✏ Edit
-    </button>
-
-    <button
-      onClick={() => handleDelete(post)}
-      style={{
-        background: "#dc2626",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        cursor: "pointer",
-      }}
-    >
-      🗑 Delete
-    </button>
-  </div>
+<td align="center">
+  {post.category || "General"}
 </td>
+          <td align="center">
+  {currentUser?.role === "admin" && (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: "8px",
+        flexWrap: "wrap",
+      }}
+    >
+      <button
+        onClick={() =>
+          navigate(`/new-post?id=${post.bloggerPostId || post.id}`)
+        }
+        style={{
+          background: "#2563eb",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        ✏ Edit
+      </button>
+
+      <button
+        onClick={() => handleDelete(post)}
+        style={{
+          background: "#dc2626",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        🗑 Delete
+      </button>
+    </div>
+  )}
+</td
         </tr>
       ))}
     </tbody>
