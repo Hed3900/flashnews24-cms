@@ -38,9 +38,9 @@ async function addCategory() {
     return;
   }
 
-  await setDoc(doc(db, "categories", name), {
-    name,
-    slug: name
+  await setDoc(doc(db, "categories", name.trim().toLowerCase()), {
+    name: name.trim(),
+    slug: name.trim()
   .trim()
   .toLowerCase()
   .replace(/\s+/g, "-")  });
@@ -48,7 +48,7 @@ async function addCategory() {
   setName("");
   loadCategories();
 }
-
+alert("Category Added Successfully");
 async function removeCategory(id) {
   if (!window.confirm("Delete Category?")) return;
 
