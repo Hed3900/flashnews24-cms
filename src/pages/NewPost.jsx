@@ -18,8 +18,9 @@ import { getAuth } from "firebase/auth";
 
 function NewPost() {
   const navigate = useNavigate();
-  const fileInputRef = useRef(null);
-  const auth = getAuth();
+const fileInputRef = useRef(null);
+const quillRef = useRef(null);
+const auth = getAuth();
 
 const CLOUD_NAME = "ye80kxro";
 const UPLOAD_PRESET = "flashnews24";
