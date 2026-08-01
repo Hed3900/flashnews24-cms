@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
-
+import { loginWithBlogger } from "../services/bloggerAuth";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -84,20 +84,20 @@ localStorage.setItem("name", user.name);
         />
 
         <button
-  onClick={handleLogin}
+  onClick={loginWithBlogger}
   style={{
     width: "100%",
     padding: "12px",
-    marginTop: "20px",
-    background: "#2563eb",
+    marginTop: "10px",
+    background: "#DB4437",
     color: "#fff",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
-    fontWeight: "bold",
+    fontWeight: "bold"
   }}
 >
-  Sign In
+  Sign in with Google (Blogger)
 </button>
       </div>
     </div>
