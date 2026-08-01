@@ -13,6 +13,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 function Posts() {
+  const role = localStorage.getItem("role");
   const [posts, setPosts] = useState([]);
 const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
