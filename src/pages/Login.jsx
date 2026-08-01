@@ -17,7 +17,7 @@ function Login() {
     localStorage.setItem("role", "admin");
     localStorage.setItem("name", "Admin");
 
-    window.location.href = "/";
+    window.location.replace("/");
   }
 }, []);
 
