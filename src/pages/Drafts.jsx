@@ -16,11 +16,28 @@ import { publishPost } from "../services/bloggerService";
 function Drafts() {
   const [drafts, setDrafts] = useState([]);
 const navigate = useNavigate();
-  useEffect(() => {
-    loadDrafts();
-  }, []);
 
-  async function publishDraft(post) {
+useEffect(() => {
+  loadDrafts();
+}, []);
+
+async function loadDrafts() {
+  const q = query(
+    collection(db, "posts"),
+    where("status", "==", "draft")
+  );
+
+  const snapshot = await getDocs(q);
+
+  const data = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  setDrafts(data);
+}
+
+async function publishDraft(post) {
   try {
     const html = `
 ${post.image ? `<img src="${post.image}" alt="${post.title}" style="width:100%;height:auto;border-radius:8px;margin-bottom:20px;" />` : ""}
@@ -33,7 +50,7 @@ ${post.content}
       html,
       [post.category]
     );
-  }
+
     await updateDoc(doc(db, "posts", post.id), {
       status: "published",
       bloggerPostId: response.result.id,
@@ -43,29 +60,10 @@ ${post.content}
 
     alert("Draft Published Successfully!");
     loadDrafts();
-
   } catch (err) {
     console.error(err);
     alert(err.message);
   }
-  }
-    const snapshot = await getDocs(q);
-
-    const data = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-
-    setDrafts(data);
-  }
-async function publishDraft(id) {
-  await updateDoc(doc(db, "posts", id), {
-    status: "published",
-  });
-
-  alert("Draft Published Successfully!");
-
-  loadDrafts();
 }
 
 async function deleteDraft(id) {
