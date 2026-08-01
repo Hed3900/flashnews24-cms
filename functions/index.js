@@ -42,6 +42,40 @@ exports.authorizeBlogger = onRequest(
     }
   }
 );
+exports.oauthCallback = onRequest(
+  {
+    cors: true,
+    secrets: [CLIENT_ID, CLIENT_SECRET, REDIRECT_URI],
+  },
+  async (req, res) => {
+    try {
+      const oauth2Client = new google.auth.OAuth2(
+        CLIENT_ID.value(),
+        CLIENT_SECRET.value(),
+        REDIRECT_URI.value()
+      );
+
+      const { code } = req.query;
+
+      if (!code) {
+        return res.status(400).send("Authorization code missing.");
+      }
+
+      const { tokens } = await oauth2Client.getToken(code);
+
+      await admin.firestore().collection("settings").doc("blogger").set({
+        accessToken: tokens.access_token,
+        refreshToken: tokens.refresh_token || "",
+        expiryDate: tokens.expiry_date || 0,
+      });
+
+      res.send("✅ Blogger authorization completed successfully. You can close this page.");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send(err.message);
+    }
+  }
+);
 exports.sendNotification = onRequest(
   { cors: true },
   async (req, res) => {
