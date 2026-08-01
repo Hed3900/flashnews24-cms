@@ -413,3 +413,10 @@ font-size:18px;
 .logout-btn:focus {
   outline: none;
 }
+.article-content{
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
