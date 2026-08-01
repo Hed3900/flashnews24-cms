@@ -99,9 +99,10 @@ export async function publishPost(
     blogId: BLOG_ID,
     isDraft: false,
     resource: {
-      title,
-      content,
-      labels,
+  title,
+  content,
+  labels,
+  customMetaData: description,
     },
   });
 }
@@ -130,9 +131,10 @@ export async function updatePost(
     blogId: BLOG_ID,
     postId,
     resource: {
-      title,
-      content,
-      labels,
+  title,
+  content,
+  labels,
+  customMetaData: description,
     },
   });
 }
