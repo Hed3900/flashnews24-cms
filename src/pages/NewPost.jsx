@@ -275,8 +275,10 @@ await setDoc(doc(db, "posts", draftId), {
 }
   try {
 const cleanContent = content
-  .replace(/&nbsp;/g, " ")
-  .replace(/<p><br><\/p>/g, "")
+  .replace(/&nbsp;/gi, " ")
+  .replace(/\u00A0/g, " ")
+  .replace(/\s+/g, " ")
+  .replace(/<p>\s*<\/p>/gi, "")
   .trim();
     const html = `
 ${image ? `<img src="${image}" alt="${title}" style="width:100%;height:auto;border-radius:8px;margin-bottom:20px;" />` : ""}
