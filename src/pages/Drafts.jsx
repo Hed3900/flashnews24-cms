@@ -33,7 +33,7 @@ ${post.content}
       html,
       [post.category]
     );
-
+  }
     await updateDoc(doc(db, "posts", post.id), {
       status: "published",
       bloggerPostId: response.result.id,
