@@ -3,13 +3,9 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { loginWithBlogger, getAccessToken } from "../services/bloggerAuth";
 import { useEffect } from "react";
-function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import { useState, useEffect } from "react";
+import { loginWithBlogger, getAccessToken } from "../services/bloggerAuth";
 
-  const handleLogin = async () => {
-  const userRef = doc(db, "users", email.trim());
-  const userSnap = await getDoc(userRef);
 useEffect(() => {
   const token = getAccessToken();
 
@@ -19,6 +15,13 @@ useEffect(() => {
     window.location.href = "/";
   }
 }, []);
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+  const userRef = doc(db, "users", email.trim());
+  const userSnap = await getDoc(userRef);
   if (!userSnap.exists()) {
     alert("User not found");
     return;
