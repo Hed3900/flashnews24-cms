@@ -87,7 +87,12 @@ export async function getPosts() {
   return response.result.items || [];
 }
 
-export async function publishPost(title, content, labels = []) {
+export async function publishPost(
+  title,
+  content,
+  labels = [],
+  description = ""
+) {
   await ensureSignedIn();
 
   return await window.gapi.client.blogger.posts.insert({
@@ -112,7 +117,13 @@ export async function getPost(postId) {
   return response.result;
 }
 
-export async function updatePost(postId, title, content, labels = []) {
+export async function updatePost(
+  postId,
+  title,
+  content,
+  labels = [],
+  description = ""
+) {
   await ensureSignedIn();
 
   return await window.gapi.client.blogger.posts.update({
