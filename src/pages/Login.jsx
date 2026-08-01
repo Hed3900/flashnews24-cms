@@ -1,24 +1,11 @@
+import { useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { useState, useEffect } from "react";
 
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-  const token = getAccessToken();
-
-  if (token) {
-    localStorage.setItem("blogger_token", token);
-    localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("role", "admin");
-    localStorage.setItem("name", "Admin");
-
-    window.location.replace("/");
-  }
-}, []);
 
   const handleLogin = async () => {
   const userRef = doc(db, "users", email.trim());
