@@ -120,16 +120,20 @@ console.log(post);
 alert("Title: " + post.title);
     setTitle(post.title);
     setCategory(post.labels?.[0] || "World");
+    setImage(post.image || "");
+setDescription(post.description || "");
+setKeywords(post.keywords || "");
+setSlug(post.slug || generateSlug(post.title));
 
     const temp = document.createElement("div");
     temp.innerHTML = post.content;
 
     // 👇 Ikkadi nundi nee existing code
     const img = temp.querySelector("img");
-    if (img) {
-      setImage(img.src);
-      img.remove();
-    }
+
+if (img) {
+  img.remove();
+}
 
     temp.querySelectorAll("p").forEach((p) => {
       if (!p.textContent.trim() && !p.querySelector("img")) {
