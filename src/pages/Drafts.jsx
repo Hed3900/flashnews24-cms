@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 
 import { useNavigate } from "react-router-dom";
-
+import { publishPost } from "../services/bloggerService";
 function Drafts() {
   const [drafts, setDrafts] = useState([]);
 const navigate = useNavigate();
@@ -20,12 +20,35 @@ const navigate = useNavigate();
     loadDrafts();
   }, []);
 
-  async function loadDrafts() {
-    const q = query(
-      collection(db, "posts"),
-      where("status", "==", "draft")
+  async function publishDraft(post) {
+  try {
+    const html = `
+${post.image ? `<img src="${post.image}" alt="${post.title}" style="width:100%;height:auto;border-radius:8px;margin-bottom:20px;" />` : ""}
+
+${post.content}
+`;
+
+    const response = await publishPost(
+      post.title,
+      html,
+      [post.category]
     );
 
+    await updateDoc(doc(db, "posts", post.id), {
+      status: "published",
+      bloggerPostId: response.result.id,
+      bloggerUrl: response.result.url || "",
+      publishedAt: new Date().toISOString(),
+    });
+
+    alert("Draft Published Successfully!");
+    loadDrafts();
+
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+  }
     const snapshot = await getDocs(q);
 
     const data = snapshot.docs.map((doc) => ({
@@ -88,7 +111,7 @@ async function deleteDraft(id) {
   </button>
 
   <button
-    onClick={() => publishDraft(post.id)}
+    onClick={() => publishDraft(post)} 
     style={{ marginRight: "8px" }}
   >
     Publish
