@@ -12,6 +12,7 @@ import {
   doc,
   setDoc,
   addDoc,
+  getDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import MediaPickerModal from "../components/MediaPickerModal";
@@ -95,8 +96,14 @@ console.log("postId:", postId);
 useEffect(() => {
   async function loadPost() {
     if (!postId) return;
+const docSnap = await getDoc(doc(db, "posts", postId));
 
-    const post = await getPost(postId);
+if (!docSnap.exists()) {
+  alert("Post not found");
+  return;
+}
+
+const post = docSnap.data();
 console.log(post);
     alert("Post ID: " + postId);
 alert("Title: " + post.title);
@@ -224,7 +231,9 @@ if (role === "author") {
   const email = localStorage.getItem("email");
   const name = localStorage.getItem("name");
 
-  await addDoc(collection(db, "posts"), {
+  const draftId = postId || crypto.randomUUID();
+
+await setDoc(doc(db, "posts", draftId), {
     bloggerPostId: "",
     bloggerUrl: "",
     authorId: auth.currentUser?.uid || "",
