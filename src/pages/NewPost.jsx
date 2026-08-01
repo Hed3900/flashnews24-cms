@@ -144,7 +144,8 @@ alert("Title: " + post.title);
       .trim();
 
     setContent(cleanedHtml);
-    setDescription(post.summary || "");
+    setDescription(post.description || "");
+    setKeywords(post.keywords || "");
     setSlug(generateSlug(post.title));
   }
 
