@@ -22,6 +22,7 @@ function NewPost() {
 const fileInputRef = useRef(null);
 const quillRef = useRef(null);
 const auth = getAuth();
+  const role = localStorage.getItem("role");
 
 const CLOUD_NAME = "ye80kxro";
 const UPLOAD_PRESET = "flashnews24";
@@ -219,7 +220,34 @@ scheduledTime: scheduleTime,
   }
 
   setLoading(true);
+if (role === "author") {
+  const email = localStorage.getItem("email");
+  const name = localStorage.getItem("name");
 
+  await addDoc(collection(db, "posts"), {
+    bloggerPostId: "",
+    bloggerUrl: "",
+    authorId: auth.currentUser?.uid || "",
+    authorEmail: email,
+    authorName: name,
+    title,
+    category,
+    image,
+    description,
+    keywords,
+    slug,
+    content,
+    status: "draft",
+    scheduledDate: scheduleDate,
+    scheduledTime: scheduleTime,
+    createdAt: new Date().toISOString(),
+  });
+
+  alert("Draft submitted successfully. Waiting for admin approval.");
+  navigate("/drafts");
+  setLoading(false);
+  return;
+}
   try {
 const cleanContent = content
   .replace(/&nbsp;/g, " ")
