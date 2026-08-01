@@ -1,4 +1,14 @@
 const { onRequest } = require("firebase-functions/v2/https");
+const { defineSecret } = require("firebase-functions/params");
+const admin = require("firebase-admin");
+const { google } = require("googleapis");
+
+admin.initializeApp();
+
+const CLIENT_ID = defineSecret("CLIENT_ID");
+const CLIENT_SECRET = defineSecret("CLIENT_SECRET");
+const REDIRECT_URI = defineSecret("REDIRECT_URI");
+const { onRequest } = require("firebase-functions/v2/https");
 const admin = require("firebase-admin");
 const { google } = require("googleapis");
 admin.initializeApp();
@@ -8,10 +18,19 @@ exports.authorizeBlogger = onRequest(
     try {
       const { google } = require("googleapis");
 
-const oauth2Client = new google.auth.OAuth2(
-  process.env.CLIENT_ID,
-  process.env.CLIENT_SECRET,
-  process.env.REDIRECT_URI
+exports.authorizeBlogger = onRequest(
+  {
+    cors: true,
+    secrets: [CLIENT_ID, CLIENT_SECRET, REDIRECT_URI]
+  },
+  async (req, res) => {
+    const oauth2Client = new google.auth.OAuth2(
+      CLIENT_ID.value(),
+      CLIENT_SECRET.value(),
+      REDIRECT_URI.value()
+    );
+    // ...
+  }
 );
       const url = oauth2Client.generateAuthUrl({
         access_type: "offline",
