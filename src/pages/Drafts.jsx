@@ -156,7 +156,30 @@ async function deleteDraft(id) {
         🗑 Delete
       </button>
     </div>
-  ) : (
+) : (
+  <div
+    style={{
+      display: "flex",
+      gap: "8px",
+      flexWrap: "wrap",
+      alignItems: "center",
+    }}
+  >
+    <button
+      onClick={() => navigate(`/new-post?id=${post.id}`)}
+      style={{
+        background: "#2563eb",
+        color: "#fff",
+        border: "none",
+        padding: "8px 14px",
+        borderRadius: "6px",
+        cursor: "pointer",
+        fontWeight: "600",
+      }}
+    >
+      ✏️ Edit
+    </button>
+
     <span
       style={{
         display: "inline-block",
@@ -165,12 +188,14 @@ async function deleteDraft(id) {
         padding: "8px 14px",
         borderRadius: "20px",
         fontWeight: "600",
-        fontSize: "14px",
+        fontSize: "13px",
+        whiteSpace: "nowrap",
       }}
     >
       ⏳ Waiting for Admin Approval
     </span>
-  )}
+  </div>
+)}
 </td>
               </tr>
             ))}
