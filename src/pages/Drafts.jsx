@@ -41,10 +41,16 @@ async function loadDrafts() {
 
 async function publishDraft(post) {
   try {
-    const html = `
+    const cleanContent = post.content
+  .replace(/&nbsp;/g, " ")
+  .replace(/<p><br><\/p>/gi, "")
+  .replace(/<br\s*\/?>/gi, "")
+  .trim();
+
+const html = `
 ${post.image ? `<img src="${post.image}" alt="${post.title}" style="width:100%;height:auto;border-radius:8px;margin-bottom:20px;" />` : ""}
 
-${post.content}
+${cleanContent}
 `;
 
     const response = await publishPost(
