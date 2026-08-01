@@ -104,6 +104,17 @@ if (!docSnap.exists()) {
 }
 
 const post = docSnap.data();
+    const currentEmail = localStorage.getItem("email");
+const role = localStorage.getItem("role");
+
+if (
+  role !== "admin" &&
+  post.authorEmail !== currentEmail
+) {
+  alert("You are not allowed to edit this post.");
+  navigate("/posts");
+  return;
+}
 console.log(post);
     alert("Post ID: " + postId);
 alert("Title: " + post.title);
