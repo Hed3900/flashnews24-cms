@@ -1,6 +1,5 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { loginWithBlogger, getAccessToken } from "../services/bloggerAuth";
 import { useState, useEffect } from "react";
 
 
@@ -98,20 +97,21 @@ localStorage.setItem("name", user.name);
         />
 
         <button
-  onClick={loginWithBlogger}
+  onClick={handleLogin}
   style={{
     width: "100%",
     padding: "12px",
-    marginTop: "10px",
-    background: "#DB4437",
+    marginTop: "20px",
+    background: "#2563eb",
     color: "#fff",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontSize: "16px",
   }}
 >
-  Sign in with Google (Blogger)
+  🔐 Sign In to FlashNews24 CMS
 </button>
       </div>
     </div>
