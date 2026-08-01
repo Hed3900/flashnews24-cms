@@ -9,14 +9,17 @@ function Login() {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    const token = getAccessToken();
+  const token = getAccessToken();
 
-    if (token) {
-      localStorage.setItem("blogger_token", token);
-      localStorage.setItem("loggedIn", "true");
-      window.location.href = "/";
-    }
-  }, []);
+  if (token) {
+    localStorage.setItem("blogger_token", token);
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("role", "admin");
+    localStorage.setItem("name", "Admin");
+
+    window.location.href = "/";
+  }
+}, []);
 
   const handleLogin = async () => {
   const userRef = doc(db, "users", email.trim());
