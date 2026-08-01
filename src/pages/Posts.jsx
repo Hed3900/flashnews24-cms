@@ -502,6 +502,21 @@ const paginatedPosts = filteredPosts.slice(
   {role === "admin" ? (
     <>
       <button
+        onClick={() => handleEdit(post.id)}
+        style={{
+          background: "#2563eb",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          marginRight: "8px",
+          cursor: "pointer",
+        }}
+      >
+        ✏️ Edit
+      </button>
+
+      <button
   onClick={() => handleEdit(post.id)}
   style={{
     background: "#dc2626",
@@ -515,21 +530,6 @@ const paginatedPosts = filteredPosts.slice(
 >
   🗑 Delete
 </button>
-
-      <button
-        handleEdit(post.id)
-        style={{
-          background: "#dc2626",
-          color: "#fff",
-          border: "none",
-          padding: "6px 12px",
-          borderRadius: "6px",
-          marginRight: "8px",
-          cursor: "pointer",
-        }}
-      >
-        🗑 Delete
-      </button>
 
       <button
         onClick={() => setPreviewPost(post)}
