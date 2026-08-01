@@ -288,7 +288,13 @@ ${cleanContent}
     let response;
 
 if (postId) {
-  response = await updatePost(postId, title, html, [category]);
+  response = await updatePost(
+  postId,
+  title,
+  html,
+  [category],
+  description
+);
 } else {
   response = await publishPost(
   title,
