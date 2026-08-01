@@ -499,50 +499,86 @@ const paginatedPosts = filteredPosts.slice(
 
   {/* Actions */}
    <td style={{ padding: "12px" }}>
-    <button
-      onClick={() => handleEdit(post.bloggerPostId)}
-      style={{
-        background: "#2563eb",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        marginRight: "8px",
-        cursor: "pointer",
-      }}
-    >
-      Edit
-    </button>
+  {role === "admin" ? (
+    <>
+      <button
+        onClick={() => handleEdit(post.id)}
+        style={{
+          background: "#2563eb",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          marginRight: "8px",
+          cursor: "pointer",
+        }}
+      >
+        ✏️ Edit
+      </button>
 
       <button
-      onClick={() => handleDelete(post)}
-      style={{
-        background: "#dc2626",
-        color: "#fff",
-        border: "none",
-        padding: "6px 12px",
-        borderRadius: "6px",
-        cursor: "pointer",
-      }}
-    >
-      Delete
-    </button>
-    
-    <button
-  onClick={() => setPreviewPost(post)}
-  style={{
-    background: "#0ea5e9",
-    color: "#fff",
-    border: "none",
-    padding: "6px 12px",
-    borderRadius: "6px",
-    marginRight: "8px",
-    cursor: "pointer",
-  }}
->
-  👁 View
-</button>
-  </td>
+        onClick={() => handleDelete(post)}
+        style={{
+          background: "#dc2626",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          marginRight: "8px",
+          cursor: "pointer",
+        }}
+      >
+        🗑 Delete
+      </button>
+
+      <button
+        onClick={() => setPreviewPost(post)}
+        style={{
+          background: "#0ea5e9",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        👁 View
+      </button>
+    </>
+  ) : (
+    <>
+      <button
+        onClick={() => setPreviewPost(post)}
+        style={{
+          background: "#0ea5e9",
+          color: "#fff",
+          border: "none",
+          padding: "6px 12px",
+          borderRadius: "6px",
+          marginRight: "8px",
+          cursor: "pointer",
+        }}
+      >
+        👁 View
+      </button>
+
+      {post.status === "draft" && (
+        <span
+          style={{
+            background: "#f59e0b",
+            color: "#fff",
+            padding: "5px 10px",
+            borderRadius: "20px",
+            fontSize: "12px",
+            fontWeight: "bold",
+          }}
+        >
+          Waiting for Admin
+        </span>
+      )}
+    </>
+  )}
+</td>
 </tr>
     ))
   )}
