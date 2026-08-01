@@ -1,8 +1,39 @@
 const { onRequest } = require("firebase-functions/v2/https");
 const admin = require("firebase-admin");
-
+const { google } = require("googleapis");
 admin.initializeApp();
+exports.authorizeBlogger = onRequest(
+  { cors: true },
+  async (req, res) => {
+    try {
+      const { google } = require("googleapis");
 
+const oauth2Client = new google.auth.OAuth2(
+  process.env.CLIENT_ID,
+  process.env.CLIENT_SECRET,
+  "https://us-central1-flashnews24-5bfd6.cloudfunctions.net/oauthCallback"
+);
+
+      const url = oauth2Client.generateAuthUrl({
+        access_type: "offline",
+        prompt: "consent",
+        scope: [
+          "https://www.googleapis.com/auth/blogger"
+        ]
+      });
+
+      res.redirect(url);
+
+    } catch (err) {
+      console.error(err);
+
+      res.status(500).json({
+        success: false,
+        error: err.message
+      });
+    }
+  }
+);
 exports.sendNotification = onRequest(
   { cors: true },
   async (req, res) => {
