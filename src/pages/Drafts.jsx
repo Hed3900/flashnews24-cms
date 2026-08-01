@@ -54,10 +54,11 @@ ${cleanContent}
 `;
 
     const response = await publishPost(
-      post.title,
-      html,
-      [post.category]
-    );
+  post.title,
+  html,
+  [...(post.keywords || "").split(",").map(k => k.trim()).filter(Boolean), post.category],
+  post.description
+);
 
     await updateDoc(doc(db, "posts", post.id), {
       status: "published",
