@@ -518,7 +518,7 @@ const paginatedPosts = filteredPosts.slice(
       </button>
 
       <button
-  onClick={() => handleEdit(post.id)}
+  onClick={() => handleDelete(post)}
   style={{
     background: "#dc2626",
     color: "#fff",
