@@ -9,6 +9,16 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    const token = getAccessToken();
+
+    if (token) {
+      localStorage.setItem("blogger_token", token);
+      localStorage.setItem("loggedIn", "true");
+      window.location.href = "/";
+    }
+  }, []);
+
   const handleLogin = async () => {
   const userRef = doc(db, "users", email.trim());
   const userSnap = await getDoc(userRef);
