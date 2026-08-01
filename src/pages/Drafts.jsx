@@ -14,8 +14,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import { publishPost } from "../services/bloggerService";
 function Drafts() {
+  const role = localStorage.getItem("role");
   const [drafts, setDrafts] = useState([]);
 const navigate = useNavigate();
+
 
 useEffect(() => {
   loadDrafts();
@@ -101,25 +103,74 @@ async function deleteDraft(id) {
                 <td>{post.category}</td>
                 <td>{post.authorName}</td>
                 <td>
-  <button
-    onClick={() => navigate(`/new-post?id=${post.id}`)}
-    style={{ marginRight: "8px" }}
-  >
-    Edit
-  </button>
+  {role === "admin" ? (
+    <div
+      style={{
+        display: "flex",
+        gap: "8px",
+        flexWrap: "wrap",
+      }}
+    >
+      <button
+        onClick={() => navigate(`/new-post?id=${post.id}`)}
+        style={{
+          background: "#2563eb",
+          color: "#fff",
+          border: "none",
+          padding: "8px 14px",
+          borderRadius: "6px",
+          cursor: "pointer",
+          fontWeight: "600",
+        }}
+      >
+        ✏️ Edit
+      </button>
 
-  <button
-    onClick={() => publishDraft(post)} 
-    style={{ marginRight: "8px" }}
-  >
-    Publish
-  </button>
+      <button
+        onClick={() => publishDraft(post)}
+        style={{
+          background: "#16a34a",
+          color: "#fff",
+          border: "none",
+          padding: "8px 14px",
+          borderRadius: "6px",
+          cursor: "pointer",
+          fontWeight: "600",
+        }}
+      >
+        🚀 Publish
+      </button>
 
-  <button
-    onClick={() => deleteDraft(post.id)}
-  >
-    Delete
-  </button>
+      <button
+        onClick={() => deleteDraft(post.id)}
+        style={{
+          background: "#dc2626",
+          color: "#fff",
+          border: "none",
+          padding: "8px 14px",
+          borderRadius: "6px",
+          cursor: "pointer",
+          fontWeight: "600",
+        }}
+      >
+        🗑 Delete
+      </button>
+    </div>
+  ) : (
+    <span
+      style={{
+        display: "inline-block",
+        background: "#f59e0b",
+        color: "#fff",
+        padding: "8px 14px",
+        borderRadius: "20px",
+        fontWeight: "600",
+        fontSize: "14px",
+      }}
+    >
+      ⏳ Waiting for Admin Approval
+    </span>
+  )}
 </td>
               </tr>
             ))}
