@@ -138,9 +138,9 @@ const [scheduleTime, setScheduleTime] = useState("");
   const [showPreview, setShowPreview] = useState(false);
 const [htmlMode, setHtmlMode] = useState(false);
   useEffect(() => {
-  const saved = sessionStorage.getItem(
-    "flashnews24_preview_draft"
-  );
+  alert("Draft Saved Successfully!");
+sessionStorage.removeItem("flashnews24_preview_draft");
+navigate("/drafts");
 
   if (!saved || postId) return;
 
