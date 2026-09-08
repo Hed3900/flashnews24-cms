@@ -804,46 +804,34 @@ cursor:"pointer"
   }}
 >
   <button
-    type="button"
-    onClick={() => {
-      const quill = quillRef.current?.getEditor();
-if (quill) {
-  const history = quill.getModule("history");
-  history.undo();
-}
-    }}
-    style={{
-      padding: "10px 18px",
-      borderRadius: "8px",
-      border: "none",
-      background: "#475569",
-      color: "#fff",
-      cursor: "pointer"
-    }}
-  >
-    ↶ Undo
-  </button>
+  type="button"
+  onClick={handleUndo}
+  style={{
+    padding:"10px 18px",
+    borderRadius:"8px",
+    border:"none",
+    background:"#475569",
+    color:"#fff",
+    cursor:"pointer"
+  }}
+>
+  ↶ Undo
+</button>
 
-  <button
-    type="button"
-    onClick={() => {
-      const quill = quillRef.current?.getEditor();
-if (quill) {
-  const history = quill.getModule("history");
-  history.redo();
-}
-    }}
-    style={{
-      padding: "10px 18px",
-      borderRadius: "8px",
-      border: "none",
-      background: "#475569",
-      color: "#fff",
-      cursor: "pointer"
-    }}
-  >
-    ↷ Redo
-  </button>
+<button
+  type="button"
+  onClick={handleRedo}
+  style={{
+    padding:"10px 18px",
+    borderRadius:"8px",
+    border:"none",
+    background:"#475569",
+    color:"#fff",
+    cursor:"pointer"
+  }}
+>
+  ↷ Redo
+</button>
 </div>
 </div>
 {
