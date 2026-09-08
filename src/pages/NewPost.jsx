@@ -137,6 +137,69 @@ const postId = searchParams.get("id");
 const [scheduleTime, setScheduleTime] = useState("");
   const [showPreview, setShowPreview] = useState(false);
 const [htmlMode, setHtmlMode] = useState(false);
+  const undoStack = useRef([]);
+const redoStack = useRef([]);
+const lastContent = useRef("");
+const isUndoRedo = useRef(false);
+
+const handleContentChange = (newContent) => {
+  if (isUndoRedo.current) {
+    setContent(newContent);
+    lastContent.current = newContent;
+    return;
+  }
+
+  if (newContent !== lastContent.current) {
+    undoStack.current.push(lastContent.current);
+
+    if (undoStack.current.length > 100) {
+      undoStack.current.shift();
+    }
+
+    redoStack.current = [];
+    lastContent.current = newContent;
+  }
+
+  setContent(newContent);
+};
+
+const handleUndo = () => {
+  if (undoStack.current.length === 0) {
+    return;
+  }
+
+  const previousContent = undoStack.current.pop();
+
+  redoStack.current.push(content);
+
+  isUndoRedo.current = true;
+
+  setContent(previousContent);
+  lastContent.current = previousContent;
+
+  setTimeout(() => {
+    isUndoRedo.current = false;
+  }, 0);
+};
+
+const handleRedo = () => {
+  if (redoStack.current.length === 0) {
+    return;
+  }
+
+  const nextContent = redoStack.current.pop();
+
+  undoStack.current.push(content);
+
+  isUndoRedo.current = true;
+
+  setContent(nextContent);
+  lastContent.current = nextContent;
+
+  setTimeout(() => {
+    isUndoRedo.current = false;
+  }, 0);
+};
   const wordCount = content
   .trim()
   .split(/\s+/)
@@ -832,7 +895,7 @@ theme="snow"
 
 value={content}
 
-onChange={setContent}
+onChange={handleContentChange}
 
 modules={modules}
 
