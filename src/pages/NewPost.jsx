@@ -38,7 +38,7 @@ const UPLOAD_PRESET = "flashnews24";
       ["blockquote", "code-block"],
       ["link", "image", "video"],
       ["clean"],
-      ["undo", "redo"],
+      ["undo", "redo"]
     ],
     handlers: {
       image: () => {
