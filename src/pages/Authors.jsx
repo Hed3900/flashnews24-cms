@@ -5,6 +5,7 @@ import {
   getDocs,
   doc,
   setDoc,
+  updateDoc,
   deleteDoc,
 } from "firebase/firestore";
 
@@ -15,6 +16,7 @@ function Authors() {
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+  const [editingEmail, setEditingEmail] = useState("");
 
   useEffect(() => {
   loadAuthors();
@@ -51,7 +53,39 @@ async function createAuthor() {
 
   loadAuthors();
 }
+function editAuthor(author) {
+  setName(author.name || "");
+  setEmail(author.email || "");
+  setPassword(author.password || "");
+  setEditingEmail(author.email);
+}
 
+async function updateAuthor() {
+  if (!name || !email || !password) {
+    alert("Fill all fields");
+    return;
+  }
+
+  try {
+    await updateDoc(doc(db, "users", editingEmail), {
+      name,
+      email,
+      password,
+    });
+
+    alert("Author Updated Successfully");
+
+    setName("");
+    setEmail("");
+    setPassword("");
+    setEditingEmail("");
+
+    loadAuthors();
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
+}
 async function removeAuthor(email) {
   if (!window.confirm("Delete Author?")) return;
 
@@ -114,9 +148,9 @@ return (
 />
 
           <button
-  onClick={createAuthor}
+  onClick={editingEmail ? updateAuthor : createAuthor}
   style={{
-    background: "#2563eb",
+    background: editingEmail ? "#16a34a" : "#2563eb",
     color: "#fff",
     border: "none",
     padding: "10px 20px",
@@ -124,8 +158,31 @@ return (
     cursor: "pointer",
   }}
 >
-  Create Author
+  {editingEmail ? "Update Author" : "Create Author"}
 </button>
+
+{editingEmail && (
+  <button
+    type="button"
+    onClick={() => {
+      setName("");
+      setEmail("");
+      setPassword("");
+      setEditingEmail("");
+    }}
+    style={{
+      background: "#64748b",
+      color: "#fff",
+      border: "none",
+      padding: "10px 20px",
+      borderRadius: "6px",
+      cursor: "pointer",
+      marginLeft: "10px",
+    }}
+  >
+    Cancel
+  </button>
+)}
         </div>
 
         {/* Authors List */}
@@ -175,17 +232,19 @@ return (
                     <td style={{ padding: "10px" }}>{author.role}</td>
                     <td style={{ padding: "10px" }}>
                       <button
-                        style={{
-                          background: "#2563eb",
-                          color: "#fff",
-                          border: "none",
-                          padding: "6px 12px",
-                          marginRight: "8px",
-                          borderRadius: "5px",
-                        }}
-                      >
-                        Edit
-                      </button>
+  onClick={() => editAuthor(author)}
+  style={{
+    background: "#2563eb",
+    color: "#fff",
+    border: "none",
+    padding: "6px 12px",
+    marginRight: "8px",
+    borderRadius: "5px",
+    cursor: "pointer",
+  }}
+>
+  Edit
+</button>
 
                       <button
   onClick={() => removeAuthor(author.email)}
