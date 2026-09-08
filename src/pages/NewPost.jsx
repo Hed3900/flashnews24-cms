@@ -1058,25 +1058,30 @@ objectFit: "cover",
             </button>
             <button
   onClick={() => {
-    const previewDraft = {
-      title,
-      description,
-      slug,
-      keywords,
-      category,
-      image,
-      content,
-      scheduleDate,
-      scheduleTime,
-    };
+  const previewDraft = {
+    title,
+    description,
+    slug,
+    keywords,
+    category,
+    image,
+    content,
+    scheduleDate,
+    scheduleTime,
+  };
 
-    sessionStorage.setItem(
-      "flashnews24_preview_draft",
-      JSON.stringify(previewDraft)
-    );
+  sessionStorage.setItem(
+    "flashnews24_preview_draft",
+    JSON.stringify(previewDraft)
+  );
 
-    navigate("/preview");
-  }}
+  sessionStorage.setItem(
+    "flashnews24_editor_url",
+    window.location.pathname + window.location.search
+  );
+
+  navigate("/preview");
+}}
   style={{
     background: "#f59e0b",
     color: "white",
