@@ -1,12 +1,35 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Preview() {
-  const { state } = useLocation();
   const navigate = useNavigate();
+  const [draft, setDraft] = useState(null);
 
-  if (!state) {
+  useEffect(() => {
+    const saved = sessionStorage.getItem(
+      "flashnews24_preview_draft"
+    );
+
+    if (!saved) return;
+
+    try {
+      const data = JSON.parse(saved);
+      setDraft(data);
+    } catch (error) {
+      console.error("Preview load failed:", error);
+    }
+  }, []);
+
+  if (!draft) {
     return (
-      <div style={{ padding: 20 }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "#0f172a",
+          color: "#fff",
+          padding: "20px",
+        }}
+      >
         <h2>No Preview Available</h2>
 
         <button
@@ -18,6 +41,7 @@ function Preview() {
             padding: "12px 20px",
             borderRadius: "8px",
             marginTop: "15px",
+            cursor: "pointer",
           }}
         >
           ← Back to Editor
@@ -31,7 +55,7 @@ function Preview() {
     description = "",
     image = "",
     content = "",
-  } = state;
+  } = draft;
 
   return (
     <div
@@ -74,6 +98,7 @@ function Preview() {
             fontWeight: "700",
             color: "#111",
             marginBottom: "20px",
+            lineHeight: "1.3",
           }}
         >
           {title || "No Title"}
@@ -84,6 +109,7 @@ function Preview() {
             style={{
               color: "#666",
               marginBottom: "20px",
+              fontSize: "17px",
             }}
           >
             {description}
@@ -111,7 +137,8 @@ function Preview() {
             fontSize: "22px",
             lineHeight: "2",
             color: "#222",
-            fontFamily: 'Georgia, "Times New Roman", serif',
+            fontFamily:
+              'Georgia, "Times New Roman", serif',
             wordBreak: "normal",
             overflowWrap: "normal",
             whiteSpace: "normal",
