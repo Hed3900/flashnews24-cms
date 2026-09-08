@@ -104,6 +104,13 @@ function MediaLibrary() {
   }
 
   async function handleDelete(id) {
+    const role = localStorage.getItem("role");
+
+  if (role !== "admin") {
+    alert("Only admin can delete images.");
+    return;
+  }
+    
     const ok = window.confirm(
       "Delete this image?"
     );
@@ -314,22 +321,24 @@ function MediaLibrary() {
                       Copy URL
                     </button>
 
-                    <button
-                      onClick={() =>
-                        handleDelete(item.id)
-                      }
-                      style={{
-                        width: "100%",
-                        background: "#dc2626",
-                        color: "white",
-                        border: "none",
-                        padding: "10px",
-                        borderRadius: "6px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Delete
-                    </button>
+                    {localStorage.getItem("role") === "admin" && (
+  <button
+    onClick={() =>
+      handleDelete(item.id)
+    }
+    style={{
+      width: "100%",
+      background: "#dc2626",
+      color: "white",
+      border: "none",
+      padding: "10px",
+      borderRadius: "6px",
+      cursor: "pointer",
+    }}
+  >
+    Delete
+  </button>
+)}
                   </div>
                 </div>
               </div>
