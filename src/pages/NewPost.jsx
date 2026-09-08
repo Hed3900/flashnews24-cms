@@ -733,7 +733,49 @@ cursor:"pointer"
 >
 💻 HTML
 </button>
+<div
+  style={{
+    display: "flex",
+    gap: "10px",
+    marginBottom: "12px"
+  }}
+>
+  <button
+    type="button"
+    onClick={() => {
+      const quill = quillRef.current?.getEditor();
+      if (quill) quill.history.undo();
+    }}
+    style={{
+      padding: "10px 18px",
+      borderRadius: "8px",
+      border: "none",
+      background: "#475569",
+      color: "#fff",
+      cursor: "pointer"
+    }}
+  >
+    ↶ Undo
+  </button>
 
+  <button
+    type="button"
+    onClick={() => {
+      const quill = quillRef.current?.getEditor();
+      if (quill) quill.history.redo();
+    }}
+    style={{
+      padding: "10px 18px",
+      borderRadius: "8px",
+      border: "none",
+      background: "#475569",
+      color: "#fff",
+      cursor: "pointer"
+    }}
+  >
+    ↷ Redo
+  </button>
+</div>
 </div>
 {
 htmlMode?
@@ -775,55 +817,7 @@ border:"1px solid #333"
 :
 
 (
-<div
-  style={{
-    display: "flex",
-    gap: "10px",
-    marginBottom: "10px",
-  }}
->
-  <button
-    type="button"
-    onClick={() => {
-      const quill = quillRef.current?.getEditor();
-      if (quill) {
-        quill.history.undo();
-      }
-    }}
-    style={{
-      background: "#475569",
-      color: "#fff",
-      border: "none",
-      padding: "10px 18px",
-      borderRadius: "8px",
-      cursor: "pointer",
-      fontSize: "15px",
-    }}
-  >
-    ↶ Undo
-  </button>
 
-  <button
-    type="button"
-    onClick={() => {
-      const quill = quillRef.current?.getEditor();
-      if (quill) {
-        quill.history.redo();
-      }
-    }}
-    style={{
-      background: "#475569",
-      color: "#fff",
-      border: "none",
-      padding: "10px 18px",
-      borderRadius: "8px",
-      cursor: "pointer",
-      fontSize: "15px",
-    }}
-  >
-    ↷ Redo
-  </button>
-</div>
 <ReactQuill
 
 ref={quillRef}
