@@ -138,6 +138,29 @@ const [scheduleTime, setScheduleTime] = useState("");
   const [showPreview, setShowPreview] = useState(false);
 const [htmlMode, setHtmlMode] = useState(false);
   useEffect(() => {
+  const saved = sessionStorage.getItem(
+    "flashnews24_preview_draft"
+  );
+
+  if (!saved || postId) return;
+
+  try {
+    const draft = JSON.parse(saved);
+
+    setTitle(draft.title || "");
+    setDescription(draft.description || "");
+    setSlug(draft.slug || "");
+    setKeywords(draft.keywords || "");
+    setCategory(draft.category || "World");
+    setImage(draft.image || "");
+    setContent(draft.content || "");
+    setScheduleDate(draft.scheduleDate || "");
+    setScheduleTime(draft.scheduleTime || "");
+  } catch (error) {
+    console.error("Preview draft restore failed:", error);
+  }
+}, [postId]);
+  useEffect(() => {
   const previewDraft = {
     title,
     description,
