@@ -1033,15 +1033,16 @@ objectFit: "cover",
   : (postId ? "Update" : "Publish")}
             </button>
             <button
+  type="button"
   onClick={() =>
-  navigate("/preview", {
-    state: {
-      title,
-      description,
-      image,
-      content,
-    },
-  })
+    navigate("/preview", {
+      state: {
+        title,
+        description,
+        image,
+        content,
+      },
+    })
   }
   style={{
     background: "#f59e0b",
