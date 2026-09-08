@@ -28,23 +28,92 @@ const auth = getAuth();
 const CLOUD_NAME = "ye80kxro";
 const UPLOAD_PRESET = "flashnews24";
   const modules = {
-  toolbar: [
-    [{ header: [1, 2, 3, 4, false] }],
+  toolbar: {
+    container: [
+      [{ header: [1, 2, 3, 4, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ color: [] }, { background: [] }],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ align: [] }],
+      ["blockquote", "code-block"],
+      ["link", "image", "video"],
+      ["clean"]
+    ],
+    handlers: {
+      image: () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
 
-    ["bold", "italic", "underline", "strike"],
+        input.onchange = async () => {
+          const file = input.files?.[0];
+          if (!file) return;
 
-    [{ color: [] }, { background: [] }],
+          try {
+            setLoading(true);
 
-    [{ list: "ordered" }, { list: "bullet" }],
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", UPLOAD_PRESET);
 
-    [{ align: [] }],
+            const res = await fetch(
+              `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
 
-    ["blockquote", "code-block"],
+            const data = await res.json();
 
-    ["link", "image", "video"],
+            if (!data.secure_url) {
+              throw new Error(
+                data.error?.message || "Image upload failed"
+              );
+            }
 
-    ["clean"]
-  ],
+            const quill = quillRef.current?.getEditor();
+
+            if (quill) {
+              const range = quill.getSelection(true);
+              const index = range
+                ? range.index
+                : quill.getLength() - 1;
+
+              quill.insertEmbed(
+                index,
+                "image",
+                data.secure_url,
+                "user"
+              );
+
+              quill.setSelection(index + 1);
+            }
+
+            await addDoc(collection(db, "media"), {
+              imageUrl: data.secure_url,
+              publicId: data.public_id,
+              fileName: file.name,
+              size: file.size,
+              format: data.format,
+              width: data.width,
+              height: data.height,
+              createdAt: new Date().toISOString(),
+              uploadedBy: localStorage.getItem("email"),
+            });
+
+          } catch (error) {
+            console.error(error);
+            alert(error.message || "Image upload failed");
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        input.click();
+      }
+    }
+  },
 
   history: {
     delay: 1000,
