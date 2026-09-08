@@ -160,34 +160,7 @@ const [htmlMode, setHtmlMode] = useState(false);
     console.error("Preview draft restore failed:", error);
   }
 }, [postId]);
-  useEffect(() => {
-  const previewDraft = {
-    title,
-    description,
-    slug,
-    keywords,
-    category,
-    image,
-    content,
-    scheduleDate,
-    scheduleTime,
-  };
-
-  sessionStorage.setItem(
-    "flashnews24_preview_draft",
-    JSON.stringify(previewDraft)
-  );
-}, [
-  title,
-  description,
-  slug,
-  keywords,
-  category,
-  image,
-  content,
-  scheduleDate,
-  scheduleTime,
-]);
+  
   const undoStack = useRef([]);
 const redoStack = useRef([]);
 const lastContent = useRef("");
@@ -1084,17 +1057,26 @@ objectFit: "cover",
   : (postId ? "Update" : "Publish")}
             </button>
             <button
-  type="button"
-  onClick={() =>
-    navigate("/preview", {
-      state: {
-        title,
-        description,
-        image,
-        content,
-      },
-    })
-  }
+  onClick={() => {
+    const previewDraft = {
+      title,
+      description,
+      slug,
+      keywords,
+      category,
+      image,
+      content,
+      scheduleDate,
+      scheduleTime,
+    };
+
+    sessionStorage.setItem(
+      "flashnews24_preview_draft",
+      JSON.stringify(previewDraft)
+    );
+
+    navigate("/preview");
+  }}
   style={{
     background: "#f59e0b",
     color: "white",
