@@ -383,7 +383,8 @@ scheduledTime: scheduleTime,
     });
 
     alert("Draft Saved Successfully!");
-    navigate("/drafts");
+sessionStorage.removeItem("flashnews24_preview_draft");
+navigate("/drafts");;
   } catch (error) {
     console.error(error);
     alert(error.message);
