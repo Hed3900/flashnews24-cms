@@ -78,13 +78,7 @@ function Preview() {
       >
 
         <button
-          onClick={() => {
-  const editorUrl =
-    sessionStorage.getItem("flashnews24_editor_url") ||
-    "/new-post";
-
-  navigate(editorUrl);
-}}
+          onClick={() => navigate(-1)}
           style={{
             background: "#475569",
             color: "#fff",
