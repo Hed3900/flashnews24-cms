@@ -137,6 +137,34 @@ const postId = searchParams.get("id");
 const [scheduleTime, setScheduleTime] = useState("");
   const [showPreview, setShowPreview] = useState(false);
 const [htmlMode, setHtmlMode] = useState(false);
+  useEffect(() => {
+  const previewDraft = {
+    title,
+    description,
+    slug,
+    keywords,
+    category,
+    image,
+    content,
+    scheduleDate,
+    scheduleTime,
+  };
+
+  sessionStorage.setItem(
+    "flashnews24_preview_draft",
+    JSON.stringify(previewDraft)
+  );
+}, [
+  title,
+  description,
+  slug,
+  keywords,
+  category,
+  image,
+  content,
+  scheduleDate,
+  scheduleTime,
+]);
   const undoStack = useRef([]);
 const redoStack = useRef([]);
 const lastContent = useRef("");
