@@ -744,7 +744,10 @@ cursor:"pointer"
     type="button"
     onClick={() => {
       const quill = quillRef.current?.getEditor();
-      if (quill) quill.history.undo();
+if (quill) {
+  const history = quill.getModule("history");
+  history.undo();
+}
     }}
     style={{
       padding: "10px 18px",
@@ -762,7 +765,10 @@ cursor:"pointer"
     type="button"
     onClick={() => {
       const quill = quillRef.current?.getEditor();
-      if (quill) quill.history.redo();
+if (quill) {
+  const history = quill.getModule("history");
+  history.redo();
+}
     }}
     style={{
       padding: "10px 18px",
