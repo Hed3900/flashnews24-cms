@@ -37,7 +37,8 @@ const UPLOAD_PRESET = "flashnews24";
       [{ align: [] }],
       ["blockquote", "code-block"],
       ["link", "image", "video"],
-      ["clean"]
+      ["clean"],
+      ["undo", "redo"],
     ],
     handlers: {
       image: () => {
@@ -775,7 +776,55 @@ border:"1px solid #333"
 :
 
 (
+<div
+  style={{
+    display: "flex",
+    gap: "10px",
+    marginBottom: "10px",
+  }}
+>
+  <button
+    type="button"
+    onClick={() => {
+      const quill = quillRef.current?.getEditor();
+      if (quill) {
+        quill.history.undo();
+      }
+    }}
+    style={{
+      background: "#475569",
+      color: "#fff",
+      border: "none",
+      padding: "10px 18px",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontSize: "15px",
+    }}
+  >
+    ↶ Undo
+  </button>
 
+  <button
+    type="button"
+    onClick={() => {
+      const quill = quillRef.current?.getEditor();
+      if (quill) {
+        quill.history.redo();
+      }
+    }}
+    style={{
+      background: "#475569",
+      color: "#fff",
+      border: "none",
+      padding: "10px 18px",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontSize: "15px",
+    }}
+  >
+    ↷ Redo
+  </button>
+</div>
 <ReactQuill
 
 ref={quillRef}
